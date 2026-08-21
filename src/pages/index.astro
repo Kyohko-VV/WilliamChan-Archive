@@ -1,0 +1,158 @@
+---
+import { events } from "../data/events";
+
+const now = new Date();
+const today = `${String(now.getMonth() + 1).padStart(2, "0")}-${String(
+  now.getDate()
+).padStart(2, "0")}`;
+
+const todayEvents = events
+  .filter((event) => event.date.slice(5) === today)
+  .sort((a, b) => b.date.localeCompare(a.date));
+---
+
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>陳偉霆資料庫｜William Chan Archive</title>
+   <meta
+  name="description"
+  content="陳偉霆（William Chan），中國香港男歌手、演員，1985年11月21日出生。本網站整理陳偉霆的影視作品、音樂作品、角色、演藝活動、時間線、粉絲活動、日本粉絲小組及相關可靠來源。"
+/>
+  </head>
+
+  <body>
+    <header>
+      <h1>陳偉霆資料庫</h1>
+<p>William Chan Archive｜陳偉霆｜William Chan｜ウィリアム・チャン</p>
+    </header>
+
+    <main>
+
+  <section class="intro">
+    <h2>關於陳偉霆</h2>
+    <p>
+      陳偉霆（William Chan），中國香港男歌手、演員，1985年11月21日出生於中國香港。
+      本站整理陳偉霆的影視作品、音樂作品、角色、演藝活動、時間線及相關可靠來源，
+      同時記錄粉絲活動、日本粉絲小組及海外粉絲相關資訊。
+    </p>
+  </section>
+
+<section>
+<h2>Today</h2>
+<p>歷史上的今天 · {now.getMonth() + 1}月{now.getDate()}日</p>
+
+    {todayEvents.map((event) => (
+        <article>
+            <strong>{event.date}</strong>
+            <h3>{event.title}</h3>
+            <p>{event.description}</p>
+        </article>
+    ))}
+</section>
+
+      <section>
+        <h2>Timeline</h2>
+        <p>時間線</p>
+      </section>
+
+      <section>
+        <h2>Works</h2>
+        <p>影視・音樂・舞台</p>
+      </section>
+
+      <section>
+        <h2>People & Characters</h2>
+        <p>人物與角色</p>
+      </section>
+
+      <section>
+        <h2>Sources</h2>
+        <p>官方與可靠來源</p>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #f8f6f3;
+    color: #292624;
+    font-family:
+      "Noto Sans TC",
+      "Noto Sans JP",
+      Arial,
+      sans-serif;
+  }
+
+  header {
+    padding: 70px 8% 45px;
+    background: #ffffff;
+    border-bottom: 1px solid #e7e1dc;
+  }
+
+  h1 {
+    margin: 0 0 15px;
+    font-size: 42px;
+    letter-spacing: 1px;
+  }
+
+  header p {
+    margin: 0;
+    color: #77706b;
+  }
+
+  main {
+    width: 84%;
+    max-width: 1100px;
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  section {
+    background: white;
+    padding: 28px;
+    border: 1px solid #ebe6e2;
+    border-radius: 14px;
+  }
+
+  section:first-child {
+    grid-column: 1 / -1;
+  }
+
+  h2 {
+    margin-top: 0;
+    font-size: 22px;
+  }
+
+  section p {
+    margin-bottom: 0;
+    color: #77706b;
+  }
+
+  @media (max-width: 700px) {
+    header {
+      padding: 45px 6% 30px;
+    }
+
+    h1 {
+      font-size: 32px;
+    }
+
+    main {
+      width: 88%;
+      grid-template-columns: 1fr;
+    }
+
+    section:first-child {
+      grid-column: auto;
+    }
+  }
+</style>
