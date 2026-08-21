@@ -1,0 +1,112 @@
+---
+import { events } from "../data/events";
+
+const sortedEvents = [...events].sort((a, b) =>
+  b.date.localeCompare(a.date)
+);
+const eventsByYear = Object.groupBy(
+  sortedEvents,
+  (event) => event.date.slice(0, 4)
+);
+---
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>時間線 | 陳偉霆資料庫</title>
+  </head>
+
+<body>
+  <main>
+    <a href="/" class="back">← 返回首頁</a>
+
+    <header>
+      <h1>時間線</h1>
+      <p>William Chan Archive · Timeline</p>
+    </header>
+
+{Object.entries(eventsByYear)
+  .sort(([yearA], [yearB]) => yearB.localeCompare(yearA))
+  .map(([year, yearEvents]) => (
+    <section class="year-group">
+      <h2 class="year-title">{year}</h2>
+
+      {yearEvents?.map((event) => (
+        <article>
+          <strong>{event.date.slice(5).replace("-", ".")}</strong>
+          <h3>{event.title}</h3>
+          <p>{event.description}</p>
+        </article>
+      ))}
+    </section>
+  ))}
+    </main>
+  </body>
+
+<style>
+  :global(body) {
+    margin: 0;
+    background: #f7f5f2;
+    color: #222;
+    font-family: Arial, sans-serif;
+  }
+
+  main {
+    width: 88%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 50px 0 80px;
+  }
+
+  .back {
+    display: inline-block;
+    margin-bottom: 30px;
+    color: #77706b;
+    text-decoration: none;
+  }
+
+  header {
+    margin-bottom: 35px;
+  }
+
+  header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+
+  article {
+    background: white;
+    border: 1px solid #e5e1dc;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+  }
+
+  article h2 {
+    margin: 10px 0;
+    font-size: 22px;
+  }
+
+  article p {
+    color: #77706b;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 700px) {
+    main {
+      width: 88%;
+      padding-top: 30px;
+    }
+
+    header h1 {
+      font-size: 30px;
+    }
+
+    article {
+      padding: 20px;
+    }
+  }
+</style>
+
+
+</html>

@@ -1,19 +1,15 @@
 ---
 import { events } from "../data/events";
 
-const now = new Date();
-const today = `${String(now.getMonth() + 1).padStart(2, "0")}-${String(
-  now.getDate()
-).padStart(2, "0")}`;
-
-const todayEvents = events
-  .filter((event) => event.date.slice(5) === today)
-  .sort((a, b) => b.date.localeCompare(a.date));
+const latestEvents = [...events]
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 3);
 ---
 
 <html lang="zh">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>陳偉霆資料庫｜William Chan Archive</title>
    <meta
   name="description"
@@ -25,37 +21,39 @@ const todayEvents = events
     <header>
       <h1>陳偉霆資料庫</h1>
 <p>William Chan Archive｜陳偉霆｜William Chan｜ウィリアム・チャン</p>
+<p class="site-intro">
+  陳偉霆（William Chan），中國香港出身的歌手、演員。本站整理其影視作品、音樂作品、角色、演藝活動、時間線及相關可靠來源，同時記錄粉絲活動、日本粉絲小組及海外粉絲相關資訊。
+</p>
     </header>
 
     <main>
 
-  <section class="intro">
-    <h2>關於陳偉霆</h2>
-    <p>
-      陳偉霆（William Chan），中國香港男歌手、演員，1985年11月21日出生於中國香港。
-      本站整理陳偉霆的影視作品、音樂作品、角色、演藝活動、時間線及相關可靠來源，
-      同時記錄粉絲活動、日本粉絲小組及海外粉絲相關資訊。
-    </p>
-  </section>
+
 
 <section>
 <h2>Today</h2>
-<p>歷史上的今天 · {now.getMonth() + 1}月{now.getDate()}日</p>
-
-    {todayEvents.map((event) => (
-        <article>
-            <strong>{event.date}</strong>
-            <h3>{event.title}</h3>
-            <p>{event.description}</p>
-        </article>
-    ))}
+<p id="today-label">歷史上的今天</p>
+<div id="today-events"></div>
+  
 </section>
 
-      <section>
-        <h2>Timeline</h2>
-        <p>時間線</p>
-      </section>
+<a href="/timeline" class="card-link">
+  <section>
+    <h2>Timeline</h2>
 
+    <div class="latest-events">
+      {latestEvents.map((event) => (
+        <p>
+          <strong>{event.date.slice(5).replace("-", ".")}</strong>
+          {"　"}
+          {event.title}
+        </p>
+      ))}
+    </div>
+
+    <p>查看完整時間線 →</p>
+  </section>
+</a>
       <section>
         <h2>Works</h2>
         <p>影視・音樂・舞台</p>
@@ -73,6 +71,33 @@ const todayEvents = events
     </main>
   </body>
 </html>
+<script define:vars={{ events }}>
+  const now = new Date();
+
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const today = `${month}-${day}`;
+
+  const label = document.getElementById("today-label");
+  const container = document.getElementById("today-events");
+
+  if (label) {
+    label.textContent = `歷史上的今天 · ${now.getMonth() + 1}月${now.getDate()}日`;
+  }
+
+  const todayEvents = events.filter((event) => event.date.slice(5) === today);
+
+  if (container) {
+    container.innerHTML = todayEvents.map((event) => `
+      <article>
+        <strong>${event.date}</strong>
+        <h3>${event.title}</h3>
+        <p>${event.description}</p>
+      </article>
+    `).join("");
+  }
+</script>
+
 
 <style>
   :global(*) {
@@ -123,9 +148,7 @@ const todayEvents = events
     border-radius: 14px;
   }
 
-  section:first-child {
-    grid-column: 1 / -1;
-  }
+
 
   h2 {
     margin-top: 0;
@@ -137,6 +160,14 @@ const todayEvents = events
     color: #77706b;
   }
 
+  .card-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-link section {
+  height: 100%;
+}
   @media (max-width: 700px) {
     header {
       padding: 45px 6% 30px;
@@ -151,8 +182,6 @@ const todayEvents = events
       grid-template-columns: 1fr;
     }
 
-    section:first-child {
-      grid-column: auto;
-    }
+    
   }
 </style>
