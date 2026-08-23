@@ -31,13 +31,20 @@ const eventsByYear = Object.groupBy(
     <section class="year-group">
       <h2 class="year-title">{year}</h2>
 
-      {yearEvents?.map((event) => (
-        <article>
-          <strong>{event.date.slice(5).replace("-", ".")}</strong>
-          <h3>{event.title}</h3>
-          <p>{event.description}</p>
-        </article>
-      ))}
+      {yearEvents?.map((event) => {
+        const content = (
+          <article>
+            <strong>{event.date.slice(5).replace("-", ".")}</strong>
+            <h3>{event.title}</h3>
+            <p>{event.description}</p>
+            {event.href && <span class="detail-link">查看事件詳情 →</span>}
+          </article>
+        );
+
+        return event.href ? (
+          <a class="event-link" href={event.href}>{content}</a>
+        ) : content;
+      })}
     </section>
   ))}
     </main>
@@ -100,6 +107,26 @@ const eventsByYear = Object.groupBy(
   article p {
     color: #77706b;
     line-height: 1.7;
+  }
+
+  .event-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .event-link article {
+    transition: border-color 160ms ease, transform 160ms ease;
+  }
+
+  .event-link:hover article {
+    border-color: #cfc6bf;
+    transform: translateY(-2px);
+  }
+
+  .detail-link {
+    color: #746c66;
+    font-size: 14px;
   }
 
   .site-footer {
