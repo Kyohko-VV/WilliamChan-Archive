@@ -1,3 +1,22 @@
+---
+interface GalleryItem {
+  title: string;
+  image: string;
+  source: string;
+  sourceUrl: string;
+}
+
+interface VideoItem {
+  title: string;
+  platform: string;
+  url: string;
+  source: string;
+}
+
+const gallery: GalleryItem[] = [];
+const videos: VideoItem[] = [];
+---
+
 <!doctype html>
 <html lang="zh-Hant">
   <head>
@@ -39,17 +58,38 @@
         </ol>
       </section>
 
-      <section aria-labelledby="gallery-heading">
-        <h2 id="gallery-heading">照片集 <span class="english-label">/ Gallery</span></h2>
-        <p class="empty-state">照片整理中。</p>
-        <!-- 後續照片項目可包含：圖片、圖片說明、來源名稱、原始來源連結。 -->
-      </section>
+      {gallery.length > 0 && (
+        <section aria-labelledby="gallery-heading">
+          <h2 id="gallery-heading">照片集 <span class="english-label">/ Gallery</span></h2>
+          <div class="gallery-grid">
+            {gallery.map((item) => (
+              <figure class="gallery-item">
+                <img src={item.image} alt={item.title} loading="lazy" />
+                <figcaption>
+                  <p>{item.title}</p>
+                  <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">
+                    來源：{item.source}
+                  </a>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
 
-      <section aria-labelledby="videos-heading">
-        <h2 id="videos-heading">影片集 <span class="english-label">/ Videos</span></h2>
-        <p class="empty-state">影片整理中。</p>
-        <!-- 後續影片項目可包含：影片標題、平台、來源、外部連結。 -->
-      </section>
+      {videos.length > 0 && (
+        <section aria-labelledby="videos-heading">
+          <h2 id="videos-heading">影片集 <span class="english-label">/ Videos</span></h2>
+          <ul class="video-list">
+            {videos.map((video) => (
+              <li>
+                <a href={video.url} target="_blank" rel="noopener noreferrer">{video.title}</a>
+                <p>{video.platform} · 來源：{video.source}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section aria-labelledby="sources-heading">
         <h2 id="sources-heading">來源與記錄</h2>
@@ -158,6 +198,63 @@
 
     .setlist span {
       color: #77706b;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery-item {
+      margin: 0;
+    }
+
+    .gallery-item img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .gallery-item figcaption {
+      margin-top: 10px;
+      color: #5f5955;
+      line-height: 1.6;
+    }
+
+    .gallery-item figcaption p,
+    .video-list p {
+      margin: 0;
+    }
+
+    .gallery-item a,
+    .video-list a {
+      color: #675f5a;
+    }
+
+    .video-list {
+      display: grid;
+      gap: 16px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .video-list li {
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e5e1dc;
+    }
+
+    .video-list li:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .video-list p {
+      margin-top: 6px;
+      color: #77706b;
+      font-size: 14px;
     }
 
     .empty-state {
