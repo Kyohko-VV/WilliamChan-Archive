@@ -42,9 +42,14 @@ const latestWorks = [...works]
 
 <section>
 <h2>Today</h2>
-<p id="today-label">歷史上的今天</p>
-<div id="today-events"></div>
-  
+<div class="today-group">
+  <h3 class="today-section-title">今日資訊</h3>
+  <div id="today-current-events"></div>
+</div>
+<div class="today-group">
+  <h3 class="today-section-title" id="today-label">歷史上的今天</h3>
+  <div id="today-events"></div>
+</div>
 </section>
 
 <a href="/timeline" class="card-link">
@@ -122,30 +127,57 @@ const latestWorks = [...works]
     </footer>
   </body>
 </html>
-<script define:vars={{ events }}>
+<script>
+  import { events } from "../data/events";
+  import { getTaiyoToHoshiBroadcast } from "../utils/taiyoToHoshiBroadcast.js";
+
   const now = new Date();
 
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate()).padStart(2, "0");
+  const japaneseDateParts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Tokyo",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(now);
+  const month = japaneseDateParts.find(({ type }) => type === "month")?.value ?? "";
+  const day = japaneseDateParts.find(({ type }) => type === "day")?.value ?? "";
   const today = `${month}-${day}`;
 
   const label = document.getElementById("today-label");
-  const container = document.getElementById("today-events");
+  const historyContainer = document.getElementById("today-events");
+  const currentContainer = document.getElementById("today-current-events");
 
   if (label) {
-    label.textContent = `歷史上的今天 · ${now.getMonth() + 1}月${now.getDate()}日`;
+    label.textContent = `歷史上的今天 · ${Number(month)}月${Number(day)}日`;
   }
 
   const todayEvents = events.filter((event) => event.date.slice(5) === today);
+  const broadcast = getTaiyoToHoshiBroadcast(now);
 
-  if (container) {
-    container.innerHTML = todayEvents.map((event) => `
+  if (currentContainer) {
+    const broadcastHtml = broadcast ? `
+      <article class="today-broadcast">
+        <strong>日本播出</strong>
+        <h3>《太陽と星辰（ほし）－時を越える追跡者－》</h3>
+        <p>チャンネル銀河</p>
+        <p><strong>${broadcast.episode}</strong></p>
+        <p>${broadcast.officialTime}</p>
+        <p><a href="https://www.ch-ginga.jp/detail/taiyoutohoshi/">查看節目詳情 →</a></p>
+      </article>
+    ` : "";
+
+    currentContainer.innerHTML = broadcastHtml || "<p>暫無記錄</p>";
+  }
+
+  if (historyContainer) {
+    const eventsHtml = todayEvents.map((event) => `
       <article>
         <strong>${event.date}</strong>
         <h3>${event.title}</h3>
         <p>${event.description}</p>
       </article>
     `).join("");
+
+    historyContainer.innerHTML = eventsHtml || "<p>暫無記錄</p>";
   }
 </script>
 
@@ -209,6 +241,32 @@ const latestWorks = [...works]
   section p {
     margin-bottom: 0;
     color: #77706b;
+  }
+
+  .today-group {
+    padding-top: 18px;
+  }
+
+  .today-group + .today-group {
+    margin-top: 22px;
+    border-top: 1px solid #ebe6e2;
+  }
+
+  .today-section-title {
+    margin: 0 0 12px;
+    color: #4f4945;
+    font-size: 16px;
+  }
+
+  .today-group article h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .today-group article p {
+    margin-top: 6px;
+    line-height: 1.6;
   }
 
   .card-link {

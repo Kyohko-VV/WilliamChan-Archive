@@ -1,5 +1,20 @@
 export const events = [
   {
+    date: "2026-08-26",
+    title: "《太陽と星辰（ほし）－時を越える追跡者－》日本播出開始",
+    category: "電視劇／日本播出",
+    description:
+      "《太陽と星辰（ほし）－時を越える追跡者－》於日本的チャンネル銀河開始播出。播出期間為2026年8月26日至9月18日，週一至週五24:00～25:00，全18集。",
+    href: "/events/2026-taiyo-to-hoshi-japan-broadcast",
+  },
+  {
+    date: "2026-08-26",
+    title: "《九門》慶功宴",
+    category: "活動",
+    description: "約18:00～18:30開始。",
+    href: "/events/2026-nine-gates-celebration",
+  },
+  {
     date: "2026-08-25",
     title: "《我們的宿舍》宿舍友情 Party",
     category: "綜藝／節目",
