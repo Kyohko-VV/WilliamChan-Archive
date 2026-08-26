@@ -45,7 +45,32 @@ const gallery: GalleryItem[] = [
     sourceUrl: "https://weibo.com/3270824053/ReRjPxOwS",
   },
 ];
-const videos: VideoItem[] = [];
+const videos: VideoItem[] = [
+  {
+    title: "TIMA 彩排碎片",
+    platform: "微博",
+    url: "https://weibo.com/3270824053/ReK8Nx0Bp",
+    source: "英皇娛樂－北京（官方微博）",
+  },
+  {
+    title: "TIMA 彩排小片預覽",
+    platform: "微博",
+    url: "https://weibo.com/6269525799/ReK7Vc3zo",
+    source: "w-Daily／陳偉霆工作室（官方微博）",
+  },
+  {
+    title: "《戰士》TIMA 舞台直拍",
+    platform: "微博",
+    url: "https://weibo.com/6269525799/ReLJU6rRX",
+    source: "w-Daily／陳偉霆工作室（官方微博）",
+  },
+  {
+    title: "TIMA 現場舞台片段",
+    platform: "微博",
+    url: "https://weibo.com/5103645868/ReKIkrL36?refer_flag=1001030103_",
+    source: "星姐微博（媒體來源）",
+  },
+];
 ---
 
 <!doctype html>
@@ -92,18 +117,36 @@ const videos: VideoItem[] = [];
       {gallery.length > 0 && (
         <section aria-labelledby="gallery-heading">
           <h2 id="gallery-heading">照片集 <span class="english-label">/ Gallery</span></h2>
-          <div class="gallery-grid">
-            {gallery.map((item) => (
-              <figure class="gallery-item">
-                <img src={item.image} alt={item.title} loading="lazy" />
-                <figcaption>
-                  <p>{item.title}</p>
-                  <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">
-                    來源：{item.source}
+          <div class="gallery-carousel" data-gallery-carousel>
+            <div class="gallery-grid">
+              {gallery.map((item, index) => (
+                <figure class:list={["gallery-item", { "is-active": index === 0 }]}>
+                  <a
+                    class="gallery-image-link"
+                    href={item.image}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`開啟${item.source}原圖`}
+                  >
+                    <img src={item.image} alt={item.title} loading="lazy" />
                   </a>
-                </figcaption>
-              </figure>
-            ))}
+                  <figcaption>
+                    <p>{item.title}</p>
+                    <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">
+                      來源：{item.source}
+                    </a>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+
+            <div class="gallery-controls" aria-label="照片切換控制">
+              <button type="button" data-gallery-previous>← 上一張</button>
+              <p class="gallery-counter" aria-live="polite">
+                <span data-gallery-current>1</span> / {gallery.length}
+              </p>
+              <button type="button" data-gallery-next>下一張 →</button>
+            </div>
           </div>
         </section>
       )}
@@ -124,7 +167,56 @@ const videos: VideoItem[] = [];
 
       <section aria-labelledby="sources-heading">
         <h2 id="sources-heading">來源與記錄</h2>
-        <p class="empty-state">來源整理中。</p>
+
+        <div class="source-group">
+          <h3>獲獎與活動總結</h3>
+          <ul class="video-list">
+            <li>
+              <a href="https://weibo.com/3270824053/ReRjPxOwS" target="_blank" rel="noopener noreferrer">英皇娛樂－北京</a>
+              <p>獲獎祝賀</p>
+            </li>
+            <li>
+              <a href="https://weibo.com/6269525799/ReRjgCntv" target="_blank" rel="noopener noreferrer">w-Daily／陳偉霆工作室</a>
+              <p>獲獎及五首舞台總結</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="source-group">
+          <h3>造型與 Look</h3>
+          <ul class="video-list">
+            <li>
+              <a href="https://weibo.com/3270824053/ReLCagXPd" target="_blank" rel="noopener noreferrer">英皇娛樂－北京</a>
+              <p>TIMA 銀髮 Look</p>
+            </li>
+            <li>
+              <a href="https://weibo.com/6269525799/ReLBpafY0" target="_blank" rel="noopener noreferrer">w-Daily／陳偉霆工作室</a>
+              <p>TIMA 銀髮 Look</p>
+            </li>
+            <li>
+              <a href="https://weibo.com/6269525799/ReKgQserR" target="_blank" rel="noopener noreferrer">w-Daily／陳偉霆工作室</a>
+              <p>隱藏款造型預覽</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="source-group">
+          <h3>彩排與幕後記錄</h3>
+          <ul class="video-list">
+            <li>
+              <a href="https://weibo.com/3270824053/ReIsSd9SO" target="_blank" rel="noopener noreferrer">英皇娛樂－北京</a>
+              <p>TIMA 彩排現場</p>
+            </li>
+            <li>
+              <a href="https://weibo.com/6269525799/ReIuayjeD" target="_blank" rel="noopener noreferrer">w-Daily／陳偉霆工作室</a>
+              <p>舞台花絮</p>
+            </li>
+            <li>
+              <a href="https://weibo.com/6269525799/ReIsFrlBm" target="_blank" rel="noopener noreferrer">w-Daily／陳偉霆工作室</a>
+              <p>彩排記錄</p>
+            </li>
+          </ul>
+        </div>
       </section>
     </main>
 
@@ -138,6 +230,35 @@ const videos: VideoItem[] = [];
       </div>
     </footer>
   </body>
+
+  <script>
+    document.querySelectorAll<HTMLElement>("[data-gallery-carousel]").forEach((carousel) => {
+      const items = Array.from(carousel.querySelectorAll<HTMLElement>(".gallery-item"));
+      const previousButton = carousel.querySelector<HTMLButtonElement>("[data-gallery-previous]");
+      const nextButton = carousel.querySelector<HTMLButtonElement>("[data-gallery-next]");
+      const currentLabel = carousel.querySelector<HTMLElement>("[data-gallery-current]");
+      const desktopGallery = window.matchMedia("(min-width: 701px)");
+      let currentIndex = 0;
+
+      const showItem = (index: number) => {
+        currentIndex = (index + items.length) % items.length;
+        items.forEach((item, itemIndex) => {
+          const isCurrent = itemIndex === currentIndex;
+          item.classList.toggle("is-active", isCurrent);
+          item.hidden = desktopGallery.matches && !isCurrent;
+        });
+
+        if (currentLabel) {
+          currentLabel.textContent = String(currentIndex + 1);
+        }
+      };
+
+      previousButton?.addEventListener("click", () => showItem(currentIndex - 1));
+      nextButton?.addEventListener("click", () => showItem(currentIndex + 1));
+      desktopGallery.addEventListener("change", () => showItem(currentIndex));
+      showItem(0);
+    });
+  </script>
 
   <style>
     :global(*) {
@@ -233,7 +354,7 @@ const videos: VideoItem[] = [];
 
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: 1fr;
       gap: 20px;
     }
 
@@ -246,6 +367,14 @@ const videos: VideoItem[] = [];
       width: 100%;
       height: auto;
       border-radius: 8px;
+    }
+
+    .gallery-image-link {
+      display: block;
+    }
+
+    .gallery-controls {
+      display: none;
     }
 
     .gallery-item figcaption {
@@ -291,6 +420,60 @@ const videos: VideoItem[] = [];
     .empty-state {
       margin: 0;
       color: #958d87;
+    }
+
+    @media (min-width: 701px) {
+      .gallery-grid {
+        display: block;
+      }
+
+      .gallery-item {
+        display: none;
+      }
+
+      .gallery-item.is-active {
+        display: block;
+      }
+
+      .gallery-image-link {
+        background: #f8f6f3;
+        border-radius: 8px;
+      }
+
+      .gallery-item img {
+        height: min(65vh, 640px);
+        object-fit: contain;
+        object-position: center;
+      }
+
+      .gallery-controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .gallery-controls button {
+        padding: 9px 14px;
+        background: #ffffff;
+        border: 1px solid #d8d0ca;
+        border-radius: 8px;
+        color: #675f5a;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .gallery-controls button:hover,
+      .gallery-controls button:focus-visible {
+        border-color: #a99f98;
+      }
+
+      .gallery-counter {
+        margin: 0;
+        color: #77706b;
+        font-variant-numeric: tabular-nums;
+      }
     }
 
     .site-footer {

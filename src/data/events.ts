@@ -1,5 +1,13 @@
 export const events = [
   {
+    date: "2026-08-25",
+    title: "《我們的宿舍》宿舍友情 Party",
+    category: "綜藝／節目",
+    description:
+      "2026年8月25日，w-Daily 發布《我們的宿舍》相關宣傳內容，預告陳偉霆參與「宿舍友情 Party」，並提示觀眾於芒果TV觀看節目及「宿舍夜聊局」。",
+    href: "/events/2026-our-dormitory-party",
+  },
+  {
     date: "2026-08-23",
     title: "2026 TIMA｜獲「年度亞洲跨界藝人」並帶來五首舞台",
     category: "音樂活動",

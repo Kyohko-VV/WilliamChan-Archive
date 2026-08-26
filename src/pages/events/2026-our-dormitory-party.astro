@@ -1,0 +1,221 @@
+---
+const source = "w-Daily／陳偉霆工作室（官方微博）";
+const sourceUrl = "";
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>《我們的宿舍》宿舍友情 Party | 陳偉霆資料庫</title>
+    <meta
+      name="description"
+      content="2026年8月25日，w-Daily 發布《我們的宿舍》宿舍友情 Party 相關宣傳內容。"
+    />
+  </head>
+
+  <body>
+    <main>
+      <a href="/timeline" class="back">← 返回時間線</a>
+      <p class="site-identity">陳偉霆資料庫 · William Chan Archive</p>
+
+      <header>
+        <p class="event-date"><time datetime="2026-08-25">2026年8月25日</time></p>
+        <h1>《我們的宿舍》宿舍友情 Party</h1>
+        <p class="category">綜藝／節目</p>
+      </header>
+
+      <section aria-labelledby="summary-heading">
+        <h2 id="summary-heading">活動簡介</h2>
+        <p class="summary">
+          2026年8月25日，w-Daily 發布《我們的宿舍》相關宣傳內容，預告陳偉霆參與「宿舍友情 Party」，並提示觀眾於芒果TV觀看節目及「宿舍夜聊局」。
+        </p>
+      </section>
+
+      <section aria-labelledby="sources-heading">
+        <h2 id="sources-heading">來源與記錄</h2>
+        {sourceUrl ? (
+          <a href={sourceUrl} target="_blank" rel="noopener noreferrer">{source}</a>
+        ) : (
+          <div class="source-pending">
+            <p>{source}</p>
+            <p>微博原帖 URL 待補。</p>
+          </div>
+        )}
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-title">陳偉霆資料庫 · William Chan Archive</p>
+        <p class="footer-nav">Timeline ｜ Works ｜ People &amp; Characters ｜ Sources</p>
+        <p>非官方粉絲資料庫</p>
+        <p>本站內容僅作資料整理與記錄用途。</p>
+        <p class="footer-copyright">© 2026 William Chan Archive</p>
+      </div>
+    </footer>
+  </body>
+
+  <style>
+    :global(*) {
+      box-sizing: border-box;
+    }
+
+    :global(body) {
+      margin: 0;
+      background: #f8f6f3;
+      color: #292624;
+      font-family: "Noto Sans TC", "Noto Sans JP", Arial, sans-serif;
+    }
+
+    main {
+      width: 88%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 50px 0 80px;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 30px;
+      color: #77706b;
+      text-decoration: none;
+    }
+
+    .site-identity {
+      margin: -18px 0 28px;
+      color: #958d87;
+      font-size: 13px;
+      letter-spacing: 0.3px;
+    }
+
+    header {
+      margin-bottom: 35px;
+    }
+
+    .event-date,
+    .category {
+      margin: 0;
+      color: #77706b;
+      line-height: 1.6;
+    }
+
+    h1 {
+      margin: 8px 0 12px;
+      font-size: 36px;
+      line-height: 1.35;
+      letter-spacing: 0.5px;
+    }
+
+    section {
+      margin-top: 24px;
+      padding: 28px;
+      background: #ffffff;
+      border: 1px solid #e5e1dc;
+      border-radius: 12px;
+    }
+
+    section h2 {
+      margin: 0 0 20px;
+      font-size: 22px;
+    }
+
+    .summary {
+      margin: 0;
+      color: #5f5955;
+      font-size: 16px;
+      line-height: 1.85;
+    }
+
+    section a {
+      color: #675f5a;
+    }
+
+    .source-pending p {
+      margin: 0;
+      color: #5f5955;
+      line-height: 1.7;
+    }
+
+    .source-pending p + p {
+      margin-top: 6px;
+      color: #958d87;
+      font-size: 14px;
+    }
+
+    .site-footer {
+      margin-top: 24px;
+      padding: 32px 8%;
+      background: #675f5a;
+      border-top: 4px solid #d8d0ca;
+      color: #e3ddd8;
+    }
+
+    .footer-inner {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .site-footer p {
+      margin: 6px 0;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .site-footer .footer-title {
+      margin-top: 0;
+      color: #f5f1ee;
+      font-weight: 600;
+    }
+
+    .footer-nav {
+      overflow-wrap: anywhere;
+    }
+
+    .footer-copyright {
+      margin-bottom: 0;
+      color: #c6bdb7;
+    }
+
+    @media (max-width: 700px) {
+      main {
+        width: 88%;
+        padding: 30px 0 50px;
+      }
+
+      .back {
+        margin-bottom: 24px;
+      }
+
+      header {
+        margin-bottom: 28px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      section {
+        padding: 20px;
+      }
+
+      .summary {
+        font-size: 15px;
+        line-height: 1.75;
+      }
+
+      .site-footer {
+        margin-top: 10px;
+        padding: 22px 6%;
+      }
+
+      .site-footer p {
+        margin: 4px 0;
+        font-size: 13px;
+        line-height: 1.45;
+      }
+    }
+  </style>
+</html>
