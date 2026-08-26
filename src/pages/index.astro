@@ -1,12 +1,17 @@
 ---
 import { events } from "../data/events";
 import { fanActivities } from "../data/fanActivities";
+import { works } from "../data/works";
 
 const latestEvents = [...events]
   .sort((a, b) => b.date.localeCompare(a.date))
   .slice(0, 3);
 
 const latestFanActivities = [...fanActivities]
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 3);
+
+const latestWorks = [...works]
   .sort((a, b) => b.date.localeCompare(a.date))
   .slice(0, 3);
 ---
@@ -59,12 +64,25 @@ const latestFanActivities = [...fanActivities]
     <p>查看完整時間線 →</p>
   </section>
 </a>
-      <a href="/works" class="card-link">
-        <section>
-          <h2>Works</h2>
-          <p>影視・音樂・舞台</p>
-        </section>
-      </a>
+      <section class="works-card">
+        <h2>Works</h2>
+        <p class="works-subtitle">影視・音樂・舞台</p>
+
+        <div class="latest-works">
+          {latestWorks.map((work) => (
+            <div class="work-preview">
+              <p>
+                <strong>{work.date}</strong>
+                {"　"}
+                <a href={work.href}>{work.title}</a>
+              </p>
+              <p class="work-category">{work.category}</p>
+            </div>
+          ))}
+        </div>
+
+        <p><a class="all-works-link" href="/works">查看全部作品 →</a></p>
+      </section>
 
       <section>
         <h2>People & Characters</h2>
@@ -201,6 +219,38 @@ const latestFanActivities = [...fanActivities]
 .card-link section {
   height: 100%;
 }
+
+  .works-subtitle {
+    margin-top: 0;
+  }
+
+  .latest-works {
+    margin-top: 20px;
+  }
+
+  .work-preview p {
+    margin-top: 0;
+    line-height: 1.6;
+  }
+
+  .work-preview a,
+  .all-works-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .work-preview a:hover,
+  .work-preview a:focus-visible,
+  .all-works-link:hover,
+  .all-works-link:focus-visible {
+    text-decoration: underline;
+  }
+
+  .work-preview .work-category {
+    margin-top: 4px;
+    color: #958d87;
+    font-size: 14px;
+  }
 
   .site-footer {
     margin-top: 24px;

@@ -1,3 +1,12 @@
+---
+import { works } from "../data/works";
+
+const sortedWorks = [...works].sort((a, b) => b.date.localeCompare(a.date));
+const screenWorks = sortedWorks.filter((work) => work.category === "影視");
+const musicWorks = sortedWorks.filter((work) => work.category === "音樂");
+const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活動");
+---
+
 <!doctype html>
 <html lang="zh-Hant">
   <head>
@@ -22,24 +31,44 @@
       <div class="category-grid">
         <section aria-labelledby="screen-heading">
           <h2 id="screen-heading">影視</h2>
-          <p class="empty-state">內容整理中。</p>
+          {screenWorks.length > 0 ? screenWorks.map((work) => (
+            <a class="work-link" href={work.href}>
+              <article>
+                <p class="work-date"><time datetime={work.date.replaceAll(".", "-")}>{work.date}</time></p>
+                <h3>{work.title}</h3>
+                <p class="work-location">{work.location}</p>
+                <p class="detail-link">查看活動詳情 →</p>
+              </article>
+            </a>
+          )) : <p class="empty-state">內容整理中。</p>}
         </section>
 
         <section aria-labelledby="music-heading">
           <h2 id="music-heading">音樂</h2>
-          <p class="empty-state">內容整理中。</p>
+          {musicWorks.length > 0 ? musicWorks.map((work) => (
+            <a class="work-link" href={work.href}>
+              <article>
+                <p class="work-date"><time datetime={work.date.replaceAll(".", "-")}>{work.date}</time></p>
+                <h3>{work.title}</h3>
+                <p class="work-location">{work.location}</p>
+                <p class="detail-link">查看活動詳情 →</p>
+              </article>
+            </a>
+          )) : <p class="empty-state">內容整理中。</p>}
         </section>
 
         <section aria-labelledby="stage-heading">
           <h2 id="stage-heading">舞台・活動</h2>
-          <a class="work-link" href="/events/2026-tima">
-            <article>
-              <p class="work-date"><time datetime="2026-08-23">2026.08.23</time></p>
-              <h3>2026 TIMA 國際音樂大賞</h3>
-              <p class="work-location">香港・啟德主場館</p>
-              <p class="detail-link">查看活動詳情 →</p>
-            </article>
-          </a>
+          {stageWorks.length > 0 ? stageWorks.map((work) => (
+            <a class="work-link" href={work.href}>
+              <article>
+                <p class="work-date"><time datetime={work.date.replaceAll(".", "-")}>{work.date}</time></p>
+                <h3>{work.title}</h3>
+                <p class="work-location">{work.location}</p>
+                <p class="detail-link">查看活動詳情 →</p>
+              </article>
+            </a>
+          )) : <p class="empty-state">內容整理中。</p>}
         </section>
       </div>
     </main>
