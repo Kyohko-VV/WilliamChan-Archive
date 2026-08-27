@@ -81,7 +81,9 @@ const latestWorks = [...works]
                 {"　"}
                 <a href={work.href}>{work.title}</a>
               </p>
-              <p class="work-category">{work.category}</p>
+              <p class="work-category">
+                {work.href === "/events/2026-our-dormitory-party" ? "綜藝／節目" : work.category}
+              </p>
             </div>
           ))}
         </div>

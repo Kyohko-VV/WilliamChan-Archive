@@ -16,10 +16,10 @@ export const events = [
   },
   {
     date: "2026-08-25",
-    title: "《我們的宿舍》宿舍友情 Party",
+    title: "《我們的宿舍》",
     category: "綜藝／節目",
     description:
-      "2026年8月25日，w-Daily 發布《我們的宿舍》相關宣傳內容，預告陳偉霆參與「宿舍友情 Party」，並提示觀眾於芒果TV觀看節目及「宿舍夜聊局」。",
+      "2026年8月25日，《我們的宿舍》官方微博及英皇娛樂－北京陸續發布節目相關內容。本期節目以朋友相聚為主題，陳偉霆與其他嘉賓一同參與節目，內容亦提及回憶初識，以及回望《老九門》播出十年來的變化。節目完整內容已於官方 YouTube 頻道公開。",
     href: "/events/2026-our-dormitory-party",
   },
   {
@@ -35,5 +35,8 @@ export const events = [
     title: "陳偉霆資料庫建立",
     category: "網站紀錄",
     description: "今天開始建立這個小小的資料庫。希望把陳偉霆一路走來的作品、角色與重要記錄慢慢整理下來，也留下屬於粉絲的記憶與足跡。",
+    anchor: "database-created-2026-08-21",
+    relatedHref: "/fan-activities/2026-08-23-return-to-personal-website",
+    relatedLabel: "閱讀建站記錄 →",
   },
 ];

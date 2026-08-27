@@ -36,6 +36,9 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
               <article>
                 <p class="work-date"><time datetime={work.date.replaceAll(".", "-")}>{work.date}</time></p>
                 <h3>{work.title}</h3>
+                {work.href === "/events/2026-our-dormitory-party" && (
+                  <p class="work-type">綜藝／節目</p>
+                )}
                 <p class="work-location">{work.location}</p>
                 <p class="detail-link">查看活動詳情 →</p>
               </article>
@@ -186,6 +189,13 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
     }
 
     .work-location {
+      line-height: 1.6;
+    }
+
+    .work-type {
+      margin-bottom: 3px;
+      color: #5f5955;
+      font-size: 14px;
       line-height: 1.6;
     }
 

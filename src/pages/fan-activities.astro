@@ -78,27 +78,36 @@ const activitiesByYear = [...fanActivities]
                     <time datetime={activity.date}>{activity.date}</time>
                     <h4>{activity.title}</h4>
                     <dl>
-                      <div>
-                        <dt>地點</dt>
-                        <dd>{activity.location}</dd>
-                      </div>
+                      {activity.location && (
+                        <div>
+                          <dt>地點</dt>
+                          <dd>{activity.location}</dd>
+                        </div>
+                      )}
                       <div>
                         <dt>類型</dt>
                         <dd>{activity.category}</dd>
                       </div>
-                      <div>
-                        <dt>參加</dt>
-                        <dd>{activity.participants}</dd>
-                      </div>
+                      {activity.participants && (
+                        <div>
+                          <dt>參加</dt>
+                          <dd>{activity.participants}</dd>
+                        </div>
+                      )}
                     </dl>
-                    <p class="activity-description" lang="ja">{activity.description}</p>
-                    <footer class="activity-source">
-                      <p>
-                        原文來源：<a href={activity.source.url} target="_blank" rel="noopener noreferrer">note 文章 ↗</a>
-                      </p>
-                      <p>初出日期：{activity.source.publishedAt}</p>
-                      <p>記録者：{activity.source.recorder}</p>
-                    </footer>
+                    <p class="activity-description">{activity.description}</p>
+                    {activity.detailUrl && (
+                      <a class="read-more" href={activity.detailUrl}>閱讀全文 →</a>
+                    )}
+                    {activity.source && (
+                      <footer class="activity-source">
+                        <p>
+                          原文來源：<a href={activity.source.url} target="_blank" rel="noopener noreferrer">note 文章 ↗</a>
+                        </p>
+                        <p>初出日期：{activity.source.publishedAt}</p>
+                        <p>記録者：{activity.source.recorder}</p>
+                      </footer>
+                    )}
                   </article>
                 ))}
               </div>
@@ -312,6 +321,20 @@ const activitiesByYear = [...fanActivities]
     .activity-description {
       margin: 0;
       line-height: 1.85;
+    }
+
+    .read-more {
+      display: inline-block;
+      margin-top: 16px;
+      color: #675f5a;
+      font-weight: 600;
+      text-decoration-color: #aaa19a;
+      text-underline-offset: 4px;
+    }
+
+    .read-more:hover {
+      color: #423d39;
+      text-decoration-color: currentColor;
     }
 
     .activity-source {

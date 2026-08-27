@@ -33,11 +33,14 @@ const eventsByYear = Object.groupBy(
 
       {yearEvents?.map((event) => {
         const content = (
-          <article>
+          <article id={event.anchor}>
             <strong>{event.date.slice(5).replace("-", ".")}</strong>
             <h3>{event.title}</h3>
             <p>{event.description}</p>
             {event.href && <span class="detail-link">查看事件詳情 →</span>}
+            {event.relatedHref && (
+              <a class="detail-link" href={event.relatedHref}>{event.relatedLabel}</a>
+            )}
           </article>
         );
 
@@ -125,8 +128,11 @@ const eventsByYear = Object.groupBy(
   }
 
   .detail-link {
+    display: inline-block;
     color: #746c66;
     font-size: 14px;
+    text-decoration-color: #aaa19a;
+    text-underline-offset: 3px;
   }
 
   .site-footer {

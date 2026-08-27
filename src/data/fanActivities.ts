@@ -1,11 +1,12 @@
 export interface FanActivity {
   date: string;
   title: string;
-  location: string;
+  location?: string;
   category: string;
-  participants: string;
+  participants?: string;
   description: string;
-  source: {
+  detailUrl?: string;
+  source?: {
     url: string;
     publishedAt: string;
     recorder: string;
@@ -13,6 +14,14 @@ export interface FanActivity {
 }
 
 export const fanActivities: FanActivity[] = [
+  {
+    date: "2026-08-23",
+    title: "重新回到個人網站｜開始建立陳偉霆資料庫",
+    category: "建站記錄",
+    description:
+      "喜歡陳偉霆九年多後，我決定重新回到個人網站，從零開始整理他的作品、訪問、舞台與言語，慢慢建立一座由自己掌握內容主動權的資料庫。",
+    detailUrl: "/fan-activities/2026-08-23-return-to-personal-website",
+  },
   {
     date: "2024-01-20",
     title: "東京遠征｜CANOTWAIT_ 初の海外ポップアップストア",

@@ -1,6 +1,22 @@
 ---
-const source = "w-Daily／陳偉霆工作室（官方微博）";
-const sourceUrl = "";
+const imageUrl = "https://media.williamchanfanpage.com/events/2026-dormitory/events2026-dormitory-01.jpg";
+const imageSourceUrl = "https://weibo.com/3270824053/5335751204278142";
+const videoUrl = "https://youtu.be/Tq86F282O5U?si=G6JT6fcMKc1-S6b2";
+const officialSources = [
+  {
+    title: "《我們的宿舍》官方微博",
+    url: "https://weibo.com/8004185272/5335770996937053",
+  },
+  {
+    title: "英皇娛樂－北京官方微博",
+    url: imageSourceUrl,
+  },
+  {
+    title: "w-Daily／陳偉霆工作室（官方微博）",
+    description: "《我們的宿舍》宿舍友情 Party 宣傳",
+    url: "https://weibo.com/6269525799/5335751145295252",
+  },
+];
 ---
 
 <!doctype html>
@@ -8,10 +24,10 @@ const sourceUrl = "";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>《我們的宿舍》宿舍友情 Party | 陳偉霆資料庫</title>
+    <title>《我們的宿舍》 | 陳偉霆資料庫</title>
     <meta
       name="description"
-      content="2026年8月25日，w-Daily 發布《我們的宿舍》宿舍友情 Party 相關宣傳內容。"
+      content="2026年8月25日，《我們的宿舍》以朋友相聚為主題，陳偉霆與其他嘉賓一同回憶初識，並回望《老九門》播出十年來的變化。"
     />
   </head>
 
@@ -22,27 +38,73 @@ const sourceUrl = "";
 
       <header>
         <p class="event-date"><time datetime="2026-08-25">2026年8月25日</time></p>
-        <h1>《我們的宿舍》宿舍友情 Party</h1>
+        <h1>《我們的宿舍》</h1>
         <p class="category">綜藝／節目</p>
       </header>
 
-      <section aria-labelledby="summary-heading">
-        <h2 id="summary-heading">活動簡介</h2>
+      <section aria-labelledby="activity-heading">
+        <h2 id="activity-heading">基本活動資訊</h2>
+        <dl>
+          <div><dt>節目</dt><dd>《我們的宿舍》</dd></div>
+          <div><dt>本期主題</dt><dd>朋友相聚</dd></div>
+          <div><dt>內容</dt><dd>回憶初識，以及回望《老九門》播出十年來的變化</dd></div>
+        </dl>
         <p class="summary">
-          2026年8月25日，w-Daily 發布《我們的宿舍》相關宣傳內容，預告陳偉霆參與「宿舍友情 Party」，並提示觀眾於芒果TV觀看節目及「宿舍夜聊局」。
+          2026年8月25日，《我們的宿舍》官方微博及英皇娛樂－北京陸續發布節目相關內容。本期節目以朋友相聚為主題，陳偉霆與其他嘉賓一同參與節目，內容亦提及回憶初識，以及回望《老九門》播出十年來的變化。節目完整內容已於官方 YouTube 頻道公開。
         </p>
       </section>
 
-      <section aria-labelledby="sources-heading">
-        <h2 id="sources-heading">來源與記錄</h2>
-        {sourceUrl ? (
-          <a href={sourceUrl} target="_blank" rel="noopener noreferrer">{source}</a>
-        ) : (
-          <div class="source-pending">
-            <p>{source}</p>
-            <p>微博原帖 URL 待補。</p>
+      <section aria-labelledby="image-heading">
+        <h2 id="image-heading">圖片</h2>
+        <div class="gallery-carousel">
+          <div class="gallery-grid">
+            <figure class="gallery-item is-active">
+              <a
+                class="gallery-image-link"
+                href={imageUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="開啟英皇娛樂－北京官方原圖"
+              >
+                <img src={imageUrl} alt="《我們的宿舍》節目相關官方宣傳圖片" loading="lazy" />
+              </a>
+              <figcaption>
+                圖片來源：<a href={imageSourceUrl} target="_blank" rel="noopener noreferrer">英皇娛樂－北京（官方微博） →</a>
+              </figcaption>
+            </figure>
           </div>
-        )}
+        </div>
+      </section>
+
+      <section aria-labelledby="video-heading">
+        <h2 id="video-heading">影片</h2>
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/Tq86F282O5U"
+            title="《我們的宿舍》完整節目"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <dl class="video-details">
+          <div><dt>標題</dt><dd>《我們的宿舍》完整節目</dd></div>
+          <div><dt>平台</dt><dd>YouTube</dd></div>
+          <div><dt>來源</dt><dd>你好，星期六 Hello Saturday Official（官方 YouTube 頻道）</dd></div>
+        </dl>
+        <a href={videoUrl} target="_blank" rel="noopener noreferrer">在 YouTube 觀看完整節目 →</a>
+      </section>
+
+      <section aria-labelledby="sources-heading">
+        <h2 id="sources-heading">官方來源</h2>
+        <ul class="source-list">
+          {officialSources.map((source) => (
+            <li>
+              <a href={source.url} target="_blank" rel="noopener noreferrer">{source.title} →</a>
+              {source.description && <p>{source.description}</p>}
+            </li>
+          ))}
+        </ul>
       </section>
     </main>
 
@@ -122,26 +184,119 @@ const sourceUrl = "";
     }
 
     .summary {
-      margin: 0;
+      margin: 20px 0 0;
       color: #5f5955;
       font-size: 16px;
       line-height: 1.85;
+    }
+
+    dl {
+      margin: 0;
+    }
+
+    dl div {
+      display: grid;
+      grid-template-columns: 7rem 1fr;
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    dt {
+      color: #77706b;
+    }
+
+    dd {
+      margin: 0;
+      color: #4f4945;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .gallery-item {
+      margin: 0;
+    }
+
+    .gallery-item img {
+      display: block;
+      width: auto;
+      max-width: 520px;
+      max-height: 620px;
+      height: auto;
+      margin: 0 auto;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .gallery-image-link {
+      display: block;
+    }
+
+    .gallery-item figcaption {
+      margin-top: 10px;
+      color: #5f5955;
+      line-height: 1.6;
+    }
+
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #292624;
+      border-radius: 8px;
+    }
+
+    .video-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-details {
+      margin: 16px 0 12px;
+    }
+
+    .source-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding-left: 1.25rem;
+    }
+
+    .source-list p {
+      margin: 4px 0 0;
+      padding-left: 10px;
+      color: #958d87;
+      font-size: 13px;
+      line-height: 1.6;
     }
 
     section a {
       color: #675f5a;
     }
 
-    .source-pending p {
-      margin: 0;
-      color: #5f5955;
-      line-height: 1.7;
-    }
+    @media (min-width: 701px) {
+      .gallery-grid {
+        display: block;
+      }
 
-    .source-pending p + p {
-      margin-top: 6px;
-      color: #958d87;
-      font-size: 14px;
+      .gallery-item {
+        display: none;
+      }
+
+      .gallery-item.is-active {
+        display: block;
+      }
+
+      .gallery-image-link {
+        background: #f8f6f3;
+        border-radius: 8px;
+      }
+
     }
 
     .site-footer {
@@ -204,6 +359,15 @@ const sourceUrl = "";
       .summary {
         font-size: 15px;
         line-height: 1.75;
+      }
+
+      .gallery-item img {
+        max-width: 100%;
+      }
+
+      dl div {
+        grid-template-columns: 1fr;
+        gap: 4px;
       }
 
       .site-footer {

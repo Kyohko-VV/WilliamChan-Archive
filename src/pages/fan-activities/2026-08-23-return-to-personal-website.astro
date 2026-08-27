@@ -1,0 +1,253 @@
+---
+const title = "重新回到個人網站｜開始建立陳偉霆資料庫";
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="重新回到個人網站，從零開始建立陳偉霆資料庫的建站記錄。"
+    />
+    <title>{title} | 陳偉霆資料庫</title>
+  </head>
+
+  <body>
+    <main>
+      <nav aria-label="返回">
+        <a href="/fan-activities" class="back">← 返回 Fan Activities</a>
+      </nav>
+      <p class="site-identity">陳偉霆資料庫 · William Chan Archive</p>
+
+      <article>
+        <header>
+          <p class="category">建站記錄 / Archive Journal</p>
+          <h1>{title}</h1>
+          <time datetime="2026-08-23">2026.08.23</time>
+        </header>
+
+        <div class="article-body">
+          <p>早安。</p>
+
+          <p>最近開始了一個新計畫——<br />我想做一個屬於陳偉霆的資料庫網站。</p>
+
+          <p>其實很多年前，我也曾經用 WordPress 做過一個名為「陳偉霆，你是我的唯一」的網站，前前後後經營了兩年多。</p>
+
+          <p>後來，因為 Instagram 的一次改版，網站裡大量引用的圖片與影片全部無法顯示。失去了這些內容的支撐，整個網站幾乎到了難以修復的地步，我也只好停下來。</p>
+
+          <p>之後，我轉而經營 YouTube，一做就是五年。</p>
+
+          <p>只是，自己的時間始終有限。也許是失去了一部分熱情，再加上 YouTube 的一些改變，對現在的我來說，「透過 YouTube 獲利」已經不再具有吸引力。</p>
+
+          <p>於是，我又想回到個人網站。</p>
+
+          <p>喜歡陳偉霆已經九年多了。</p>
+
+          <p>我一直覺得，如果真的想了解一個人，不應該只透過第三者的眼睛，而應該去看他本人說過的話、做過的事，以及一路走來留下的行動與選擇。</p>
+
+          <p>YouTube 更像是一種二次創作，而這次想做的網站，只想純粹地記錄。</p>
+
+          <p>就像寫一本十年日記。</p>
+
+          <p>它不會更新得很快，我也沒有打算追逐每一個即時話題。只是想慢慢整理他的作品、訪問、舞台、言語，以及這一路走過的旅程。</p>
+
+          <p>畢竟，他沒有一個完整的官方網站，留下的內容大多散落在不同的社群平台上。</p>
+
+          <p>而個人網站與社群平台最大的不同，大概就是——<br /><strong>內容的主動權，究竟掌握在誰的手裡。</strong></p>
+
+          <p>一切從零開始。</p>
+
+          <p>幸好，這一次我有一位很好的助手——ChatGPT。😂</p>
+
+          <p>我只想慢慢地，把陳偉霆一路走來的旅程記錄下來。</p>
+        </div>
+
+        <footer class="related-timeline">
+          <a href="/timeline#database-created-2026-08-21">相關時間線：2026.08.21 陳偉霆資料庫建立 →</a>
+        </footer>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-title">陳偉霆資料庫 · William Chan Archive</p>
+        <p class="footer-nav">Timeline ｜ Works ｜ People &amp; Characters ｜ Sources</p>
+        <p>非官方粉絲資料庫</p>
+        <p>本站內容僅作資料整理與記錄用途。</p>
+        <p class="footer-copyright">© 2026 William Chan Archive</p>
+      </div>
+    </footer>
+  </body>
+
+  <style>
+    :global(*) {
+      box-sizing: border-box;
+    }
+
+    :global(body) {
+      margin: 0;
+      background: #f8f6f3;
+      color: #292624;
+      font-family: "Noto Sans TC", "Noto Sans JP", Arial, sans-serif;
+    }
+
+    main {
+      width: 88%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 50px 0 80px;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 30px;
+      color: #77706b;
+      text-decoration: none;
+    }
+
+    .site-identity {
+      margin: -18px 0 28px;
+      color: #958d87;
+      font-size: 13px;
+      letter-spacing: 0.3px;
+    }
+
+    article {
+      padding: 48px 54px 54px;
+      background: #fff;
+      border: 1px solid #e5e1dc;
+      border-radius: 12px;
+    }
+
+    header {
+      padding-bottom: 28px;
+      border-bottom: 1px solid #ebe6e2;
+    }
+
+    .category {
+      margin: 0 0 12px;
+      color: #8a6f5b;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.4;
+      letter-spacing: 0.3px;
+    }
+
+    time {
+      color: #77706b;
+      font-size: 14px;
+    }
+
+    .article-body {
+      margin-top: 32px;
+    }
+
+    .article-body p {
+      margin: 0 0 1.45em;
+      color: #4f4945;
+      font-size: 17px;
+      line-height: 2;
+    }
+
+    .article-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .article-body strong {
+      color: #423d39;
+    }
+
+    .related-timeline {
+      margin-top: 36px;
+      padding-top: 22px;
+      border-top: 1px solid #ebe6e2;
+    }
+
+    .related-timeline a {
+      color: #675f5a;
+      font-weight: 600;
+      line-height: 1.7;
+      text-decoration-color: #aaa19a;
+      text-underline-offset: 4px;
+    }
+
+    .related-timeline a:hover {
+      color: #423d39;
+      text-decoration-color: currentColor;
+    }
+
+    .site-footer {
+      margin-top: 24px;
+      padding: 32px 8%;
+      background: #675f5a;
+      border-top: 4px solid #d8d0ca;
+      color: #e3ddd8;
+    }
+
+    .footer-inner {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .site-footer p {
+      margin: 6px 0;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .site-footer .footer-title {
+      margin-top: 0;
+      color: #f5f1ee;
+      font-weight: 600;
+    }
+
+    .footer-nav {
+      overflow-wrap: anywhere;
+    }
+
+    .footer-copyright {
+      margin-bottom: 0;
+      color: #c6bdb7;
+    }
+
+    @media (max-width: 700px) {
+      main {
+        width: 88%;
+        padding: 30px 0 50px;
+      }
+
+      article {
+        padding: 30px 22px 34px;
+      }
+
+      .article-body {
+        margin-top: 26px;
+      }
+
+      .article-body p {
+        font-size: 16px;
+        line-height: 1.9;
+      }
+
+      .site-footer {
+        margin-top: 10px;
+        padding: 22px 6%;
+      }
+
+      .site-footer p {
+        margin: 4px 0;
+        font-size: 13px;
+        line-height: 1.45;
+      }
+    }
+  </style>
+</html>
