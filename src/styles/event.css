@@ -25,6 +25,10 @@ section {
 section h2 { margin: 0 0 20px; font-size: 22px; }
 .english-label { color: #958d87; font-size: 16px; font-weight: 400; }
 .summary { margin: 0; color: #5f5955; font-size: 16px; line-height: 1.85; }
+dl { margin: 0; }
+dl div { display: grid; grid-template-columns: 7rem 1fr; gap: 16px; padding: 10px 0; }
+dt { color: #77706b; }
+dd { margin: 0; color: #4f4945; }
 .setlist { margin: 0; padding-left: 1.5rem; color: #4f4945; }
 .setlist li { padding: 7px 0; line-height: 1.65; }
 .setlist span { color: #77706b; }
@@ -41,6 +45,7 @@ section h2 { margin: 0 0 20px; font-size: 22px; }
 .video-list li:last-child { padding-bottom: 0; border-bottom: 0; }
 .video-list p { margin-top: 6px; color: #77706b; font-size: 14px; }
 .empty-state { margin: 0; color: #958d87; }
+section a { color: #675f5a; }
 
 @media (min-width: 701px) {
   .gallery-grid { display: block; }
@@ -68,6 +73,7 @@ section h2 { margin: 0 0 20px; font-size: 22px; }
   h1 { font-size: 28px; }
   section { padding: 20px; }
   .summary { font-size: 15px; line-height: 1.75; }
+  dl div { grid-template-columns: 1fr; gap: 4px; }
   .site-footer { margin-top: 10px; padding: 22px 6%; }
   .site-footer p { margin: 4px 0; font-size: 13px; line-height: 1.45; }
 }
