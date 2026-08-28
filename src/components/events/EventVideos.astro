@@ -9,21 +9,27 @@ interface VideoItem {
 }
 
 interface Props {
-  items: VideoItem[];
+  items?: VideoItem[];
+  title?: string;
+  englishLabel?: string;
 }
 
-const { items } = Astro.props;
+const { title = "影片集", englishLabel = "Videos" } = Astro.props;
+const items = Array.isArray(Astro.props.items) ? Astro.props.items : [];
+const hasCustomContent = Astro.slots.has("default");
 ---
 
-{items.length > 0 && (
-  <EventSection id="videos-heading" title="影片集" englishLabel="Videos">
-    <ul class="video-list">
-      {items.map((video) => (
-        <li>
-          <a href={video.url} target="_blank" rel="noopener noreferrer">{video.title}</a>
-          <p>{video.platform} · 來源：{video.source}</p>
-        </li>
-      ))}
-    </ul>
+{(items.length > 0 || hasCustomContent) && (
+  <EventSection id="videos-heading" title={title} englishLabel={englishLabel}>
+    {hasCustomContent ? <slot /> : (
+      <ul class="video-list">
+        {items.map((video) => (
+          <li>
+            <a href={video.url} target="_blank" rel="noopener noreferrer">{video.title}</a>
+            <p>{video.platform} · 來源：{video.source}</p>
+          </li>
+        ))}
+      </ul>
+    )}
   </EventSection>
 )}
