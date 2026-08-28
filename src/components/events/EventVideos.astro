@@ -1,0 +1,29 @@
+---
+import EventSection from "./EventSection.astro";
+
+interface VideoItem {
+  title: string;
+  platform: string;
+  url: string;
+  source: string;
+}
+
+interface Props {
+  items: VideoItem[];
+}
+
+const { items } = Astro.props;
+---
+
+{items.length > 0 && (
+  <EventSection id="videos-heading" title="影片集" englishLabel="Videos">
+    <ul class="video-list">
+      {items.map((video) => (
+        <li>
+          <a href={video.url} target="_blank" rel="noopener noreferrer">{video.title}</a>
+          <p>{video.platform} · 來源：{video.source}</p>
+        </li>
+      ))}
+    </ul>
+  </EventSection>
+)}

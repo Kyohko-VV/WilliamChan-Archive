@@ -1,553 +1,80 @@
 ---
-interface GalleryItem {
-  title: string;
-  image: string;
-  source: string;
-  sourceUrl: string;
-}
+import EventGallery from "../../components/events/EventGallery.astro";
+import EventSection from "../../components/events/EventSection.astro";
+import EventVideos from "../../components/events/EventVideos.astro";
+import EventLayout from "../../layouts/EventLayout.astro";
 
-interface VideoItem {
-  title: string;
-  platform: string;
-  url: string;
-  source: string;
-}
+interface GalleryItem { title: string; image: string; source: string; sourceUrl: string; }
+interface VideoItem { title: string; platform: string; url: string; source: string; }
 
 const gallery: GalleryItem[] = [
-  {
-    title: "",
-    image: "https://media.williamchanfanpage.com/events/2026-tima/006Qii3Rgy1ige3vbhhbhj36qo8zk7wj.jpg",
-    source: "英皇娛樂－北京（官方微博）",
-    sourceUrl: "https://weibo.com/3270824053/ReLCagXPd",
-  },
-  {
-    title: "",
-    image: "https://media.williamchanfanpage.com/events/2026-tima/006Qii3Rgy1ige4s305axj30qv0zt7kg.jpg",
-    source: "w-Daily／陳偉霆工作室（官方微博）",
-    sourceUrl: "https://weibo.com/6269525799/ReLNXtGia",
-  },
-  {
-    title: "",
-    image: "https://media.williamchanfanpage.com/events/2026-tima/c2f4d075ly1iget3urpg4j267y45du14.jpg",
-    source: "英皇娛樂－北京（官方微博）",
-    sourceUrl: "https://weibo.com/3270824053/ReRjPxOwS",
-  },
-  {
-    title: "",
-    image: "https://media.williamchanfanpage.com/events/2026-tima/c2f4d075ly1iget3xktexj235s23w7wi.jpg",
-    source: "英皇娛樂－北京（官方微博）",
-    sourceUrl: "https://weibo.com/3270824053/ReRjPxOwS",
-  },
-  {
-    title: "",
-    image: "https://media.williamchanfanpage.com/events/2026-tima/c2f4d075ly1iget43k4p9j245c67wx6x.jpg",
-    source: "英皇娛樂－北京（官方微博）",
-    sourceUrl: "https://weibo.com/3270824053/ReRjPxOwS",
-  },
+  { title: "", image: "https://media.williamchanfanpage.com/events/2026-tima/006Qii3Rgy1ige3vbhhbhj36qo8zk7wj.jpg", source: "英皇娛樂－北京（官方微博）", sourceUrl: "https://weibo.com/3270824053/ReLCagXPd" },
+  { title: "", image: "https://media.williamchanfanpage.com/events/2026-tima/006Qii3Rgy1ige4s305axj30qv0zt7kg.jpg", source: "w-Daily／陳偉霆工作室（官方微博）", sourceUrl: "https://weibo.com/6269525799/ReLNXtGia" },
+  { title: "", image: "https://media.williamchanfanpage.com/events/2026-tima/c2f4d075ly1iget3urpg4j267y45du14.jpg", source: "英皇娛樂－北京（官方微博）", sourceUrl: "https://weibo.com/3270824053/ReRjPxOwS" },
+  { title: "", image: "https://media.williamchanfanpage.com/events/2026-tima/c2f4d075ly1iget3xktexj235s23w7wi.jpg", source: "英皇娛樂－北京（官方微博）", sourceUrl: "https://weibo.com/3270824053/ReRjPxOwS" },
+  { title: "", image: "https://media.williamchanfanpage.com/events/2026-tima/c2f4d075ly1iget43k4p9j245c67wx6x.jpg", source: "英皇娛樂－北京（官方微博）", sourceUrl: "https://weibo.com/3270824053/ReRjPxOwS" },
 ];
+
 const videos: VideoItem[] = [
-  {
-    title: "TIMA 彩排碎片",
-    platform: "微博",
-    url: "https://weibo.com/3270824053/ReK8Nx0Bp",
-    source: "英皇娛樂－北京（官方微博）",
-  },
-  {
-    title: "TIMA 彩排小片預覽",
-    platform: "微博",
-    url: "https://weibo.com/6269525799/ReK7Vc3zo",
-    source: "w-Daily／陳偉霆工作室（官方微博）",
-  },
-  {
-    title: "《戰士》TIMA 舞台直拍",
-    platform: "微博",
-    url: "https://weibo.com/6269525799/ReLJU6rRX",
-    source: "w-Daily／陳偉霆工作室（官方微博）",
-  },
-  {
-    title: "TIMA 現場舞台片段",
-    platform: "微博",
-    url: "https://weibo.com/5103645868/ReKIkrL36?refer_flag=1001030103_",
-    source: "星姐微博（媒體來源）",
-  },
+  { title: "TIMA 彩排碎片", platform: "微博", url: "https://weibo.com/3270824053/ReK8Nx0Bp", source: "英皇娛樂－北京（官方微博）" },
+  { title: "TIMA 彩排小片預覽", platform: "微博", url: "https://weibo.com/6269525799/ReK7Vc3zo", source: "w-Daily／陳偉霆工作室（官方微博）" },
+  { title: "《戰士》TIMA 舞台直拍", platform: "微博", url: "https://weibo.com/6269525799/ReLJU6rRX", source: "w-Daily／陳偉霆工作室（官方微博）" },
+  { title: "TIMA 現場舞台片段", platform: "微博", url: "https://weibo.com/5103645868/ReKIkrL36?refer_flag=1001030103_", source: "星姐微博（媒體來源）" },
 ];
 ---
 
-<!doctype html>
-<html lang="zh-Hant">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2026 TIMA｜獲「年度亞洲跨界藝人」並帶來五首舞台 | 陳偉霆資料庫</title>
-    <meta
-      name="description"
-      content="陳偉霆於2026 TIMA國際音樂大賞獲年度亞洲跨界藝人，並帶來五首舞台。"
-    />
-  </head>
-
-  <body>
-    <main>
-      <a href="/timeline" class="back">← 返回時間線</a>
-      <p class="site-identity">陳偉霆資料庫 · William Chan Archive</p>
-
-      <header>
-        <p class="event-date"><time datetime="2026-08-23">2026年8月23日</time></p>
-        <h1>2026 TIMA｜獲「年度亞洲跨界藝人」並帶來五首舞台</h1>
-        <p class="location">香港・啟德主場館</p>
-      </header>
-
-      <section aria-labelledby="summary-heading">
-        <h2 id="summary-heading">活動簡介</h2>
-        <p class="summary">
-          2026年8月23日，陳偉霆出席於香港啟德主場館舉行的「2026 TIMA國際音樂大賞」，獲頒「年度亞洲跨界藝人」。當晚帶來《女皇》《Love U2》《樂此不疲》《哪怕我們》《戰士》五首舞台，其中《哪怕我們》以結他自彈自唱形式演出；《戰士》的舞台中則融入《九門》「窄娘娘」相關造型元素。銀髮造型也成為當晚極具記憶點的一幕。久違再次在香港大型舞台上，以歌手身份完整呈現音樂與舞台魅力，這一晚很值得留下紀錄。
-        </p>
-      </section>
-
-      <section aria-labelledby="setlist-heading">
-        <h2 id="setlist-heading">舞台曲目</h2>
-        <ol class="setlist">
-          <li>《女皇》</li>
-          <li>《Love U2》</li>
-          <li>《樂此不疲》</li>
-          <li>《哪怕我們》 <span>— 結他自彈自唱</span></li>
-          <li>《戰士》 <span>— 舞台中呈現《九門》「窄娘娘」相關造型元素</span></li>
-        </ol>
-      </section>
-
-      {gallery.length > 0 && (
-        <section aria-labelledby="gallery-heading">
-          <h2 id="gallery-heading">照片集 <span class="english-label">/ Gallery</span></h2>
-          <div class="gallery-carousel" data-gallery-carousel>
-            <div class="gallery-grid">
-              {gallery.map((item, index) => (
-                <figure class:list={["gallery-item", { "is-active": index === 0 }]}>
-                  <a
-                    class="gallery-image-link"
-                    href={item.image}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`開啟${item.source}原圖`}
-                  >
-                    <img src={item.image} alt={item.title} loading="lazy" />
-                  </a>
-                  <figcaption>
-                    <p>{item.title}</p>
-                    <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">
-                      來源：{item.source}
-                    </a>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-
-            <div class="gallery-controls" aria-label="照片切換控制">
-              <button type="button" data-gallery-previous>← 上一張</button>
-              <p class="gallery-counter" aria-live="polite">
-                <span data-gallery-current>1</span> / {gallery.length}
-              </p>
-              <button type="button" data-gallery-next>下一張 →</button>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {videos.length > 0 && (
-        <section aria-labelledby="videos-heading">
-          <h2 id="videos-heading">影片集 <span class="english-label">/ Videos</span></h2>
-          <ul class="video-list">
-            {videos.map((video) => (
-              <li>
-                <a href={video.url} target="_blank" rel="noopener noreferrer">{video.title}</a>
-                <p>{video.platform} · 來源：{video.source}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      <section aria-labelledby="sources-heading">
-        <h2 id="sources-heading">來源與記錄</h2>
-
-        <div class="source-group">
-          <h3>獲獎與活動總結</h3>
-          <ul class="video-list">
-            <li>
-              <a href="https://weibo.com/3270824053/ReRjPxOwS" target="_blank" rel="noopener noreferrer">英皇娛樂－北京</a>
-              <p>獲獎祝賀</p>
-            </li>
-            <li>
-              <a href="https://weibo.com/6269525799/ReRjgCntv" target="_blank" rel="noopener noreferrer">w-Daily／陳偉霆工作室</a>
-              <p>獲獎及五首舞台總結</p>
-            </li>
-          </ul>
-        </div>
-
-        <div class="source-group">
-          <h3>造型與 Look</h3>
-          <ul class="video-list">
-            <li>
-              <a href="https://weibo.com/3270824053/ReLCagXPd" target="_blank" rel="noopener noreferrer">英皇娛樂－北京</a>
-              <p>TIMA 銀髮 Look</p>
-            </li>
-            <li>
-              <a href="https://weibo.com/6269525799/ReLBpafY0" target="_blank" rel="noopener noreferrer">w-Daily／陳偉霆工作室</a>
-              <p>TIMA 銀髮 Look</p>
-            </li>
-            <li>
-              <a href="https://weibo.com/6269525799/ReKgQserR" target="_blank" rel="noopener noreferrer">w-Daily／陳偉霆工作室</a>
-              <p>隱藏款造型預覽</p>
-            </li>
-          </ul>
-        </div>
-
-        <div class="source-group">
-          <h3>彩排與幕後記錄</h3>
-          <ul class="video-list">
-            <li>
-              <a href="https://weibo.com/3270824053/ReIsSd9SO" target="_blank" rel="noopener noreferrer">英皇娛樂－北京</a>
-              <p>TIMA 彩排現場</p>
-            </li>
-            <li>
-              <a href="https://weibo.com/6269525799/ReIuayjeD" target="_blank" rel="noopener noreferrer">w-Daily／陳偉霆工作室</a>
-              <p>舞台花絮</p>
-            </li>
-            <li>
-              <a href="https://weibo.com/6269525799/ReIsFrlBm" target="_blank" rel="noopener noreferrer">w-Daily／陳偉霆工作室</a>
-              <p>彩排記錄</p>
-            </li>
-          </ul>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <p class="footer-title">陳偉霆資料庫 · William Chan Archive</p>
-        <p class="footer-nav">Timeline ｜ Works ｜ People &amp; Characters ｜ Sources</p>
-        <p>非官方粉絲資料庫</p>
-        <p>本站內容僅作資料整理與記錄用途。</p>
-        <p class="footer-copyright">© 2026 William Chan Archive</p>
-      </div>
-    </footer>
-  </body>
-
-  <script>
-    document.querySelectorAll<HTMLElement>("[data-gallery-carousel]").forEach((carousel) => {
-      const items = Array.from(carousel.querySelectorAll<HTMLElement>(".gallery-item"));
-      const previousButton = carousel.querySelector<HTMLButtonElement>("[data-gallery-previous]");
-      const nextButton = carousel.querySelector<HTMLButtonElement>("[data-gallery-next]");
-      const currentLabel = carousel.querySelector<HTMLElement>("[data-gallery-current]");
-      const desktopGallery = window.matchMedia("(min-width: 701px)");
-      let currentIndex = 0;
-
-      const showItem = (index: number) => {
-        currentIndex = (index + items.length) % items.length;
-        items.forEach((item, itemIndex) => {
-          const isCurrent = itemIndex === currentIndex;
-          item.classList.toggle("is-active", isCurrent);
-          item.hidden = desktopGallery.matches && !isCurrent;
-        });
-
-        if (currentLabel) {
-          currentLabel.textContent = String(currentIndex + 1);
-        }
-      };
-
-      previousButton?.addEventListener("click", () => showItem(currentIndex - 1));
-      nextButton?.addEventListener("click", () => showItem(currentIndex + 1));
-      desktopGallery.addEventListener("change", () => showItem(currentIndex));
-      showItem(0);
-    });
-  </script>
-
-  <style>
-    :global(*) {
-      box-sizing: border-box;
-    }
-
-    :global(body) {
-      margin: 0;
-      background: #f8f6f3;
-      color: #292624;
-      font-family: "Noto Sans TC", "Noto Sans JP", Arial, sans-serif;
-    }
-
-    main {
-      width: 88%;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 50px 0 80px;
-    }
-
-    .back {
-      display: inline-block;
-      margin-bottom: 30px;
-      color: #77706b;
-      text-decoration: none;
-    }
-
-    .site-identity {
-      margin: -18px 0 28px;
-      color: #958d87;
-      font-size: 13px;
-      letter-spacing: 0.3px;
-    }
-
-    header {
-      margin-bottom: 35px;
-    }
-
-    .event-date,
-    .location {
-      margin: 0;
-      color: #77706b;
-      line-height: 1.6;
-    }
-
-    h1 {
-      margin: 8px 0 12px;
-      font-size: 36px;
-      line-height: 1.35;
-      letter-spacing: 0.5px;
-    }
-
-    section {
-      margin-top: 24px;
-      padding: 28px;
-      background: #ffffff;
-      border: 1px solid #e5e1dc;
-      border-radius: 12px;
-    }
-
-    section h2 {
-      margin: 0 0 20px;
-      font-size: 22px;
-    }
-
-    .english-label {
-      color: #958d87;
-      font-size: 16px;
-      font-weight: 400;
-    }
-
-    .summary {
-      margin: 0;
-      color: #5f5955;
-      font-size: 16px;
-      line-height: 1.85;
-    }
-
-    .setlist {
-      margin: 0;
-      padding-left: 1.5rem;
-      color: #4f4945;
-    }
-
-    .setlist li {
-      padding: 7px 0;
-      line-height: 1.65;
-    }
-
-    .setlist span {
-      color: #77706b;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
-    .gallery-item {
-      margin: 0;
-    }
-
-    .gallery-item img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-
-    .gallery-image-link {
-      display: block;
-    }
-
-    .gallery-controls {
-      display: none;
-    }
-
-    .gallery-item figcaption {
-      margin-top: 10px;
-      color: #5f5955;
-      line-height: 1.6;
-    }
-
-    .gallery-item figcaption p,
-    .video-list p {
-      margin: 0;
-    }
-
-    .gallery-item a,
-    .video-list a {
-      color: #675f5a;
-    }
-
-    .video-list {
-      display: grid;
-      gap: 16px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .video-list li {
-      padding-bottom: 16px;
-      border-bottom: 1px solid #e5e1dc;
-    }
-
-    .video-list li:last-child {
-      padding-bottom: 0;
-      border-bottom: 0;
-    }
-
-    .video-list p {
-      margin-top: 6px;
-      color: #77706b;
-      font-size: 14px;
-    }
-
-    .empty-state {
-      margin: 0;
-      color: #958d87;
-    }
-
-    @media (min-width: 701px) {
-      .gallery-grid {
-        display: block;
-      }
-
-      .gallery-item {
-        display: none;
-      }
-
-      .gallery-item.is-active {
-        display: block;
-      }
-
-      .gallery-image-link {
-        background: #f8f6f3;
-        border-radius: 8px;
-      }
-
-      .gallery-item img {
-        height: min(65vh, 640px);
-        object-fit: contain;
-        object-position: center;
-      }
-
-      .gallery-controls {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        margin-top: 20px;
-      }
-
-      .gallery-controls button {
-        padding: 9px 14px;
-        background: #ffffff;
-        border: 1px solid #d8d0ca;
-        border-radius: 8px;
-        color: #675f5a;
-        font: inherit;
-        cursor: pointer;
-      }
-
-      .gallery-controls button:hover,
-      .gallery-controls button:focus-visible {
-        border-color: #a99f98;
-      }
-
-      .gallery-counter {
-        margin: 0;
-        color: #77706b;
-        font-variant-numeric: tabular-nums;
-      }
-    }
-
-    .site-footer {
-      margin-top: 24px;
-      padding: 32px 8%;
-      background: #675f5a;
-      border-top: 4px solid #d8d0ca;
-      color: #e3ddd8;
-    }
-
-    .footer-inner {
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .site-footer p {
-      margin: 6px 0;
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .site-footer .footer-title {
-      margin-top: 0;
-      color: #f5f1ee;
-      font-weight: 600;
-    }
-
-    .footer-nav {
-      overflow-wrap: anywhere;
-    }
-
-    .footer-copyright {
-      margin-bottom: 0;
-      color: #c6bdb7;
-    }
-
-    @media (max-width: 700px) {
-      main {
-        width: 88%;
-        padding: 30px 0 50px;
-      }
-
-      .back {
-        margin-bottom: 24px;
-      }
-
-      header {
-        margin-bottom: 28px;
-      }
-
-      h1 {
-        font-size: 28px;
-      }
-
-      section {
-        padding: 20px;
-      }
-
-      .summary {
-        font-size: 15px;
-        line-height: 1.75;
-      }
-
-      .site-footer {
-        margin-top: 10px;
-        padding: 22px 6%;
-      }
-
-      .site-footer p {
-        margin: 4px 0;
-        font-size: 13px;
-        line-height: 1.45;
-      }
-    }
-  </style>
-</html>
+<EventLayout
+  pageTitle="2026 TIMA｜獲「年度亞洲跨界藝人」並帶來五首舞台 | 陳偉霆資料庫"
+  description="陳偉霆於2026 TIMA國際音樂大賞獲年度亞洲跨界藝人，並帶來五首舞台。"
+  date="2026年8月23日"
+  dateTime="2026-08-23"
+  title="2026 TIMA｜獲「年度亞洲跨界藝人」並帶來五首舞台"
+  location="香港・啟德主場館"
+>
+  <EventSection id="summary-heading" title="活動簡介">
+    <p class="summary">
+      2026年8月23日，陳偉霆出席於香港啟德主場館舉行的「2026 TIMA國際音樂大賞」，獲頒「年度亞洲跨界藝人」。當晚帶來《女皇》《Love U2》《樂此不疲》《哪怕我們》《戰士》五首舞台，其中《哪怕我們》以結他自彈自唱形式演出；《戰士》的舞台中則融入《九門》「窄娘娘」相關造型元素。銀髮造型也成為當晚極具記憶點的一幕。久違再次在香港大型舞台上，以歌手身份完整呈現音樂與舞台魅力，這一晚很值得留下紀錄。
+    </p>
+  </EventSection>
+
+  <EventSection id="setlist-heading" title="舞台曲目">
+    <ol class="setlist">
+      <li>《女皇》</li>
+      <li>《Love U2》</li>
+      <li>《樂此不疲》</li>
+      <li>《哪怕我們》 <span>— 結他自彈自唱</span></li>
+      <li>《戰士》 <span>— 舞台中呈現《九門》「窄娘娘」相關造型元素</span></li>
+    </ol>
+  </EventSection>
+
+  <EventGallery items={gallery} />
+  <EventVideos items={videos} />
+
+  <EventSection id="sources-heading" title="來源與記錄">
+    <div class="source-group">
+      <h3>獲獎與活動總結</h3>
+      <ul class="video-list">
+        <li><a href="https://weibo.com/3270824053/ReRjPxOwS" target="_blank" rel="noopener noreferrer">英皇娛樂－北京</a><p>獲獎祝賀</p></li>
+        <li><a href="https://weibo.com/6269525799/ReRjgCntv" target="_blank" rel="noopener noreferrer">w-Daily／陳偉霆工作室</a><p>獲獎及五首舞台總結</p></li>
+      </ul>
+    </div>
+
+    <div class="source-group">
+      <h3>造型與 Look</h3>
+      <ul class="video-list">
+        <li><a href="https://weibo.com/3270824053/ReLCagXPd" target="_blank" rel="noopener noreferrer">英皇娛樂－北京</a><p>TIMA 銀髮 Look</p></li>
+        <li><a href="https://weibo.com/6269525799/ReLBpafY0" target="_blank" rel="noopener noreferrer">w-Daily／陳偉霆工作室</a><p>TIMA 銀髮 Look</p></li>
+        <li><a href="https://weibo.com/6269525799/ReKgQserR" target="_blank" rel="noopener noreferrer">w-Daily／陳偉霆工作室</a><p>隱藏款造型預覽</p></li>
+      </ul>
+    </div>
+
+    <div class="source-group">
+      <h3>彩排與幕後記錄</h3>
+      <ul class="video-list">
+        <li><a href="https://weibo.com/3270824053/ReIsSd9SO" target="_blank" rel="noopener noreferrer">英皇娛樂－北京</a><p>TIMA 彩排現場</p></li>
+        <li><a href="https://weibo.com/6269525799/ReIuayjeD" target="_blank" rel="noopener noreferrer">w-Daily／陳偉霆工作室</a><p>舞台花絮</p></li>
+        <li><a href="https://weibo.com/6269525799/ReIsFrlBm" target="_blank" rel="noopener noreferrer">w-Daily／陳偉霆工作室</a><p>彩排記錄</p></li>
+      </ul>
+    </div>
+  </EventSection>
+</EventLayout>
