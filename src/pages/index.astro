@@ -137,12 +137,15 @@ const latestWorks = [...works]
 
   const japaneseDateParts = new Intl.DateTimeFormat("en-CA", {
     timeZone: "Asia/Tokyo",
+    year: "numeric",
     month: "2-digit",
     day: "2-digit",
   }).formatToParts(now);
+  const year = japaneseDateParts.find(({ type }) => type === "year")?.value ?? "";
   const month = japaneseDateParts.find(({ type }) => type === "month")?.value ?? "";
   const day = japaneseDateParts.find(({ type }) => type === "day")?.value ?? "";
   const today = `${month}-${day}`;
+  const currentDate = `${year}-${today}`;
 
   const label = document.getElementById("today-label");
   const historyContainer = document.getElementById("today-events");
@@ -152,10 +155,21 @@ const latestWorks = [...works]
     label.textContent = `歷史上的今天 · ${Number(month)}月${Number(day)}日`;
   }
 
-  const todayEvents = events.filter((event) => event.date.slice(5) === today);
+  const currentEvents = events.filter((event) => event.date === currentDate);
+  const historicalEvents = events.filter(
+    (event) => event.date.slice(5) === today && event.date.slice(0, 4) !== year
+  );
   const broadcast = getTaiyoToHoshiBroadcast(now);
 
   if (currentContainer) {
+    const currentEventsHtml = currentEvents.map((event) => `
+      <article>
+        <strong>${event.date}</strong>
+        <h3>${event.title}</h3>
+        ${event.description ? `<p>${event.description}</p>` : ""}
+      </article>
+    `).join("");
+
     const broadcastHtml = broadcast ? `
       <article class="today-broadcast">
         <strong>日本播出</strong>
@@ -167,11 +181,11 @@ const latestWorks = [...works]
       </article>
     ` : "";
 
-    currentContainer.innerHTML = broadcastHtml || "<p>暫無記錄</p>";
+    currentContainer.innerHTML = currentEventsHtml + broadcastHtml || "<p>暫無記錄</p>";
   }
 
   if (historyContainer) {
-    const eventsHtml = todayEvents.map((event) => `
+    const eventsHtml = historicalEvents.map((event) => `
       <article>
         <strong>${event.date}</strong>
         <h3>${event.title}</h3>
