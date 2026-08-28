@@ -163,7 +163,7 @@ const latestWorks = [...works]
         <p>チャンネル銀河</p>
         <p><strong>${broadcast.episode}</strong></p>
         <p>${broadcast.officialTime}</p>
-        <p><a href="https://www.ch-ginga.jp/detail/taiyoutohoshi/">查看節目詳情 →</a></p>
+        <p><a class="all-works-link" href="https://www.ch-ginga.jp/detail/taiyoutohoshi/">查看節目詳情 →</a></p>
       </article>
     ` : "";
 
@@ -294,7 +294,8 @@ const latestWorks = [...works]
   }
 
   .work-preview a,
-  .all-works-link {
+  .all-works-link,
+  :global(.today-broadcast .all-works-link) {
     color: inherit;
     text-decoration: none;
   }
@@ -302,7 +303,9 @@ const latestWorks = [...works]
   .work-preview a:hover,
   .work-preview a:focus-visible,
   .all-works-link:hover,
-  .all-works-link:focus-visible {
+  .all-works-link:focus-visible,
+  :global(.today-broadcast .all-works-link:hover),
+  :global(.today-broadcast .all-works-link:focus-visible) {
     text-decoration: underline;
   }
 
