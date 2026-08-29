@@ -1,0 +1,190 @@
+---
+import { peopleCharacters } from "../data/peopleCharacters";
+
+const people = peopleCharacters.filter((entry) => entry.type === "person");
+const characters = peopleCharacters.filter((entry) => entry.type === "character");
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="William Chan Archive 的人物與影視角色索引。"
+    />
+    <title>人物與角色 | 陳偉霆資料庫</title>
+  </head>
+
+  <body>
+    <main>
+      <a href="/" class="back">← 返回首頁</a>
+      <p class="site-identity">陳偉霆資料庫 · William Chan Archive</p>
+
+      <header class="page-header">
+        <p class="eyebrow">PEOPLE &amp; CHARACTERS</p>
+        <h1>人物與角色</h1>
+        <p class="intro">
+          整理本站收錄的真實人物與影視角色，並逐步連結相關作品、時間線、活動與官方來源。
+        </p>
+      </header>
+
+      <section class="index-section" aria-labelledby="people-heading">
+        <div class="section-heading">
+          <div>
+            <p>REAL PEOPLE</p>
+            <h2 id="people-heading">People</h2>
+          </div>
+          <span>{people.length} 筆</span>
+        </div>
+
+        <div class="card-grid">
+          {people.map((person) => (
+            <article class="entry-card" id={person.id}>
+              <div class="card-heading">
+                <div>
+                  <h3>{person.name}</h3>
+                  {person.englishName && <p class="english-name">{person.englishName}</p>}
+                </div>
+                <span class="type-badge">人物</span>
+              </div>
+              {person.roles && <p class="meta">{person.roles.join("・")}</p>}
+              {person.description && <p class="description">{person.description}</p>}
+              {person.links && (
+                <nav class="entry-links" aria-label={`${person.name}相關連結`}>
+                  {person.links.map((link) => (
+                    link.href && <a href={link.href}>{link.label} →</a>
+                  ))}
+                </nav>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="index-section" aria-labelledby="characters-heading">
+        <div class="section-heading">
+          <div>
+            <p>SCREEN CHARACTERS</p>
+            <h2 id="characters-heading">Characters</h2>
+          </div>
+          <span>{characters.length} 筆</span>
+        </div>
+
+        <div class="card-grid">
+          {characters.map((character) => (
+            <article class="entry-card" id={character.id}>
+              <div class="card-heading">
+                <h3>{character.name}</h3>
+                <span class="type-badge">角色</span>
+              </div>
+              {character.actor && <p class="meta">演員：{character.actor}</p>}
+              {character.description && <p class="description">{character.description}</p>}
+
+              {character.relatedWorks && (
+                <div class="related-group">
+                  <h4>相關作品</h4>
+                  <ul>
+                    {character.relatedWorks.map((work) => (
+                      <li>{work.href ? <a href={work.href}>{work.label} →</a> : work.label}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {character.relatedEvents && (
+                <div class="related-group">
+                  <h4>相關時間線</h4>
+                  <ul>
+                    {character.relatedEvents.map((event) => (
+                      <li>
+                        {event.href ? (
+                          <a href={event.href}><time datetime={event.date}>{event.date}</time> {event.label} →</a>
+                        ) : (
+                          <><time datetime={event.date}>{event.date}</time> {event.label}</>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {character.links && (
+                <nav class="entry-links" aria-label={`${character.name}相關連結`}>
+                  {character.links.map((link) => (
+                    link.href && <a href={link.href}>{link.label} →</a>
+                  ))}
+                </nav>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-title">陳偉霆資料庫 · William Chan Archive</p>
+        <p>非官方粉絲資料庫</p>
+        <p>本站內容僅作資料整理與記錄用途。</p>
+        <p class="footer-copyright">© 2026 William Chan Archive</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) {
+    margin: 0;
+    background: #f8f6f3;
+    color: #292624;
+    font-family: "Noto Sans TC", "Noto Sans JP", Arial, sans-serif;
+  }
+
+  main { width: min(88%, 1040px); margin: 0 auto; padding: 50px 0 84px; }
+  .back { display: inline-block; margin-bottom: 30px; color: #77706b; text-decoration: none; }
+  .back:hover { color: #3e3936; }
+  .site-identity { margin: -18px 0 28px; color: #958d87; font-size: 13px; letter-spacing: .3px; }
+  .page-header { max-width: 760px; margin-bottom: 50px; }
+  .eyebrow, .section-heading p { margin: 0 0 9px; color: #9b7162; font-size: 12px; font-weight: 700; letter-spacing: .14em; }
+  h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(40px, 6vw, 64px); font-weight: 500; letter-spacing: -.035em; }
+  .intro { margin: 18px 0 0; color: #716b67; font-size: 15px; line-height: 1.85; }
+
+  .index-section + .index-section { margin-top: 58px; }
+  .section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 18px; padding-bottom: 13px; border-bottom: 1px solid #d8d1cc; }
+  .section-heading h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 30px; font-weight: 500; }
+  .section-heading > span { color: #948a84; font-size: 12px; }
+  .card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .entry-card { min-width: 0; padding: 24px; border: 1px solid #ddd7d2; border-radius: 14px; background: #fff; box-shadow: 0 5px 18px rgb(64 51 43 / 5%); }
+  .card-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+  .card-heading h3 { margin: 0; font-size: 21px; line-height: 1.45; }
+  .english-name { margin: 4px 0 0; color: #8d837d; font-family: Georgia, "Times New Roman", serif; font-size: 15px; }
+  .type-badge { flex: none; padding: 4px 9px; border-radius: 999px; background: #eee8e3; color: #695d56; font-size: 11px; font-weight: 700; }
+  .meta { margin: 14px 0 0; color: #9b7162; font-size: 13px; font-weight: 700; }
+  .description { margin: 18px 0 0; color: #706965; font-size: 14px; line-height: 1.75; }
+  .related-group { margin-top: 22px; padding-top: 18px; border-top: 1px solid #ebe6e2; }
+  .related-group h4 { margin: 0 0 10px; color: #7a706a; font-size: 12px; }
+  .related-group ul { display: grid; gap: 8px; margin: 0; padding-left: 1.2rem; color: #5f5752; font-size: 14px; line-height: 1.6; }
+  .related-group a, .entry-links a { color: #5f514a; text-decoration-color: #c8b9b1; text-underline-offset: 4px; }
+  .entry-links { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
+  .entry-links a { padding: 7px 10px; border-radius: 8px; background: #f3efec; font-size: 13px; font-weight: 700; text-decoration: none; }
+  .entry-links a:hover { background: #e9e2dd; }
+
+  .site-footer { margin-top: 24px; padding: 32px 8%; border-top: 4px solid #d8d0ca; background: #675f5a; color: #e3ddd8; }
+  .footer-inner { width: 100%; max-width: 1040px; margin: 0 auto; }
+  .site-footer p { margin: 6px 0; font-size: 14px; line-height: 1.55; }
+  .site-footer .footer-title { margin-top: 0; color: #f5f1ee; font-weight: 600; }
+  .footer-copyright { margin-bottom: 0; color: #c6bdb7; }
+
+  @media (max-width: 680px) {
+    main { width: min(88%, 560px); padding: 36px 0 60px; }
+    .page-header { margin-bottom: 40px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .entry-card { padding: 20px; }
+    .index-section + .index-section { margin-top: 44px; }
+    .site-footer { padding: 24px 6%; }
+    .site-footer p { font-size: 13px; }
+  }
+</style>
