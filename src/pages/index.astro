@@ -96,10 +96,13 @@ const latestWorks = [...works]
         <p>人物與角色</p>
       </section>
 
-      <section>
-        <h2>Sources</h2>
-        <p>官方與可靠來源</p>
-      </section>
+      <a href="/sources" class="card-link">
+        <section>
+          <h2>Sources</h2>
+          <p>官方與可靠來源</p>
+          <p>查看來源 →</p>
+        </section>
+      </a>
 
       <a href="/fan-activities" class="card-link">
         <section>
@@ -121,7 +124,7 @@ const latestWorks = [...works]
     <footer class="site-footer">
       <div class="footer-inner">
         <p class="footer-title">陳偉霆資料庫 · William Chan Archive</p>
-        <p class="footer-nav">Timeline ｜ Works ｜ People &amp; Characters ｜ Sources</p>
+        <p class="footer-nav">Timeline ｜ Works ｜ People &amp; Characters ｜ <a href="/sources">Sources</a></p>
         <p>非官方粉絲資料庫</p>
         <p>本站內容僅作資料整理與記錄用途。</p>
         <p class="footer-copyright">© 2026 William Chan Archive</p>
@@ -357,6 +360,11 @@ const latestWorks = [...works]
 
   .footer-nav {
     overflow-wrap: anywhere;
+  }
+
+  .footer-nav a {
+    color: inherit;
+    text-underline-offset: 3px;
   }
 
   .footer-copyright {
