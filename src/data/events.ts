@@ -18,8 +18,7 @@ export const events = [
     date: "2026-08-26",
     title: "《九門》慶功宴",
     category: "活動",
-    description: "約18:00～18:30開始。",
-    href: "/events/2026-nine-gates-celebration",
+    description: "《九門》相關慶功活動記錄。",
   },
   {
     date: "2026-08-25",
