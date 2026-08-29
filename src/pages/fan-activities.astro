@@ -2,7 +2,7 @@
 import { fanActivities } from "../data/fanActivities";
 
 const activitiesByYear = [...fanActivities]
-  .sort((a, b) => b.date.localeCompare(a.date))
+  .sort((a, b) => a.date.localeCompare(b.date))
   .reduce<Record<string, typeof fanActivities>>((groups, activity) => {
     const year = activity.date.slice(0, 4);
     (groups[year] ??= []).push(activity);

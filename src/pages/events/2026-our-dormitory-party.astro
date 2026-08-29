@@ -93,6 +93,29 @@ const officialSources = [
           <div><dt>來源</dt><dd>你好，星期六 Hello Saturday Official（官方 YouTube 頻道）</dd></div>
         </dl>
         <a href={videoUrl} target="_blank" rel="noopener noreferrer">在 YouTube 觀看完整節目 →</a>
+
+        <div class="additional-video">
+          <div class="video-frame">
+            <iframe
+              src="https://www.youtube.com/embed/rPGmRnYdp1g"
+              title="《我們的宿舍·歸心季》宿舍不熄燈 EP14"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <dl class="video-details">
+            <div><dt>標題</dt><dd>《我們的宿舍·歸心季》宿舍不熄燈 EP14</dd></div>
+            <div><dt>平台</dt><dd>YouTube</dd></div>
+            <div><dt>來源</dt><dd>你好，星期六 Hello Saturday Official（官方 YouTube 頻道）</dd></div>
+            <div><dt>標記</dt><dd>追加版／延伸內容</dd></div>
+          </dl>
+          <a
+            href="https://youtu.be/rPGmRnYdp1g?si=bYvjuD6R2JQr1Lnh"
+            target="_blank"
+            rel="noopener noreferrer"
+          >在 YouTube 開啟 →</a>
+        </div>
       </section>
 
       <section aria-labelledby="sources-heading">
@@ -258,6 +281,12 @@ const officialSources = [
 
     .video-details {
       margin: 16px 0 12px;
+    }
+
+    .additional-video {
+      margin-top: 28px;
+      padding-top: 28px;
+      border-top: 1px solid #e5e1dc;
     }
 
     .source-list {
