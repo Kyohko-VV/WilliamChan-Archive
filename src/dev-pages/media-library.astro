@@ -1,0 +1,252 @@
+---
+import { mediaLibrary } from "../data/mediaLibrary";
+
+const eventOptions = [...new Set(mediaLibrary.map((item) => item.event))]
+  .sort((a, b) => a.localeCompare(b, "zh-Hant"));
+
+const localHosts = new Set(["localhost", "127.0.0.1", "[::1]"]);
+if (!import.meta.env.DEV || !localHosts.has(Astro.url.hostname)) {
+  return new Response("Not Found", {
+    status: 404,
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  });
+}
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <title>Media Library · Local Development</title>
+  </head>
+  <body>
+    <main>
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">LOCAL DEVELOPMENT ONLY</p>
+          <h1>Media Library</h1>
+          <p class="intro">Cloudflare R2 圖片資料檢視，共 {mediaLibrary.length} 筆。</p>
+        </div>
+        <span class="local-badge">localhost</span>
+      </header>
+
+      <section class="toolbar" aria-label="搜尋、篩選與排序">
+        <label class="search-field">
+          <span>搜尋</span>
+          <input id="media-search" type="search" placeholder="搜尋檔名、活動或來源…" autocomplete="off" />
+        </label>
+        <label>
+          <span>公開狀態</span>
+          <select id="visibility-filter">
+            <option value="all">全部</option>
+            <option value="public">PUBLIC</option>
+            <option value="private">PRIVATE</option>
+          </select>
+        </label>
+        <label>
+          <span>活動</span>
+          <select id="event-filter">
+            <option value="all">全部活動</option>
+            {eventOptions.map((event) => <option value={event}>{event}</option>)}
+          </select>
+        </label>
+        <label>
+          <span>日期排序</span>
+          <select id="date-sort">
+            <option value="desc">新 → 舊</option>
+            <option value="asc">舊 → 新</option>
+          </select>
+        </label>
+      </section>
+
+      <div class="results-summary" aria-live="polite"><span id="result-count">{mediaLibrary.length}</span> 筆圖片</div>
+
+      <section class="media-grid" id="media-grid" aria-label="媒體圖片">
+        {mediaLibrary.map((item, index) => (
+          <article
+            class="media-card"
+            data-search={`${item.fileName} ${item.event} ${item.source}`.toLocaleLowerCase("zh-Hant")}
+            data-visibility={item.visibility}
+            data-event={item.event}
+            data-date={item.date}
+            data-index={index}
+          >
+            <div class="thumbnail-frame">
+              <button
+                class="preview-button"
+                type="button"
+                data-preview-url={item.imageUrl}
+                data-preview-alt={`${item.event}－${item.fileName}`}
+                aria-label={`預覽 ${item.fileName}`}
+              >
+                <img src={item.imageUrl} alt={`${item.event}－${item.fileName}`} loading="lazy" />
+              </button>
+              <span class:list={["visibility", `visibility--${item.visibility}`]}>{item.visibility}</span>
+            </div>
+            <div class="card-body">
+              <h2 title={item.fileName}>{item.fileName}</h2>
+              <dl>
+                <div><dt>活動</dt><dd>{item.event}</dd></div>
+                <div><dt>日期</dt><dd><time datetime={item.date}>{item.date}</time></dd></div>
+                <div><dt>來源</dt><dd><a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">{item.source}</a></dd></div>
+              </dl>
+              <div class="url-row">
+                <input aria-label={`${item.fileName} 完整 URL`} value={item.imageUrl} readonly />
+                <button class="copy-button" type="button" data-copy-url={item.imageUrl}>複製 URL</button>
+              </div>
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <p id="empty-state" class="empty-state" hidden>找不到符合條件的圖片。</p>
+    </main>
+
+    <dialog id="lightbox" class="lightbox" aria-label="圖片預覽">
+      <div class="lightbox-content">
+        <button id="lightbox-close" class="lightbox-close" type="button" aria-label="關閉預覽">×</button>
+        <img id="lightbox-image" src="" alt="" />
+      </div>
+    </dialog>
+
+    <script>
+      const grid = document.querySelector<HTMLElement>("#media-grid");
+      const search = document.querySelector<HTMLInputElement>("#media-search");
+      const visibilityFilter = document.querySelector<HTMLSelectElement>("#visibility-filter");
+      const eventFilter = document.querySelector<HTMLSelectElement>("#event-filter");
+      const dateSort = document.querySelector<HTMLSelectElement>("#date-sort");
+      const resultCount = document.querySelector<HTMLElement>("#result-count");
+      const emptyState = document.querySelector<HTMLElement>("#empty-state");
+      const cards = [...document.querySelectorAll<HTMLElement>(".media-card")];
+
+      const updateResults = () => {
+        if (!grid || !search || !visibilityFilter || !eventFilter || !dateSort || !resultCount || !emptyState) return;
+
+        const query = search.value.trim().toLocaleLowerCase("zh-Hant");
+        const visibility = visibilityFilter.value;
+        const event = eventFilter.value;
+        const direction = dateSort.value === "asc" ? 1 : -1;
+
+        const sortedCards = [...cards].sort((a, b) => {
+          const dateDifference = (a.dataset.date ?? "").localeCompare(b.dataset.date ?? "") * direction;
+          return dateDifference || Number(a.dataset.index) - Number(b.dataset.index);
+        });
+
+        let visibleCount = 0;
+        sortedCards.forEach((card) => {
+          const matchesSearch = !query || (card.dataset.search ?? "").includes(query);
+          const matchesVisibility = visibility === "all" || card.dataset.visibility === visibility;
+          const matchesEvent = event === "all" || card.dataset.event === event;
+          const isVisible = matchesSearch && matchesVisibility && matchesEvent;
+          card.hidden = !isVisible;
+          if (isVisible) visibleCount += 1;
+          grid.append(card);
+        });
+
+        resultCount.textContent = String(visibleCount);
+        emptyState.hidden = visibleCount !== 0;
+      };
+
+      search?.addEventListener("input", updateResults);
+      visibilityFilter?.addEventListener("change", updateResults);
+      eventFilter?.addEventListener("change", updateResults);
+      dateSort?.addEventListener("change", updateResults);
+
+      document.querySelectorAll<HTMLButtonElement>("[data-copy-url]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const url = button.dataset.copyUrl;
+          if (!url) return;
+          try {
+            await navigator.clipboard.writeText(url);
+            button.textContent = "已複製 ✓";
+            button.classList.add("copied");
+          } catch {
+            button.textContent = "複製失敗";
+          }
+          window.setTimeout(() => {
+            button.textContent = "複製 URL";
+            button.classList.remove("copied");
+          }, 1600);
+        });
+      });
+
+      const lightbox = document.querySelector<HTMLDialogElement>("#lightbox");
+      const lightboxImage = document.querySelector<HTMLImageElement>("#lightbox-image");
+      const closeButton = document.querySelector<HTMLButtonElement>("#lightbox-close");
+      const lightboxContent = document.querySelector<HTMLElement>(".lightbox-content");
+      let previewScrollY = 0;
+
+      document.querySelectorAll<HTMLButtonElement>("[data-preview-url]").forEach((button) => {
+        button.addEventListener("click", () => {
+          if (!lightbox || !lightboxImage) return;
+          previewScrollY = window.scrollY;
+          lightboxImage.src = button.dataset.previewUrl ?? "";
+          lightboxImage.alt = button.dataset.previewAlt ?? "圖片預覽";
+          lightbox.showModal();
+        });
+      });
+
+      closeButton?.addEventListener("click", () => lightbox?.close());
+      lightbox?.addEventListener("click", (event) => {
+        if (event.target === lightbox || event.target === lightboxContent) lightbox.close();
+      });
+      lightbox?.addEventListener("close", () => {
+        if (!lightboxImage) return;
+        lightboxImage.src = "";
+        lightboxImage.alt = "";
+        window.requestAnimationFrame(() => window.scrollTo(0, previewScrollY));
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; min-width: 320px; background: #f3f1ed; color: #27231f; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  :global(body:has(dialog[open])) { overflow: hidden; }
+  main { width: min(1480px, calc(100% - 48px)); margin: 0 auto; padding: 64px 0 80px; }
+  .page-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid #d6d0c8; }
+  .eyebrow { margin: 0 0 10px; color: #85786c; font-size: 12px; font-weight: 750; letter-spacing: .16em; }
+  h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(38px, 5vw, 64px); font-weight: 500; letter-spacing: -.03em; }
+  .intro { margin: 12px 0 0; color: #716860; }
+  .local-badge { flex: none; padding: 8px 13px; border: 1px solid #a9b9aa; border-radius: 999px; background: #e5eee5; color: #3f6043; font: 700 12px ui-monospace, monospace; }
+  .toolbar { display: grid; grid-template-columns: minmax(240px, 2fr) repeat(3, minmax(145px, 1fr)); gap: 12px; padding: 18px; border: 1px solid #d8d2ca; border-radius: 14px; background: rgb(255 255 255 / 70%); }
+  .toolbar label { display: grid; gap: 7px; min-width: 0; color: #716860; font-size: 12px; font-weight: 700; }
+  .toolbar input, .toolbar select { width: 100%; min-width: 0; height: 42px; border: 1px solid #d4cec6; border-radius: 8px; padding: 0 11px; background: #fff; color: #302a26; font: inherit; font-size: 14px; outline: none; }
+  .toolbar input:focus, .toolbar select:focus { border-color: #77695e; box-shadow: 0 0 0 3px rgb(119 105 94 / 12%); }
+  .results-summary { margin: 16px 2px; color: #7b7168; font-size: 13px; }
+  .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 22px; }
+  .media-card { overflow: hidden; border: 1px solid #d8d2ca; border-radius: 16px; background: #fff; box-shadow: 0 5px 20px rgb(63 51 39 / 6%); }
+  .media-card[hidden] { display: none; }
+  .thumbnail-frame { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: #dedad4; }
+  .preview-button { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+  .preview-button img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+  .preview-button:hover img, .preview-button:focus-visible img { transform: scale(1.055); }
+  .preview-button:focus-visible { outline: 3px solid #fff; outline-offset: -5px; }
+  .visibility { pointer-events: none; position: absolute; top: 12px; right: 12px; padding: 5px 9px; border-radius: 999px; color: white; font-size: 11px; font-weight: 750; text-transform: uppercase; letter-spacing: .07em; }
+  .visibility--public { background: rgb(45 105 64 / 92%); }
+  .visibility--private { background: rgb(88 77 67 / 92%); }
+  .card-body { padding: 18px; }
+  h2 { overflow: hidden; margin: 0 0 17px; font: 650 14px ui-monospace, SFMono-Regular, Consolas, monospace; text-overflow: ellipsis; white-space: nowrap; }
+  dl { display: grid; gap: 9px; margin: 0 0 18px; }
+  dl div { display: grid; grid-template-columns: 42px 1fr; gap: 9px; font-size: 13px; line-height: 1.5; }
+  dt { color: #91867c; }
+  dd { min-width: 0; margin: 0; }
+  dd a { color: #5d5148; text-decoration-color: #c1b7ae; text-underline-offset: 3px; }
+  .url-row { display: flex; gap: 8px; }
+  .url-row input { min-width: 0; flex: 1; padding: 9px 10px; border: 1px solid #d8d2ca; border-radius: 8px; background: #f8f7f5; color: #766d65; font: 11px ui-monospace, monospace; }
+  .copy-button { flex: none; min-width: 82px; border: 0; border-radius: 8px; padding: 9px 12px; background: #302a26; color: #fff; font-weight: 700; cursor: pointer; transition: background .2s, transform .2s; }
+  .copy-button:hover { background: #554a42; transform: translateY(-1px); }
+  .copy-button.copied { background: #3f7049; }
+  .empty-state { margin: 48px 0; color: #766d65; text-align: center; }
+  .lightbox { width: 100vw; max-width: none; height: 100vh; max-height: none; margin: 0; padding: 28px; border: 0; background: transparent; }
+  .lightbox::backdrop { background: rgb(20 18 16 / 86%); backdrop-filter: blur(5px); }
+  .lightbox-content { display: grid; place-items: center; width: 100%; height: 100%; }
+  .lightbox img { display: block; max-width: min(calc(100vw - 56px), 1500px); max-height: calc(100dvh - 80px); width: auto; height: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 18px 60px rgb(0 0 0 / 45%); }
+  .lightbox-close { position: fixed; z-index: 1; top: 20px; right: 24px; width: 44px; height: 44px; border: 1px solid rgb(255 255 255 / 38%); border-radius: 50%; background: rgb(25 22 20 / 72%); color: #fff; font-size: 30px; line-height: 1; cursor: pointer; }
+  @media (max-width: 900px) { .toolbar { grid-template-columns: 1fr 1fr; } .search-field { grid-column: 1 / -1; } }
+  @media (max-width: 600px) { main { width: min(100% - 28px, 1480px); padding-top: 36px; } .page-header { align-items: flex-start; flex-direction: column; } .toolbar { grid-template-columns: 1fr; } .search-field { grid-column: auto; } .media-grid { grid-template-columns: 1fr; } .lightbox { padding: 16px; } .lightbox img { max-width: calc(100vw - 32px); max-height: calc(100dvh - 72px); } }
+  @media (prefers-reduced-motion: reduce) { .preview-button img, .copy-button { transition: none; } .preview-button:hover img { transform: none; } }
+</style>
