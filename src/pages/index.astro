@@ -1,6 +1,8 @@
 ---
 import { events } from "../data/events";
 import { fanActivities } from "../data/fanActivities";
+import { peopleCharacters } from "../data/peopleCharacters";
+import { sourceCategories, sources } from "../data/sources";
 import { works } from "../data/works";
 
 const latestEvents = [...events]
@@ -14,6 +16,13 @@ const latestFanActivities = [...fanActivities]
 const latestWorks = [...works]
   .sort((a, b) => b.date.localeCompare(a.date))
   .slice(0, 3);
+
+const sourceCounts = sourceCategories.map((category) => ({
+  category,
+  count: sources.filter((source) => source.category === category).length,
+}));
+
+const characterCount = peopleCharacters.filter((entry) => entry.type === "character").length;
 ---
 
 <html lang="zh">
@@ -95,6 +104,7 @@ const latestWorks = [...works]
         <section>
           <h2>People & Characters</h2>
           <p>人物與角色</p>
+          <p class="character-summary">角色 {characterCount}</p>
           <p>查看人物與角色 →</p>
         </section>
       </a>
@@ -103,6 +113,11 @@ const latestWorks = [...works]
         <section>
           <h2>Sources</h2>
           <p>官方與可靠來源</p>
+          <p class="source-summary">
+            {sourceCounts.map(({ category, count }, index) => (
+              <span>{index > 0 && <span class="source-divider">｜</span>}{category} {count}</span>
+            ))}
+          </p>
           <p>查看來源 →</p>
         </section>
       </a>
@@ -302,6 +317,22 @@ const latestWorks = [...works]
 
   .works-subtitle {
     margin-top: 0;
+  }
+
+  .source-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    font-size: 14px;
+  }
+
+  .character-summary {
+    font-size: 14px;
+  }
+
+  .source-divider {
+    margin-right: 8px;
+    color: #b0a7a1;
   }
 
   .latest-works {
