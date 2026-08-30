@@ -5,6 +5,7 @@ import { peopleCharacters } from "../data/peopleCharacters";
 import { sourceCategories, sources } from "../data/sources";
 import { works } from "../data/works";
 import FooterSocialLinks from "../components/FooterSocialLinks.astro";
+import SeoHead from "../components/SeoHead.astro";
 
 const latestEvents = [...events]
   .sort((a, b) => b.date.localeCompare(a.date))
@@ -26,7 +27,7 @@ const sourceCounts = sourceCategories.map((category) => ({
 const characterCount = peopleCharacters.filter((entry) => entry.type === "character").length;
 ---
 
-<html lang="zh">
+<html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,6 +36,7 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
   name="description"
   content="陳偉霆（William Chan），中國香港出身的男歌手、演員，1985年11月21日出生。本網站整理陳偉霆的影視作品、音樂作品、角色、演藝活動、時間線、粉絲活動、日本粉絲小組及相關可靠來源。"
 />
+    <SeoHead />
   </head>
 
   <body>

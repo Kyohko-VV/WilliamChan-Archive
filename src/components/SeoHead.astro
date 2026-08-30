@@ -1,0 +1,9 @@
+---
+const productionOrigin = "https://williamchanfanpage.com";
+const pathname = Astro.url.pathname === "/"
+  ? "/"
+  : `${Astro.url.pathname.replace(/\/+$/, "")}/`;
+const canonicalUrl = new URL(pathname, productionOrigin).toString();
+---
+
+<link rel="canonical" href={canonicalUrl} />

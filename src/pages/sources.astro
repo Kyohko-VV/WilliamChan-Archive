@@ -1,6 +1,7 @@
 ---
 import { sourceCategories, sources } from "../data/sources";
 import FooterSocialLinks from "../components/FooterSocialLinks.astro";
+import SeoHead from "../components/SeoHead.astro";
 
 const groupedSources = sourceCategories.map((category) => ({
   category,
@@ -19,6 +20,7 @@ const groupedSources = sourceCategories.map((category) => ({
       content="William Chan Archive 使用的官方與可靠資料來源索引。"
     />
     <title>來源索引 | 陳偉霆資料庫</title>
+    <SeoHead />
   </head>
 
   <body>

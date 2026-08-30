@@ -1,6 +1,7 @@
 ---
 import { events } from "../data/events";
 import FooterSocialLinks from "../components/FooterSocialLinks.astro";
+import SeoHead from "../components/SeoHead.astro";
 
 const sortedEvents = [...events].sort((a, b) =>
   b.date.localeCompare(a.date)
@@ -15,6 +16,11 @@ const eventsByYear = Object.groupBy(
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>時間線 | 陳偉霆資料庫</title>
+    <meta
+      name="description"
+      content="陳偉霆（William Chan）演藝時間線，整理影視作品、音樂、舞台、活動、日本播出與相關可靠來源。"
+    />
+    <SeoHead />
   </head>
 
 <body>

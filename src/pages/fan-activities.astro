@@ -1,6 +1,7 @@
 ---
 import { fanActivities } from "../data/fanActivities";
 import FooterSocialLinks from "../components/FooterSocialLinks.astro";
+import SeoHead from "../components/SeoHead.astro";
 
 const activitiesByYear = [...fanActivities]
   .sort((a, b) => a.date.localeCompare(b.date))
@@ -17,6 +18,11 @@ const activitiesByYear = [...fanActivities]
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ウィリアム・チャン推し活 IN OSAKA（仮） | 陳偉霆資料庫</title>
+    <meta
+      name="description"
+      content="記錄在日本進行的陳偉霆（William Chan）推し活、應援、遠征與粉絲交流活動，以及相關照片與活動記錄。"
+    />
+    <SeoHead />
   </head>
 
   <body>

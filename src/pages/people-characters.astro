@@ -1,6 +1,7 @@
 ---
 import { peopleCharacters } from "../data/peopleCharacters";
 import FooterSocialLinks from "../components/FooterSocialLinks.astro";
+import SeoHead from "../components/SeoHead.astro";
 
 const people = peopleCharacters.filter((entry) => entry.type === "person");
 const characters = peopleCharacters.filter((entry) => entry.type === "character");
@@ -16,6 +17,7 @@ const characters = peopleCharacters.filter((entry) => entry.type === "character"
       content="William Chan Archive 的人物與影視角色索引。"
     />
     <title>人物與角色 | 陳偉霆資料庫</title>
+    <SeoHead />
   </head>
 
   <body>

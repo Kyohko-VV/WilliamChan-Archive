@@ -1,6 +1,7 @@
 ---
 import "../styles/event.css";
 import FooterSocialLinks from "../components/FooterSocialLinks.astro";
+import SeoHead from "../components/SeoHead.astro";
 
 interface Props {
   pageTitle: string;
@@ -22,6 +23,7 @@ const { pageTitle, description, date, dateTime, title, category, location } = As
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <SeoHead />
   </head>
 
   <body>
