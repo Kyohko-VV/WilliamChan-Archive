@@ -96,15 +96,48 @@ const activitiesByYear = [...fanActivities]
                       )}
                     </dl>
                     <p class="activity-description">{activity.description}</p>
+                    {activity.images && (
+                      <div class="activity-images">
+                        {activity.images.map((image) => (
+                          <figure>
+                            <img src={image.src} alt={image.alt} loading="lazy" />
+                            <figcaption>{image.alt}</figcaption>
+                          </figure>
+                        ))}
+                      </div>
+                    )}
+                    {activity.imageCredit && <p class="activity-image-credit">{activity.imageCredit}</p>}
+                    {activity.video && (
+                      <div class="activity-video">
+                        <p class="activity-video-title">{activity.video.title}</p>
+                        {activity.video.embedId && (
+                          <div class="activity-video-frame">
+                            <iframe
+                              src={`https://www.youtube.com/embed/${activity.video.embedId}`}
+                              title={activity.video.title}
+                              loading="lazy"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              allowfullscreen
+                            ></iframe>
+                          </div>
+                        )}
+                        <p>{activity.video.platform}｜{activity.video.source}</p>
+                        <a class="activity-video-link" href={activity.video.url} target="_blank" rel="noopener noreferrer">
+                          YouTubeで開く →
+                        </a>
+                      </div>
+                    )}
                     {activity.detailUrl && (
                       <a class="read-more" href={activity.detailUrl}>閱讀全文 →</a>
                     )}
                     {activity.source && (
                       <footer class="activity-source">
                         <p>
-                          原文來源：<a href={activity.source.url} target="_blank" rel="noopener noreferrer">note 文章 ↗</a>
+                          原文來源：<a href={activity.source.url} target="_blank" rel="noopener noreferrer">
+                            {activity.source.label ?? "note 文章"} ↗
+                          </a>
                         </p>
-                        <p>初出日期：{activity.source.publishedAt}</p>
+                        {activity.source.publishedAt && <p>初出日期：{activity.source.publishedAt}</p>}
                         <p>記録者：{activity.source.recorder}</p>
                       </footer>
                     )}
@@ -323,6 +356,92 @@ const activitiesByYear = [...fanActivities]
       line-height: 1.85;
     }
 
+    .activity-images {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .activity-images figure {
+      margin: 0;
+    }
+
+    .activity-images figure:only-child {
+      grid-column: 1 / -1;
+      width: min(100%, 520px);
+      justify-self: center;
+    }
+
+    .activity-images img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .activity-images figcaption {
+      margin-top: 8px;
+      color: #77706b;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .activity-image-credit {
+      margin: 6px 0 0;
+      color: #aaa19a;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+
+    .activity-video {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid #f0ece8;
+    }
+
+    .activity-video p {
+      margin: 3px 0;
+      color: #77706b;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .activity-video .activity-video-title {
+      margin-bottom: 10px;
+      color: #5f5955;
+    }
+
+    .activity-video-frame {
+      width: 100%;
+      max-width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #292624;
+      border-radius: 8px;
+    }
+
+    .activity-video-frame iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .activity-video a {
+      color: #746c66;
+      text-decoration-color: #aaa19a;
+      text-underline-offset: 3px;
+    }
+
+    .activity-video-link {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 13px;
+    }
+
     .read-more {
       display: inline-block;
       margin-top: 16px;
@@ -425,6 +544,10 @@ const activitiesByYear = [...fanActivities]
       .activity-entry dl {
         display: grid;
         gap: 6px;
+      }
+
+      .activity-images {
+        grid-template-columns: 1fr;
       }
 
       .group-introduction h3 {
