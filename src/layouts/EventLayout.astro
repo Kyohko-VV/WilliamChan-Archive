@@ -1,5 +1,6 @@
 ---
 import "../styles/event.css";
+import FooterSocialLinks from "../components/FooterSocialLinks.astro";
 
 interface Props {
   pageTitle: string;
@@ -41,6 +42,7 @@ const { pageTitle, description, date, dateTime, title, category, location } = As
     <footer class="site-footer">
       <div class="footer-inner">
         <p class="footer-title">陳偉霆資料庫 · William Chan Archive</p>
+        <FooterSocialLinks />
         <p class="footer-nav">Timeline ｜ Works ｜ People &amp; Characters ｜ Sources</p>
         <p>非官方粉絲資料庫</p>
         <p>本站內容僅作資料整理與記錄用途。</p>

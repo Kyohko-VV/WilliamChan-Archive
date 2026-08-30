@@ -1,5 +1,6 @@
 ---
 import { peopleCharacters } from "../data/peopleCharacters";
+import FooterSocialLinks from "../components/FooterSocialLinks.astro";
 
 const people = peopleCharacters.filter((entry) => entry.type === "person");
 const characters = peopleCharacters.filter((entry) => entry.type === "character");
@@ -126,6 +127,7 @@ const characters = peopleCharacters.filter((entry) => entry.type === "character"
     <footer class="site-footer">
       <div class="footer-inner">
         <p class="footer-title">陳偉霆資料庫 · William Chan Archive</p>
+        <FooterSocialLinks />
         <p>非官方粉絲資料庫</p>
         <p>本站內容僅作資料整理與記錄用途。</p>
         <p class="footer-copyright">© 2026 William Chan Archive</p>
