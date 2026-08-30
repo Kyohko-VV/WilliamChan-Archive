@@ -1,0 +1,172 @@
+---
+import FooterSocialLinks from "../../components/FooterSocialLinks.astro";
+import SeoHead from "../../components/SeoHead.astro";
+
+const title = "十年日記｜ずっと作りたかった形が、やっと少しずつ現実に";
+const description = "プログラミング未経験からAIと一緒に陳偉霆資料庫を作り、十年日記のような記録の形、著作権、Todayの自動計算、Codexとの共同作業、SEOまで学んだ過程を振り返る記録。";
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} | 陳偉霆資料庫</title>
+    <SeoHead title={`${title} | 陳偉霆資料庫`} description={description} />
+  </head>
+
+  <body>
+    <main>
+      <nav aria-label="返回">
+        <a href="/fan-activities" class="back">← 返回 Fan Activities</a>
+      </nav>
+      <p class="site-identity">陳偉霆資料庫 · William Chan Archive</p>
+
+      <article lang="ja">
+        <header>
+          <p class="category">網站記錄 / 推し活記錄</p>
+          <h1>{title}</h1>
+          <div class="article-meta">
+            <time datetime="2026-08-30">2026.08.30</time>
+            <span>記録者：Kyohko</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>ずっと前、WordPressで個人サイトを作っていた頃から、私は「十年日記」のようなページを作ってみたいと思っていました。</p>
+          <p>十年日記というのは、同じ日付について、違う年の記録を一つのページに並べて残していく形です。</p>
+          <p>たとえば「8月30日」という一つの日付を開くと、2023年、2024年、2025年、2026年……と、その日に何があったのかを何年分も一緒に振り返ることができる。</p>
+          <p>私は任天堂やファミ通がXで投稿する「今日は何の日？」のような企画が好きで、「23年前の今日はこのゲームの発売日でした」といった投稿を見るたびに、その時代の記憶まで一緒に戻ってくるような感覚がありました。</p>
+          <p>だから、陳偉霆を応援してきた時間も、同じように残せたらいいなと思っていました。</p>
+          <p>でも、私はプログラミング言語を何一つ知りません。</p>
+          <p>WordPressを使っていた頃にもいろいろ調べましたが、ブログは基本的に記事を投稿日順に積み上げていく仕組みなので、「同じ月日を年を越えて並べる」という形は簡単には作れない、という説明ばかりでした。</p>
+          <p>唯一できそうだったのがGoogleカレンダーを利用する方法でした。</p>
+          <p>実際に試してみたものの、ひたすらコピーして貼り付けて……それだけで目が回りそうになり、結局「これは長く続けられない」と諦めました。</p>
+          <p>そして最近、もう一度個人サイトを整理し直したくなりました。</p>
+          <p>そこでGeminiにもChatGPTにも聞いてみました。</p>
+          <p>「プログラミングをまったく知らない人でも、AIを使って個人サイトを作ることはできますか？」</p>
+          <p>返ってきた答えは、どちらも「できる」でした。</p>
+          <p>そこから、何を使うのか、どんな構成にするのか、どういう形なら長く続けられるのかを考え始めました。</p>
+          <p>最終的に、静的サイトとして作り、データを分けて管理し、必要なページ同士をつなげていく形にしました。</p>
+          <p>Timelineでは「いつ何があったのか」を時間順に見る。</p>
+          <p>Worksでは「作品・音楽・舞台」といった分類から見る。</p>
+          <p>People &amp; Charactersでは人物や役柄からたどる。</p>
+          <p>Sourcesでは公式・信頼できる情報源をまとめる。</p>
+          <p>Fan Activitiesでは、自分たちの日本での推し活の記録を残す。</p>
+          <p>そしてホームには「Today」を置き、その日に関係する記録を自動で見つけられるようにする。</p>
+          <p>最初から全部決まっていたわけではありません。</p>
+          <p>本当にゼロから、ChatGPTと一緒に「ここはこうしたい」「このカードはもう少し小さくしたい」「これはTimelineにもWorksにもあった方がいい」と、一つずつ考えて形にしていきました。</p>
+          <p>途中で特に印象に残ったのが、ChatGPTが著作権についてかなり厳しいことでした。</p>
+          <p>私は「中国では、日本とは少し感覚が違う部分もあるよ」と何度か言いましたが、それでも「公開サイトに載せるなら、出典や権利関係はできるだけ明確にした方がいい」と何度も止められました。</p>
+          <p>写真も、誰が撮ったものなのか。</p>
+          <p>公式が公開したものなのか。</p>
+          <p>自分に使用する権利があるのか。</p>
+          <p>引用なのか、転載なのか。</p>
+          <p>最初は「そこまで気にするの？」と思ったこともありました。</p>
+          <p>でも、長く残す資料庫を作るなら、後から「これはどこから来た画像だった？」と分からなくなる方が困る。</p>
+          <p>今では、自分の写真には <code>写真 © Kyohko</code> と入れ、公式写真には公式の出典を残し、外部のものはできるだけ元の情報源へ戻れる形にしています。</p>
+          <p>もう一つ、「AIを使ってよかった」と強く思ったのが自動計算でした。</p>
+          <p>たとえば『太陽星辰』が日本で放送された時。</p>
+          <p>私は最初、ホームのTodayに18話分の放送日を一つずつ貼り付けていくつもりでした。</p>
+          <p>以前の私なら、18個の日付を一つずつ作って、コピーして、確認して……という作業になっていたと思います。</p>
+          <p>でもChatGPTは「毎回手で書かなくても、開始日と放送ルールから計算すればいい」と言いました。</p>
+          <p>そこで計算する仕組みにしたら、18話分の表示問題が一気に解決しました。</p>
+          <p>あの時は、本当に「そういう考え方があるのか」と驚きました。</p>
+          <p>さらに途中から、Codexの中でChatGPTを使う方法も覚えました。</p>
+          <p>今では、私、スマホのChatGPT、そしてCodexの中のChatGPTという三者で作業しているような状態です。</p>
+          <p>特にスマホのChatGPTが作る指示はかなり細かいです。</p>
+          <p>「これをやってください」だけではなく、</p>
+          <p>「これは変更しないでください」</p>
+          <p>「Timelineは触らないでください」</p>
+          <p>「他の未完成ファイルはcommitしないでください」</p>
+          <p>「先にbuildして、確認してから止まってください」</p>
+          <p>と、「やってほしいこと」より「やってほしくないこと」の方が長いことさえあります。</p>
+          <p>以前ChatGPTに、</p>
+          <p>「Codexは頑張りすぎるので、放っておくと暴走することがあります」</p>
+          <p>と言われて、思わず笑いました。</p>
+          <p>でも考えてみれば、人間だって同じなのかもしれません。</p>
+          <p>良かれと思ってやりすぎて、結果として余計なところまで触ってしまう。</p>
+          <p>だからこそ、やることだけではなく、「どこまでやるか」「何をしないか」を決めることが大事なのだと思います。</p>
+          <p>そして今日、ようやくサイトの大きな骨格が一通りできました。</p>
+          <p>Timeline、Works、People &amp; Characters、Sources、Fan Activities。</p>
+          <p>ローカルだけで使うMedia Library。</p>
+          <p>スマホ表示の調整。</p>
+          <p>自分のSNSへの小さなリンク。</p>
+          <p>画像の管理。</p>
+          <p>公開ページと非公開ページの分離。</p>
+          <p>さらにSEOについても、</p>
+          <ul>
+            <li>各ページのtitle</li>
+            <li>meta description</li>
+            <li>canonical URL</li>
+            <li>sitemap</li>
+            <li>robots.txt</li>
+            <li>Open Graph</li>
+            <li>Xのシェア情報</li>
+            <li>SNS用の共有画像</li>
+          </ul>
+          <p>まで、一つずつ整えていきました。</p>
+          <p>もちろん、これで完成というわけではありません。</p>
+          <p>これから作品も増えるし、Timelineも増えるし、推し活の記録も増えていく。</p>
+          <p>でも、「サイトを作る」という最初の大きな山は、一度越えたような気がします。</p>
+          <p>そして今回作っているサイトは、基本的に公開情報を整理するためのものです。</p>
+          <p>個人情報を集める仕組みもなく、ユーザー登録もなく、誰かのプライベートな情報を保存するようなサイトでもありません。</p>
+          <p>だからこそ、私のようにプログラミングを知らない人間でも、AIに確認しながら一つずつ進めることで、比較的安全に学びながら作ることができました。</p>
+          <p>知らない分野に入るのは、いつでも少し怖いです。</p>
+          <p>でも、知らなかったことを一つ覚える。</p>
+          <p>昨日できなかったことが、今日は少し分かる。</p>
+          <p>それだけでも、十分に面白い。</p>
+          <p>そして、好きな人がいるからこそ、今まで触れたことのなかったことまでやってみようと思える。</p>
+          <p>それもまた、私が陳偉霆を好きでいる理由の一つなのかもしれません。</p>
+          <p>あの頃作れなかった「十年日記」の形も、今なら少しずつ近づける気がしています。</p>
+          <p>今日の記録が、数年後の同じ日に並んで表示される日を想像すると、それだけで少し楽しみです。</p>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-title">陳偉霆資料庫 · William Chan Archive</p>
+        <FooterSocialLinks />
+        <p class="footer-nav">Timeline ｜ Works ｜ People &amp; Characters ｜ Sources</p>
+        <p>非官方粉絲資料庫</p>
+        <p>本站內容僅作資料整理與記錄用途。</p>
+        <p class="footer-copyright">© 2026 William Chan Archive</p>
+      </div>
+    </footer>
+  </body>
+
+  <style>
+    :global(*) { box-sizing: border-box; }
+    :global(body) { margin: 0; background: #f8f6f3; color: #292624; font-family: "Noto Sans TC", "Noto Sans JP", Arial, sans-serif; }
+    main { width: 88%; max-width: 800px; margin: 0 auto; padding: 50px 0 80px; }
+    .back { display: inline-block; margin-bottom: 30px; color: #77706b; text-decoration: none; }
+    .site-identity { margin: -18px 0 28px; color: #958d87; font-size: 13px; letter-spacing: .3px; }
+    article { padding: 48px 54px 54px; background: #fff; border: 1px solid #e5e1dc; border-radius: 12px; }
+    header { padding-bottom: 28px; border-bottom: 1px solid #ebe6e2; }
+    .category { margin: 0 0 12px; color: #8a6f5b; font-size: 14px; font-weight: 600; letter-spacing: .4px; }
+    h1 { margin: 0 0 16px; font-size: clamp(28px, 5vw, 40px); line-height: 1.4; letter-spacing: .3px; }
+    .article-meta { display: flex; flex-wrap: wrap; gap: 6px 16px; color: #77706b; font-size: 14px; }
+    .article-body { margin-top: 32px; }
+    .article-body p, .article-body li { color: #4f4945; font-size: 17px; line-height: 2; }
+    .article-body p { margin: 0 0 1.45em; }
+    .article-body p:last-child { margin-bottom: 0; }
+    .article-body ul { margin: -.35em 0 1.45em; padding-left: 1.5em; }
+    .article-body code { color: #423d39; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .9em; }
+    .site-footer { margin-top: 24px; padding: 32px 8%; background: #675f5a; border-top: 4px solid #d8d0ca; color: #e3ddd8; }
+    .footer-inner { width: 100%; max-width: 1100px; margin: 0 auto; }
+    .site-footer p { margin: 6px 0; font-size: 14px; line-height: 1.55; }
+    .site-footer .footer-title { margin-top: 0; color: #f5f1ee; font-weight: 600; }
+    .footer-nav { overflow-wrap: anywhere; }
+    .footer-copyright { margin-bottom: 0; color: #c6bdb7; }
+    @media (max-width: 700px) {
+      main { width: 88%; padding: 30px 0 50px; }
+      article { padding: 30px 22px 34px; }
+      .article-body { margin-top: 26px; }
+      .article-body p, .article-body li { font-size: 16px; line-height: 1.9; }
+      .site-footer { margin-top: 10px; padding: 22px 6%; }
+      .site-footer p { margin: 4px 0; font-size: 13px; line-height: 1.45; }
+    }
+  </style>
+</html>

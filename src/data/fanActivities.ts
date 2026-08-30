@@ -18,6 +18,8 @@ export interface FanActivity {
     source: string;
   };
   detailUrl?: string;
+  detailLabel?: string;
+  recorder?: string;
   source?: {
     url: string;
     label?: string;
@@ -27,6 +29,16 @@ export interface FanActivity {
 }
 
 export const fanActivities: FanActivity[] = [
+  {
+    date: "2026-08-30",
+    title: "十年日記｜ずっと作りたかった形が、やっと少しずつ現実に",
+    category: "サイト記録・推し活記録",
+    description:
+      "ずっと作りたかった「十年日記」のような形を、AIと一緒に少しずつ実現してきた記録。WordPress時代にできなかったこと、ChatGPTやCodexとの共同作業、著作権、Todayの自動計算、SEOまで、サイトづくりを通して学んだことを振り返ります。",
+    detailUrl: "/fan-activities/2026-08-30-ten-year-diary",
+    detailLabel: "全文を読む →",
+    recorder: "Kyohko",
+  },
   {
     date: "2024-09-28",
     title: "William誕生日応援｜お祝い動画撮影会",

@@ -104,6 +104,12 @@ const activitiesByYear = [...fanActivities]
                           <dd>{activity.participants}</dd>
                         </div>
                       )}
+                      {activity.recorder && (
+                        <div>
+                          <dt>記録者</dt>
+                          <dd>{activity.recorder}</dd>
+                        </div>
+                      )}
                     </dl>
                     <p class="activity-description">{activity.description}</p>
                     {activity.images && (
@@ -138,7 +144,7 @@ const activitiesByYear = [...fanActivities]
                       </div>
                     )}
                     {activity.detailUrl && (
-                      <a class="read-more" href={activity.detailUrl}>閱讀全文 →</a>
+                      <a class="read-more" href={activity.detailUrl}>{activity.detailLabel ?? "閱讀全文 →"}</a>
                     )}
                     {activity.source && (
                       <footer class="activity-source">
