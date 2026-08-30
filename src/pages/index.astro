@@ -405,7 +405,13 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
 
   .footer-nav a {
     color: inherit;
+    text-decoration: none;
     text-underline-offset: 3px;
+  }
+
+  .footer-nav a:hover,
+  .footer-nav a:focus-visible {
+    text-decoration: underline;
   }
 
   .footer-copyright {
