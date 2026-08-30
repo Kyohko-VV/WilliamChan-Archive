@@ -1,9 +1,28 @@
 ---
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+}
+
+const { title, description, ogImage } = Astro.props;
 const productionOrigin = "https://williamchanfanpage.com";
+const defaultSocialImage = "https://media.williamchanfanpage.com/williamchan-archive-share.png";
 const pathname = Astro.url.pathname === "/"
   ? "/"
   : `${Astro.url.pathname.replace(/\/+$/, "")}/`;
 const canonicalUrl = new URL(pathname, productionOrigin).toString();
+const imageUrl = new URL(ogImage ?? defaultSocialImage, productionOrigin).toString();
 ---
 
 <link rel="canonical" href={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="William Chan Archive" />
+<meta property="og:image" content={imageUrl} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />

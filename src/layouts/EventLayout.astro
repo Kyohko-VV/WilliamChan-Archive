@@ -11,9 +11,11 @@ interface Props {
   title: string;
   category?: string;
   location?: string;
+  ogImage?: string;
+  socialImage?: string;
 }
 
-const { pageTitle, description, date, dateTime, title, category, location } = Astro.props;
+const { pageTitle, description, date, dateTime, title, category, location, ogImage, socialImage } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,7 +25,7 @@ const { pageTitle, description, date, dateTime, title, category, location } = As
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <SeoHead />
+    <SeoHead title={pageTitle} description={description} ogImage={ogImage ?? socialImage} />
   </head>
 
   <body>
