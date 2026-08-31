@@ -54,16 +54,67 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
 
         <section aria-labelledby="music-heading">
           <h2 id="music-heading">音樂</h2>
-          {musicWorks.length > 0 ? musicWorks.map((work) => (
-            <a class="work-link" href={work.href}>
-              <article>
-                <p class="work-date"><time datetime={work.date.replaceAll(".", "-")}>{work.date}</time></p>
-                <h3>{work.title}</h3>
-                <p class="work-location">{work.location}</p>
-                <p class="detail-link">查看活動詳情 →</p>
+          {musicWorks.length > 0 ? musicWorks.map((work) => {
+            const relatedStages = work.relatedStages
+              ?.map((stageHref) => works.find((candidate) => candidate.href === stageHref))
+              .filter((stage) => stage !== undefined);
+
+            return (
+              <article class="music-work-card">
+                <div class="music-work-info">
+                  <p class="work-date"><time datetime={work.releaseDate ?? work.date}>{work.releaseDate ?? work.date}</time></p>
+                  <h3>{work.title}</h3>
+                  {(work.type || work.artist) && (
+                    <p class="music-metadata">
+                      {work.type && <span>{work.type}</span>}
+                      {work.type && work.artist && <span aria-hidden="true"> · </span>}
+                      {work.artist && <span>{work.artist}</span>}
+                    </p>
+                  )}
+                  {work.streamingLinks && (
+                    <div class="work-links">
+                      <p>官方收聽</p>
+                      <ul class="music-link-list">
+                        {work.streamingLinks.map((link) => (
+                          <li>
+                            {link.url ? (
+                              <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a>
+                            ) : link.label}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {work.officialSources && (
+                    <div class="work-links">
+                      <p>官方來源</p>
+                      <ul>
+                        {work.officialSources.map((source) => (
+                          <li>
+                            <a href={source.url} target="_blank" rel="noopener noreferrer">{source.displayName}</a>
+                            <span>｜{source.type}</span>
+                            {source.note && <blockquote>{source.note}</blockquote>}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {relatedStages && relatedStages.length > 0 && (
+                    <div class="work-links">
+                      {relatedStages.map((stage) => (
+                        <p class="related-stage-link">相關舞台：<a href={stage.href}>{stage.title}</a></p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                {work.cover && (
+                  <div class="music-cover-wrap">
+                    <img class="work-cover" src={work.cover.src} alt={work.cover.alt} loading="lazy" />
+                  </div>
+                )}
               </article>
-            </a>
-          )) : <p class="empty-state">內容整理中。</p>}
+            );
+          }) : <p class="empty-state">內容整理中。</p>}
         </section>
 
         <section aria-labelledby="stage-heading">
@@ -206,6 +257,107 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
       line-height: 1.6;
     }
 
+    .related-timeline {
+      margin-top: 16px;
+    }
+
+    .work-links {
+      margin-top: 16px;
+    }
+
+    .work-links ul {
+      margin: 6px 0 0;
+      padding-left: 20px;
+    }
+
+    .work-links li + li {
+      margin-top: 5px;
+    }
+
+    .work-links a,
+    .work-location a {
+      color: #675f5a;
+      line-height: 1.6;
+      text-underline-offset: 3px;
+    }
+
+    .work-links blockquote {
+      margin: 10px 0 0;
+      padding-left: 12px;
+      border-left: 3px solid #d8d0ca;
+      color: #958d87;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    .related-stage-link {
+      font-size: 13px;
+    }
+
+    .music-work-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(120px, 34%);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .music-work-info {
+      min-width: 0;
+    }
+
+    .music-metadata {
+      color: #5f5955;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .music-link-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px 16px;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .music-cover-wrap {
+      width: 100%;
+      max-width: 180px;
+      justify-self: end;
+    }
+
+    @media (min-width: 900px) {
+      .related-stage-link {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: baseline;
+        white-space: nowrap;
+      }
+    }
+
+    .work-cover {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .related-timeline ul {
+      margin: 6px 0 0;
+      padding-left: 20px;
+    }
+
+    .related-timeline li + li {
+      margin-top: 5px;
+    }
+
+    .related-timeline a {
+      color: #675f5a;
+      line-height: 1.6;
+      text-underline-offset: 3px;
+    }
+
     article .detail-link {
       margin-top: 14px;
       color: #675f5a;
@@ -276,6 +428,17 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
 
       section:last-child {
         grid-column: auto;
+      }
+
+      .music-work-card {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .music-cover-wrap {
+        width: 100%;
+        max-width: none;
+        justify-self: stretch;
       }
 
       .site-footer {
