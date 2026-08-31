@@ -1,5 +1,7 @@
 ---
 import { works } from "../data/works";
+import { events } from "../data/events";
+import { peopleCharacters } from "../data/peopleCharacters";
 import FooterSocialLinks from "../components/FooterSocialLinks.astro";
 import SeoHead from "../components/SeoHead.astro";
 
@@ -37,19 +39,84 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
       <div class="category-grid">
         <section aria-labelledby="screen-heading">
           <h2 id="screen-heading">影視</h2>
-          {screenWorks.length > 0 ? screenWorks.map((work) => (
-            <a class="work-link" href={work.href}>
+          {screenWorks.length > 0 ? screenWorks.map((work) => {
+            const character = work.characterId
+              ? peopleCharacters.find((entry) => entry.id === work.characterId && entry.type === "character")
+              : undefined;
+            const content = (
               <article>
                 <p class="work-date"><time datetime={work.date.replaceAll(".", "-")}>{work.date}</time></p>
                 <h3>{work.title}</h3>
-                {work.href === "/events/2026-our-dormitory-party" && (
-                  <p class="work-type">綜藝／節目</p>
+                {work.type && <p class="work-type">{work.type}</p>}
+                {work.href === "/events/2026-our-dormitory-party" && <p class="work-type">綜藝／節目</p>}
+                {work.platform && (
+                  <p class="work-location">{work.distribution ? `${work.platform}｜${work.distribution}` : work.platform}</p>
                 )}
-                <p class="work-location">{work.location}</p>
-                <p class="detail-link">查看活動詳情 →</p>
+                {work.internationalPlatform && <p class="work-location">{work.internationalPlatform}</p>}
+                {work.episodes && <p class="work-location">{work.type === "劇集" ? `${work.episodes}集` : `全${work.episodes}集`}</p>}
+                {work.leadActor && <p class="work-location">主演：{work.leadActor}</p>}
+                {work.role && <p class="work-location">陳偉霆 飾 {work.role}</p>}
+                {character && (
+                  <p class="work-location">
+                    角色：<a href={`/people-characters#${character.id}`}>{character.name}</a>
+                  </p>
+                )}
+                {work.premiereTime && <p class="work-location">開播時間：{work.premiereTime}</p>}
+                {work.japaneseTitle && <p class="work-location">日文名：{work.japaneseTitle}</p>}
+                {work.location && <p class="work-location">{work.location}</p>}
+                {work.watchLinks && (
+                  <div class="work-links">
+                    <p>官方觀看入口</p>
+                    <ul>
+                      {work.watchLinks.map((link) => (
+                        <li>
+                          {link.url ? (
+                            <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a>
+                          ) : link.label}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {work.sources && (
+                  <div class="work-links">
+                    <p>作品官方來源</p>
+                    <ul>
+                      {work.sources.map((source) => (
+                        <li>
+                          <a href={source.url} target="_blank" rel="noopener noreferrer">
+                            {source.displayName}
+                          </a>
+                          <span>｜{source.platform}｜{source.type}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {work.relatedEvents && (
+                  <div class="related-timeline">
+                    <p>相關時間線</p>
+                    <ul>
+                      {work.relatedEvents.map((eventId) => {
+                        const relatedEvent = events.find((event) => event.id === eventId);
+
+                        return relatedEvent && (
+                          <li>
+                            <a href={`/timeline#${eventId}`}>
+                              {relatedEvent.date.replaceAll("-", ".")} {relatedEvent.title.replace(/^《[^》]+》/, "").trim()}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                )}
+                {work.href && <p class="detail-link">查看活動詳情 →</p>}
               </article>
-            </a>
-          )) : <p class="empty-state">內容整理中。</p>}
+            );
+
+            return work.href ? <a class="work-link" href={work.href}>{content}</a> : content;
+          }) : <p class="empty-state">內容整理中。</p>}
         </section>
 
         <section aria-labelledby="music-heading">

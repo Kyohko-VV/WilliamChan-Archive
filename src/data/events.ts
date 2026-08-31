@@ -7,18 +7,27 @@ export const events = [
       "惠英紅接受1905電影網《對話》欄目採訪時，陳偉霆帶著花和燕窩驚喜探班，並笑稱自己是紅姐的「頭號寶貝」。同日，他亦發微博為惠英紅主演的電影《電影數到三》上映應援。",
   },
   {
+    id: "taiyo-to-hoshi-japan-rebroadcast-2026-08-26",
     date: "2026-08-26",
-    title: "《太陽と星辰（ほし）－時を越える追跡者－》日本播出開始",
+    title: "《太陽と星辰（ほし）－時を越える追跡者－》日本再次播出開始",
     category: "電視劇／日本播出",
     description:
       "《太陽と星辰（ほし）－時を越える追跡者－》於日本的チャンネル銀河開始播出。播出期間為2026年8月26日至9月18日，週一至週五24:00～25:00，全18集。",
     href: "/events/2026-taiyo-to-hoshi-japan-broadcast",
   },
   {
+    id: "jiu-men-celebration-2026-08-26",
     date: "2026-08-26",
     title: "《九門》慶功宴",
     category: "活動",
     description: "《九門》相關慶功活動記錄。",
+  },
+  {
+    id: "jiu-men-finale-2026-08-22",
+    date: "2026-08-22",
+    title: "《九門》收官",
+    category: "劇集",
+    description: "《九門》正式收官。",
   },
   {
     date: "2026-08-25",
@@ -37,6 +46,13 @@ export const events = [
     href: "/events/2026-tima",
   },
   {
+    id: "jiu-men-premiere-2026-07-30",
+    date: "2026-07-30",
+    title: "《九門》開播",
+    category: "劇集",
+    description: "12:00（北京時間）於優酷全網獨播。",
+  },
+  {
     date: "2026-08-21",
     title: "陳偉霆資料庫建立",
     category: "網站紀錄",
@@ -44,5 +60,13 @@ export const events = [
     anchor: "database-created-2026-08-21",
     relatedHref: "/fan-activities/2026-08-23-return-to-personal-website",
     relatedLabel: "閱讀建站記錄 →",
+  },
+  {
+    id: "taiyo-to-hoshi-japan-premiere-2026-06-25",
+    date: "2026-06-25",
+    title: "《太陽と星辰（ほし）－時を越える追跡者－》日本首次播出開始",
+    category: "電視劇／日本播出",
+    description:
+      "チャンネル銀河於2026年6月25日起播出，週一至週五09:30～10:30，全18集，最終話於2026年7月20日播出。另於6月7日21:00～22:00先行播出第1集。",
   },
 ];
