@@ -1,0 +1,96 @@
+---
+import BrandEditorialCard from "../components/BrandEditorialCard.astro";
+import SeoHead from "../components/SeoHead.astro";
+import { brandEditorialEntries } from "../data/brandEditorial";
+
+const title = "Brand / Editorial | 陳偉霆資料庫";
+const description = "整理陳偉霆的品牌合作、廣告、珠寶活動與雜誌／時尚 Editorial 相關官方及媒體來源。";
+---
+
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <SeoHead title={title} description={description} />
+  </head>
+
+  <body>
+    <main>
+      <a class="back" href="/">← 返回首頁</a>
+
+      <header>
+        <h1>Brand / Editorial</h1>
+        <p>品牌合作、廣告與雜誌／時尚 Editorial 記錄。</p>
+      </header>
+
+      <div class="entries">
+        {brandEditorialEntries.map((entry) => <BrandEditorialCard entry={entry} />)}
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(body) {
+    margin: 0;
+    background: #f7f5f2;
+    color: #292624;
+    font-family: "Noto Sans TC", "Noto Sans JP", Arial, sans-serif;
+  }
+
+  main {
+    width: 88%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 0 80px;
+  }
+
+  .back {
+    display: inline-block;
+    margin-bottom: 30px;
+    color: #77706b;
+    text-decoration: none;
+  }
+
+  .back:hover,
+  .back:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  header {
+    margin-bottom: 35px;
+  }
+
+  h1 {
+    margin: 0 0 10px;
+    font-size: 36px;
+  }
+
+  header p {
+    margin: 0;
+    color: #77706b;
+    line-height: 1.7;
+  }
+
+  .entries {
+    display: grid;
+    gap: 20px;
+  }
+
+  @media (max-width: 700px) {
+    main {
+      padding: 30px 0 50px;
+    }
+
+    h1 {
+      font-size: 30px;
+    }
+  }
+</style>

@@ -30,6 +30,13 @@ export const events = [
     description: "《九門》正式收官。",
   },
   {
+    id: "chanel-signes-symboles-shanghai-2026",
+    date: "2026-08-20",
+    title: "陳偉霆出席 CHANEL SIGNES & SYMBOLES 臻品珠寶活動（上海）",
+    category: "品牌活動／珠寶活動",
+    description: "陳偉霆以品牌形象大使身份出席上海活動。",
+  },
+  {
     date: "2026-08-25",
     title: "《我們的宿舍》",
     category: "綜藝／節目",

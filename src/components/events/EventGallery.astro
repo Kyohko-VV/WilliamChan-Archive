@@ -1,5 +1,6 @@
 ---
 import EventSection from "./EventSection.astro";
+import GalleryCarousel from "./GalleryCarousel.astro";
 
 interface GalleryItem {
   title: string;
@@ -17,63 +18,6 @@ const { items } = Astro.props;
 
 {items.length > 0 && (
   <EventSection id="gallery-heading" title="照片集" englishLabel="Gallery">
-    <div class="gallery-carousel" data-gallery-carousel>
-      <div class="gallery-grid">
-        {items.map((item, index) => (
-          <figure class:list={["gallery-item", { "is-active": index === 0 }]}>
-            <a
-              class="gallery-image-link"
-              href={item.image}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`開啟${item.source}原圖`}
-            >
-              <img src={item.image} alt={item.title} loading="lazy" />
-            </a>
-            <figcaption>
-              <p>{item.title}</p>
-              <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">
-                來源：{item.source}
-              </a>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-
-      <div class="gallery-controls" aria-label="照片切換控制">
-        <button type="button" data-gallery-previous>← 上一張</button>
-        <p class="gallery-counter" aria-live="polite">
-          <span data-gallery-current>1</span> / {items.length}
-        </p>
-        <button type="button" data-gallery-next>下一張 →</button>
-      </div>
-    </div>
+    <GalleryCarousel items={items} />
   </EventSection>
 )}
-
-<script>
-  document.querySelectorAll<HTMLElement>("[data-gallery-carousel]").forEach((carousel) => {
-    const items = Array.from(carousel.querySelectorAll<HTMLElement>(".gallery-item"));
-    const previousButton = carousel.querySelector<HTMLButtonElement>("[data-gallery-previous]");
-    const nextButton = carousel.querySelector<HTMLButtonElement>("[data-gallery-next]");
-    const currentLabel = carousel.querySelector<HTMLElement>("[data-gallery-current]");
-    const desktopGallery = window.matchMedia("(min-width: 701px)");
-    let currentIndex = 0;
-
-    const showItem = (index: number) => {
-      currentIndex = (index + items.length) % items.length;
-      items.forEach((item, itemIndex) => {
-        const isCurrent = itemIndex === currentIndex;
-        item.classList.toggle("is-active", isCurrent);
-        item.hidden = desktopGallery.matches && !isCurrent;
-      });
-
-      if (currentLabel) currentLabel.textContent = String(currentIndex + 1);
-    };
-
-    previousButton?.addEventListener("click", () => showItem(currentIndex - 1));
-    nextButton?.addEventListener("click", () => showItem(currentIndex + 1));
-    desktopGallery.addEventListener("change", () => showItem(currentIndex));
-    showItem(0);
-  });
-</script>

@@ -1,0 +1,210 @@
+---
+import type { BrandEditorialEntry, BrandEditorialSource } from "../data/brandEditorial";
+import GalleryCarousel from "./events/GalleryCarousel.astro";
+
+interface Props {
+  entry: BrandEditorialEntry;
+}
+
+const { entry } = Astro.props;
+
+const sourceGroups: { label: string; sources: BrandEditorialSource[] }[] = [
+  { label: "官方／第一手", sources: entry.officialSources },
+  { label: "正式 Editorial", sources: entry.editorialSources },
+  { label: "延伸時尚／珠寶內容", sources: entry.mediaSources },
+];
+
+const galleryItems = entry.images.map((image) => ({
+  title: "",
+  image: image.url,
+  alt: image.alt,
+  ariaLabel: `開啟${image.alt}原圖`,
+  hideCaption: true,
+}));
+---
+
+<section class="brand-editorial-card" aria-labelledby={`brand-editorial-${entry.id}`}>
+  <p class="eyebrow">Brand / Editorial</p>
+  <h2 id={`brand-editorial-${entry.id}`}>{entry.brand}</h2>
+  <h3>{entry.title}</h3>
+
+  <dl class="metadata">
+    <div><dt>日期</dt><dd>{entry.date}</dd></div>
+    <div><dt>類型</dt><dd>{entry.type}</dd></div>
+    <div><dt>地點</dt><dd>{entry.location}</dd></div>
+    <div><dt>陳偉霆身份</dt><dd>{entry.role}</dd></div>
+  </dl>
+
+  <p class="summary">{entry.summary}</p>
+
+  {entry.images.length > 0 && (
+    <div class="gallery" aria-label={`${entry.brand} ${entry.title} 活動圖片`}>
+      <GalleryCarousel items={galleryItems} />
+    </div>
+  )}
+
+  <div class="source-groups">
+    {sourceGroups.map((group) => (
+      <section class="source-group">
+        <h4>{group.label}</h4>
+        <ul>
+          {group.sources.map((source) => (
+            <li>
+              <p class="source-heading">
+                <a href={source.url} target="_blank" rel="noopener noreferrer">{source.name}</a>
+                <span>{source.type}</span>
+              </p>
+              <p>{source.summary}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</section>
+
+<style>
+  .brand-editorial-card {
+    grid-column: 1 / -1;
+    padding: 28px;
+    background: #fff;
+    border: 1px solid #ebe6e2;
+    border-radius: 14px;
+  }
+
+  .eyebrow {
+    margin: 0 0 8px;
+    color: #9a7d55;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    margin-bottom: 6px;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .metadata {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin: 22px 0 0;
+  }
+
+  .metadata div {
+    padding: 12px 14px;
+    background: #f8f6f3;
+    border-radius: 8px;
+  }
+
+  dt {
+    color: #958d87;
+    font-size: 12px;
+  }
+
+  dd {
+    margin: 5px 0 0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .summary {
+    margin-top: 20px;
+    line-height: 1.7;
+  }
+
+  .gallery {
+    width: 100%;
+    max-width: 904px;
+    margin-top: 24px;
+    margin-inline: auto;
+  }
+
+  .source-groups {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .source-group {
+    padding: 18px;
+    background: #fbfaf8;
+    border: 1px solid #eee9e4;
+    border-radius: 10px;
+  }
+
+  h4 {
+    margin: 0 0 14px;
+    font-size: 15px;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li + li {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e8e2dd;
+  }
+
+  .source-group p {
+    margin: 5px 0 0;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .source-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 5px 8px;
+  }
+
+  .source-heading a {
+    color: #3d3835;
+    font-weight: 600;
+    text-underline-offset: 3px;
+  }
+
+  .source-heading span {
+    color: #9a7d55;
+    font-size: 11px;
+  }
+
+  @media (max-width: 800px) {
+    .metadata,
+    .source-groups {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .source-group:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .brand-editorial-card {
+      padding: 20px;
+    }
+
+    .metadata,
+    .source-groups {
+      grid-template-columns: 1fr;
+    }
+
+    .source-group:last-child {
+      grid-column: auto;
+    }
+  }
+</style>

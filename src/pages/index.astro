@@ -4,6 +4,7 @@ import { fanActivities } from "../data/fanActivities";
 import { peopleCharacters } from "../data/peopleCharacters";
 import { sourceCategories, sources } from "../data/sources";
 import { works } from "../data/works";
+import { brandEditorialEntries } from "../data/brandEditorial";
 import FooterSocialLinks from "../components/FooterSocialLinks.astro";
 import SeoHead from "../components/SeoHead.astro";
 
@@ -16,6 +17,10 @@ const latestFanActivities = [...fanActivities]
   .slice(0, 3);
 
 const latestWorks = [...works]
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 3);
+
+const latestBrandEditorialEntries = [...brandEditorialEntries]
   .sort((a, b) => b.date.localeCompare(a.date))
   .slice(0, 3);
 
@@ -104,6 +109,23 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
         </div>
 
         <p><a class="all-works-link" href="/works">查看全部作品 →</a></p>
+      </section>
+
+      <section class="brand-editorial-preview">
+        <h2>Brand / Editorial</h2>
+        <p class="brand-editorial-subtitle">品牌合作・廣告・雜誌</p>
+
+        <div class="latest-brand-editorial">
+          {latestBrandEditorialEntries.map((entry) => (
+            <p>
+              <strong>{entry.date}</strong>
+              {"　"}
+              <a href="/brand-editorial">{entry.brand}｜{entry.title}</a>
+            </p>
+          ))}
+        </div>
+
+        <p><a class="all-works-link" href="/brand-editorial">查看全部 →</a></p>
       </section>
 
       <a href="/people-characters" class="card-link">
@@ -324,6 +346,29 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
 
   .works-subtitle {
     margin-top: 0;
+  }
+
+  .brand-editorial-subtitle {
+    margin-top: 0;
+  }
+
+  .latest-brand-editorial {
+    margin-top: 20px;
+  }
+
+  .latest-brand-editorial p {
+    margin-top: 0;
+    line-height: 1.6;
+  }
+
+  .latest-brand-editorial a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .latest-brand-editorial a:hover,
+  .latest-brand-editorial a:focus-visible {
+    text-decoration: underline;
   }
 
   .source-summary {
