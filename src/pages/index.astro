@@ -182,6 +182,7 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
 <script>
   import { events } from "../data/events";
   import { getTaiyoToHoshiBroadcast } from "../utils/taiyoToHoshiBroadcast.js";
+  import { getWatashiNoKanpekiNaKekkonBroadcast } from "../utils/watashiNoKanpekiNaKekkonBroadcast.js";
 
   const now = new Date();
 
@@ -210,6 +211,7 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
     (event) => event.date.slice(5) === today && event.date.slice(0, 4) !== year
   );
   const broadcast = getTaiyoToHoshiBroadcast(now);
+  const watashiNoKanpekiNaKekkonBroadcast = getWatashiNoKanpekiNaKekkonBroadcast(now);
 
   if (currentContainer) {
     const currentEventsHtml = currentEvents.map((event) => `
@@ -231,7 +233,16 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
       </article>
     ` : "";
 
-    currentContainer.innerHTML = currentEventsHtml + broadcastHtml || "<p>暫無記錄</p>";
+    const watashiNoKanpekiNaKekkonBroadcastHtml = watashiNoKanpekiNaKekkonBroadcast ? `
+      <article class="today-broadcast">
+        <strong>日本播出</strong>
+        <h3>《私の完璧な結婚（日本語字幕版）》</h3>
+        <p><strong>${watashiNoKanpekiNaKekkonBroadcast.firstEpisode} 深夜2:00 / ${watashiNoKanpekiNaKekkonBroadcast.secondEpisode} 深夜3:00</strong></p>
+        <p>ホームドラマチャンネル</p>
+      </article>
+    ` : "";
+
+    currentContainer.innerHTML = currentEventsHtml + broadcastHtml + watashiNoKanpekiNaKekkonBroadcastHtml || "<p>暫無記錄</p>";
   }
 
   if (historyContainer) {

@@ -53,6 +53,13 @@ export const events = [
     href: "/events/2026-tima",
   },
   {
+    id: "watashi-no-kanpeki-na-kekkon-japan-broadcast-2026-07-06",
+    date: "2026-07-06",
+    title: "《私の完璧な結婚（日本語字幕版）》ホームドラマチャンネルで放送開始",
+    category: "テレビドラマ／日本放送",
+    description: "ホームドラマチャンネルにて日本語字幕版の放送を開始。",
+  },
+  {
     id: "jiu-men-premiere-2026-07-30",
     date: "2026-07-30",
     title: "《九門》開播",
