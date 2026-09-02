@@ -2,8 +2,8 @@
 import MusicWorkDetail from "../../components/works/MusicWorkDetail.astro";
 import { works } from "../../data/works";
 
-const work = works.find((entry) => entry.id === "music-le-ci-bu-pi");
-if (!work) throw new Error("Music work data not found: music-le-ci-bu-pi");
+const work = works.find((entry) => entry.id === "na-pa-wo-men-2026");
+if (!work) throw new Error("Music work data not found: na-pa-wo-men-2026");
 ---
 
 <MusicWorkDetail work={work} />

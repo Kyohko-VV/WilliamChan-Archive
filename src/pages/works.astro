@@ -125,6 +125,10 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
             const relatedStages = work.relatedStages
               ?.map((stageHref) => works.find((candidate) => candidate.href === stageHref))
               .filter((stage) => stage !== undefined);
+            const relatedStageLabels = [
+              ...(work.relatedPerformances?.map((stage) => stage.title) ?? []),
+              ...(relatedStages?.map((stage) => stage.title) ?? []),
+            ];
 
             return (
               <article class="music-work-card">
@@ -134,7 +138,7 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
                   {(work.type || work.artist) && (
                     <p class="music-metadata">
                       {work.type && <span>{work.type}</span>}
-                      {work.type && work.artist && <span aria-hidden="true"> · </span>}
+                      {work.type && work.artist && <span aria-hidden="true">・</span>}
                       {work.artist && <span>{work.artist}</span>}
                     </p>
                   )}
@@ -152,25 +156,9 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
                       </ul>
                     </div>
                   )}
-                  {work.officialSources && (
+                  {relatedStageLabels.length > 0 && (
                     <div class="work-links">
-                      <p>官方來源</p>
-                      <ul>
-                        {work.officialSources.map((source) => (
-                          <li>
-                            <a href={source.url} target="_blank" rel="noopener noreferrer">{source.displayName}</a>
-                            <span>｜{source.type}</span>
-                            {source.note && <blockquote>{source.note}</blockquote>}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  {relatedStages && relatedStages.length > 0 && (
-                    <div class="work-links">
-                      {relatedStages.map((stage) => (
-                        <p class="related-stage-link">相關舞台：<a href={stage.href}>{stage.title}</a></p>
-                      ))}
+                      <p class="related-stage-link">相關舞台：{relatedStageLabels.join("、")}</p>
                     </div>
                   )}
                   {work.href && <p class="music-detail-link"><a href={work.href}>查看作品詳情 →</a></p>}

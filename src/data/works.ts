@@ -25,6 +25,21 @@ export interface WorkImage extends WorkCover {
   sourceUrl: string;
 }
 
+export interface WorkArchiveVideo {
+  label: string;
+  url: string;
+  source: string;
+  type: string;
+}
+
+export interface WorkRelatedPerformance {
+  date?: string;
+  title: string;
+  song: string;
+  videoUrl?: string;
+  source?: string;
+}
+
 export interface Work {
   id?: string;
   date: string;
@@ -54,6 +69,8 @@ export interface Work {
   streamingLinks?: WorkWatchLink[];
   officialSources?: WorkSource[];
   relatedStages?: string[];
+  relatedPerformances?: WorkRelatedPerformance[];
+  archiveVideos?: WorkArchiveVideo[];
   credits?: { label: string; value: string }[];
   notes?: string[];
 }
@@ -130,6 +147,9 @@ export const works: Work[] = [
     category: "音樂",
     type: "單曲",
     artist: "陳偉霆",
+    status: "已公開",
+    description: "陳偉霆於 2026 年 8 月 2 日公開單曲〈哪怕我們〉。",
+    href: "/works/music-na-pa-wo-men",
     cover: {
       src: "https://media.williamchanfanpage.com/work/%E5%93%AA%E6%80%95%E6%88%91%E5%80%91%20%E5%B0%81%E9%9D%A2.jpg",
       alt: "〈哪怕我們〉單曲封面",
@@ -250,10 +270,36 @@ export const works: Work[] = [
         note: "發布 MV 幕後花絮與幕後記錄。",
       },
     ],
+    relatedStages: ["/events/2026-tima"],
+    relatedPerformances: [
+      {
+        date: "2026-08-16",
+        title: "TMEA 騰訊音樂娛樂盛典",
+        song: "〈樂此不疲〉",
+        videoUrl: "https://youtu.be/u-42FQfOos0",
+        source: "KYOHKOの推し活（YouTube）",
+      },
+    ],
+    archiveVideos: [
+      {
+        label: "〈樂此不疲〉錄音室花絮",
+        url: "https://youtu.be/Y0T28ipk0YU",
+        source: "KYOHKOの推し活｜YouTube",
+        type: "非官方保存",
+      },
+      {
+        label: "2026-08-16｜TMEA 騰訊音樂娛樂盛典〈樂此不疲〉",
+        url: "https://youtu.be/u-42FQfOos0",
+        source: "KYOHKOの推し活｜YouTube",
+        type: "非官方保存",
+      },
+    ],
     credits: [
       { label: "製作人", value: "陸虎" },
       { label: "MV 特別出演", value: "章若楠" },
     ],
-    notes: ["收錄音樂版、Official MV，以及後續 MV 劇照與幕後內容。"],
+    notes: [
+      "陳偉霆分享歌曲初衷：人生不必永遠只為追趕，也可以偶爾停下來，以另一種頻率感受當下。",
+    ],
   },
 ];

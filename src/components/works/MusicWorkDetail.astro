@@ -1,0 +1,93 @@
+---
+import EventGallery from "../events/EventGallery.astro";
+import EventSection from "../events/EventSection.astro";
+import type { Work } from "../../data/works";
+import { works } from "../../data/works";
+import WorkLayout from "../../layouts/WorkLayout.astro";
+import YouTubeEmbed from "./YouTubeEmbed.astro";
+
+interface Props { work: Work; }
+const { work } = Astro.props;
+
+if (!work.cover) throw new Error(`Music work cover not found: ${work.id ?? work.title}`);
+
+const gallery = [
+  {
+    title: "單曲封面",
+    image: work.cover.src,
+    alt: work.cover.alt,
+    source: work.images?.[0]?.source ?? work.officialSources?.[0]?.displayName ?? "作品官方來源",
+    sourceUrl: work.images?.[0]?.sourceUrl ?? work.officialSources?.[0]?.url ?? work.cover.src,
+  },
+  ...(work.images ?? []).map((image, index) => ({ title: `作品圖片 ${index + 1}`, image: image.src, alt: image.alt, source: image.source, sourceUrl: image.sourceUrl })),
+];
+const relatedStages = work.relatedStages
+  ?.map((stageHref) => works.find((entry) => entry.href === stageHref))
+  .filter((stage) => stage !== undefined);
+const displayDate = work.releaseDate ?? work.date.replaceAll(".", "-");
+const [year, month, day] = displayDate.split("-");
+---
+
+<WorkLayout
+  pageTitle={`${work.title}｜陳偉霆資料庫`}
+  description={work.description ?? `陳偉霆單曲${work.title}作品資料。`}
+  date={`${year}年${Number(month)}月${Number(day)}日`}
+  dateTime={displayDate}
+  title={work.title}
+  category={`${work.category} / ${work.type}`}
+  artist={work.artist}
+  ogImage={work.cover.src}
+>
+  <EventSection id="summary-heading" title="作品簡介"><p class="summary">{work.description}</p></EventSection>
+
+  <EventSection id="details-heading" title="作品資料">
+    <dl>
+      <div><dt>類型</dt><dd>{work.category} / {work.type}</dd></div>
+      <div><dt>歌手</dt><dd>{work.artist}</dd></div>
+      <div><dt>發行日期</dt><dd><time datetime={displayDate}>{displayDate}</time></dd></div>
+      {work.status && <div><dt>狀態</dt><dd>{work.status}</dd></div>}
+      {work.credits?.map((credit) => <div><dt>{credit.label}</dt><dd>{credit.value}</dd></div>)}
+    </dl>
+  </EventSection>
+
+  <EventSection id="official-links-heading" title="官方收聽 / 觀看">
+    {work.streamingLinks && <div class="link-group"><h3>官方收聽</h3><ul class="video-list">{work.streamingLinks.map((link) => <li>{link.url ? <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a> : link.label}</li>)}</ul></div>}
+    {work.watchLinks && <div class="link-group"><h3>Official MV</h3><ul class="video-list">{work.watchLinks.map((link) => <li>{link.url ? <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a> : link.label}</li>)}</ul></div>}
+  </EventSection>
+
+  {(work.notes?.length ?? 0) > 0 && <EventSection id="notes-heading" title="歌曲理念 / Notes">{work.notes?.map((note) => <p class="summary note-item">{note}</p>)}</EventSection>}
+
+  {((work.relatedPerformances?.length ?? 0) > 0 || (relatedStages?.length ?? 0) > 0) && (
+    <EventSection id="related-stages-heading" title="相關舞台"><ul class="video-list">
+      {work.relatedPerformances?.map((stage) => <li>{stage.videoUrl ? <a href={stage.videoUrl} target="_blank" rel="noopener noreferrer">{stage.date && `${stage.date}｜`}{stage.title}</a> : <span>{stage.date && `${stage.date}｜`}{stage.title}</span>}<p>演唱歌曲：{stage.song}{stage.source && ` · 來源：${stage.source}`}</p></li>)}
+      {relatedStages?.map((stage) => <li><a href={stage.href}>{stage.title}</a><p>演唱歌曲：{work.title}</p></li>)}
+    </ul></EventSection>
+  )}
+
+  {(work.archiveVideos?.length ?? 0) > 0 && (
+    <EventSection id="archive-videos-heading" title="Archive Video">
+      <div class="archive-video-list">
+        {work.archiveVideos?.map((video) => (
+          <article class="archive-video">
+            <h3>{video.label}</h3>
+            <YouTubeEmbed url={video.url} title={video.label} />
+            <p>{video.source} · {video.type}</p>
+          </article>
+        ))}
+      </div>
+    </EventSection>
+  )}
+
+  <EventGallery items={gallery} />
+
+  {(work.officialSources?.length ?? 0) > 0 && <EventSection id="sources-heading" title="官方來源"><ul class="video-list">{work.officialSources?.map((source) => <li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.displayName}</a>{source.note && <p>{source.note}</p>}</li>)}</ul></EventSection>}
+</WorkLayout>
+
+<style>
+  .link-group + .link-group { margin-top: 24px; }
+  .link-group h3 { margin: 0 0 12px; font-size: 17px; }
+  .note-item + .note-item { margin-top: 16px; }
+  .archive-video-list { display: grid; gap: 28px; }
+  .archive-video h3 { margin: 0 0 12px; font-size: 17px; }
+  .archive-video p { margin: 10px 0 0; color: #77706b; font-size: 14px; }
+</style>
