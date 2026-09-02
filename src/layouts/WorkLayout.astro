@@ -1,0 +1,56 @@
+---
+import "../styles/event.css";
+import FooterSocialLinks from "../components/FooterSocialLinks.astro";
+import SeoHead from "../components/SeoHead.astro";
+
+interface Props {
+  pageTitle: string;
+  description: string;
+  date: string;
+  dateTime: string;
+  title: string;
+  category?: string;
+  artist?: string;
+  ogImage?: string;
+}
+
+const { pageTitle, description, date, dateTime, title, category, artist, ogImage } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <SeoHead title={pageTitle} description={description} ogImage={ogImage} />
+  </head>
+
+  <body>
+    <main>
+      <a href="/works" class="back">← 返回作品分類</a>
+      <p class="site-identity">陳偉霆資料庫 · William Chan Archive</p>
+
+      <header>
+        <p class="event-date"><time datetime={dateTime}>{date}</time></p>
+        <h1>{title}</h1>
+        {category && <p class="category">{category}</p>}
+        {artist && <p class="location">歌手：{artist}</p>}
+      </header>
+
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-title">陳偉霆資料庫 · William Chan Archive</p>
+        <FooterSocialLinks />
+        <p class="footer-nav">Timeline ｜ Works ｜ People &amp; Characters ｜ Sources</p>
+        <p>非官方粉絲資料庫</p>
+        <p>本站內容僅作資料整理與記錄用途。</p>
+        <p class="footer-copyright">© 2026 William Chan Archive</p>
+      </div>
+    </footer>
+  </body>
+</html>

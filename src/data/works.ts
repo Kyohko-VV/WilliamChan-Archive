@@ -20,6 +20,11 @@ export interface WorkCover {
   alt: string;
 }
 
+export interface WorkImage extends WorkCover {
+  source: string;
+  sourceUrl: string;
+}
+
 export interface Work {
   id?: string;
   date: string;
@@ -32,7 +37,10 @@ export interface Work {
   episodes?: number;
   artist?: string;
   releaseDate?: string;
+  status?: string;
+  description?: string;
   cover?: WorkCover;
+  images?: WorkImage[];
   leadActor?: string;
   role?: string;
   characterId?: string;
@@ -46,6 +54,7 @@ export interface Work {
   streamingLinks?: WorkWatchLink[];
   officialSources?: WorkSource[];
   relatedStages?: string[];
+  credits?: { label: string; value: string }[];
   notes?: string[];
 }
 
@@ -144,5 +153,107 @@ export const works: Work[] = [
       },
     ],
     relatedStages: ["/events/2026-tima"],
+  },
+  {
+    id: "music-le-ci-bu-pi",
+    date: "2026-07-13",
+    releaseDate: "2026-07-13",
+    title: "〈樂此不疲〉",
+    category: "音樂",
+    type: "單曲",
+    artist: "陳偉霆",
+    status: "已公開",
+    description:
+      "陳偉霆於 2026 年 7 月 13 日公開單曲〈樂此不疲〉，後續同步推出 Official MV 與相關劇照、幕後內容。",
+    href: "/works/music-le-ci-bu-pi",
+    cover: {
+      src: "https://media.williamchanfanpage.com/work/%E6%A8%82%E6%AD%A4%E4%B8%8D%E7%96%B2%E5%B0%81%E9%9D%A2.jpg",
+      alt: "〈樂此不疲〉單曲封面",
+    },
+    images: [
+      {
+        src: "https://media.williamchanfanpage.com/work/%E6%A8%82%E6%AD%A4%E4%B8%8D%E7%96%B201.jpg",
+        alt: "〈樂此不疲〉作品圖片 1",
+        source: "陳偉霆微博（官方）",
+        sourceUrl: "https://weibo.com/1712570933/R8VRGtg7t",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/%E6%A8%82%E6%AD%A4%E4%B8%8D%E7%96%B202.jpg",
+        alt: "〈樂此不疲〉作品圖片 2",
+        source: "陳偉霆微博（官方）",
+        sourceUrl: "https://weibo.com/1712570933/R8VRGtg7t",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/%E6%A8%82%E6%AD%A4%E4%B8%8D%E7%96%B203.jpg",
+        alt: "〈樂此不疲〉作品圖片 3",
+        source: "陳偉霆微博（官方）",
+        sourceUrl: "https://weibo.com/1712570933/R8VRGtg7t",
+      },
+    ],
+    streamingLinks: [
+      {
+        label: "YouTube 音樂版",
+        url: "https://youtu.be/PPMebEOeZtA?si=Bseqyk4Ic1FbFKRw",
+      },
+      {
+        label: "Apple Music",
+        url: "https://music.apple.com/jp/album/%E6%A8%82%E6%AD%A4%E4%B8%8D%E7%96%B2/6789498710?i=6789498712",
+      },
+    ],
+    watchLinks: [
+      {
+        label: "YouTube Official MV（陳偉霆 YouTube 頻道）",
+        url: "https://youtu.be/HstLwymv4rw?si=yxHO50Ovg3QG4hpu",
+      },
+    ],
+    officialSources: [
+      {
+        displayName: "陳偉霆本人微博｜單曲公開",
+        url: "https://weibo.com/1712570933/5320158232708044",
+        type: "官方",
+        note: "2026-07-13｜宣布新歌〈樂此不疲〉上線，附音樂平台連結。",
+      },
+      {
+        displayName: "陳偉霆本人微博｜直播／宣傳",
+        url: "https://weibo.com/1712570933/5320271978305357",
+        type: "官方",
+        note: "新歌宣傳直播相關內容。",
+      },
+      {
+        displayName: "陳偉霆本人微博｜MV 特別鳴謝",
+        url: "https://weibo.com/1712570933/5321245475471705",
+        type: "官方",
+        note: "提到 MV 內容，並鳴謝章若楠特別出演。",
+      },
+      {
+        displayName: "陳偉霆本人微博｜單曲與 MV 上線後感想",
+        url: "https://weibo.com/1712570933/5321290606973479",
+        type: "官方",
+        note: "分享對〈樂此不疲〉主題與歌曲想法的文字。",
+      },
+      {
+        displayName: "英皇娛樂北京｜MV 劇照",
+        url: "https://weibo.com/3270824053/5321246578574003",
+        type: "官方",
+        note: "發布〈樂此不疲〉MV 劇照。",
+      },
+      {
+        displayName: "英皇娛樂北京｜MV 劇照／另一則",
+        url: "https://weibo.com/3270824053/5321247824282971",
+        type: "官方",
+        note: "補充發布 MV 畫面與劇照。",
+      },
+      {
+        displayName: "英皇娛樂北京｜MV 幕後",
+        url: "https://weibo.com/3270824053/5321979747895926",
+        type: "官方",
+        note: "發布 MV 幕後花絮與幕後記錄。",
+      },
+    ],
+    credits: [
+      { label: "製作人", value: "陸虎" },
+      { label: "MV 特別出演", value: "章若楠" },
+    ],
+    notes: ["收錄音樂版、Official MV，以及後續 MV 劇照與幕後內容。"],
   },
 ];

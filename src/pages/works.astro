@@ -130,7 +130,7 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
               <article class="music-work-card">
                 <div class="music-work-info">
                   <p class="work-date"><time datetime={work.releaseDate ?? work.date}>{work.releaseDate ?? work.date}</time></p>
-                  <h3>{work.title}</h3>
+                  <h3>{work.href ? <a href={work.href}>{work.title}</a> : work.title}</h3>
                   {(work.type || work.artist) && (
                     <p class="music-metadata">
                       {work.type && <span>{work.type}</span>}
@@ -173,10 +173,17 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
                       ))}
                     </div>
                   )}
+                  {work.href && <p class="music-detail-link"><a href={work.href}>查看作品詳情 →</a></p>}
                 </div>
                 {work.cover && (
                   <div class="music-cover-wrap">
-                    <img class="work-cover" src={work.cover.src} alt={work.cover.alt} loading="lazy" />
+                    {work.href ? (
+                      <a href={work.href} aria-label={`查看${work.title}作品詳情`}>
+                        <img class="work-cover" src={work.cover.src} alt={work.cover.alt} loading="lazy" />
+                      </a>
+                    ) : (
+                      <img class="work-cover" src={work.cover.src} alt={work.cover.alt} loading="lazy" />
+                    )}
                   </div>
                 )}
               </article>
@@ -378,6 +385,17 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
       color: #5f5955;
       font-size: 14px;
       line-height: 1.6;
+    }
+
+    .music-work-card h3 a,
+    .music-detail-link a {
+      color: inherit;
+      text-underline-offset: 3px;
+    }
+
+    .music-detail-link {
+      margin-top: 16px;
+      font-size: 14px;
     }
 
     .music-link-list {

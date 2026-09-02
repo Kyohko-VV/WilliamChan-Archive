@@ -1,0 +1,101 @@
+---
+import EventGallery from "../../components/events/EventGallery.astro";
+import EventSection from "../../components/events/EventSection.astro";
+import { works } from "../../data/works";
+import WorkLayout from "../../layouts/WorkLayout.astro";
+
+const work = works.find((entry) => entry.id === "music-le-ci-bu-pi");
+
+if (!work || !work.cover) {
+  throw new Error("Music work data not found: music-le-ci-bu-pi");
+}
+
+const imageSourceUrl = "https://weibo.com/1712570933/R8VRGtg7t";
+const gallery = [
+  {
+    title: "單曲封面",
+    image: work.cover.src,
+    alt: work.cover.alt,
+    source: "陳偉霆微博（官方）",
+    sourceUrl: imageSourceUrl,
+  },
+  ...(work.images ?? []).map((image, index) => ({
+    title: `作品圖片 ${index + 1}`,
+    image: image.src,
+    alt: image.alt,
+    source: image.source,
+    sourceUrl: image.sourceUrl,
+  })),
+];
+---
+
+<WorkLayout
+  pageTitle="〈樂此不疲〉 | 陳偉霆資料庫"
+  description={work.description ?? "陳偉霆 2026 年單曲〈樂此不疲〉。"}
+  date="2026年7月13日"
+  dateTime="2026-07-13"
+  title={work.title}
+  category="音樂 / 單曲"
+  artist={work.artist}
+  ogImage={work.cover.src}
+>
+  <EventSection id="summary-heading" title="作品簡介">
+    <p class="summary">
+      〈樂此不疲〉是陳偉霆於 2026 年 7 月 13 日公開的單曲。作品先公開音樂版本，後續推出 Official MV，並陸續釋出劇照、幕後與相關宣傳內容。
+    </p>
+  </EventSection>
+
+  <EventSection id="details-heading" title="作品資料">
+    <dl>
+      <div><dt>類型</dt><dd>音樂 / 單曲</dd></div>
+      <div><dt>歌手</dt><dd>{work.artist}</dd></div>
+      <div><dt>上線日期</dt><dd><time datetime={work.releaseDate}>{work.releaseDate}</time></dd></div>
+      <div><dt>狀態</dt><dd>{work.status}</dd></div>
+      {work.credits?.map((credit) => <div><dt>{credit.label}</dt><dd>{credit.value}</dd></div>)}
+      {work.notes?.map((note) => <div><dt>備註</dt><dd>{note}</dd></div>)}
+    </dl>
+  </EventSection>
+
+  <EventSection id="official-links-heading" title="官方收聽 / 觀看">
+    <div class="link-group">
+      <h3>官方收聽</h3>
+      <ul class="video-list">
+        {work.streamingLinks?.map((link) => (
+          <li><a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a></li>
+        ))}
+      </ul>
+    </div>
+    <div class="link-group">
+      <h3>Official MV</h3>
+      <ul class="video-list">
+        {work.watchLinks?.map((link) => (
+          <li><a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a></li>
+        ))}
+      </ul>
+    </div>
+  </EventSection>
+
+  <EventGallery items={gallery} />
+
+  <EventSection id="sources-heading" title="官方來源">
+    <ul class="video-list">
+      {work.officialSources?.map((source) => (
+        <li>
+          <a href={source.url} target="_blank" rel="noopener noreferrer">{source.displayName}</a>
+          {source.note && <p>{source.note}</p>}
+        </li>
+      ))}
+    </ul>
+  </EventSection>
+</WorkLayout>
+
+<style>
+  .link-group + .link-group {
+    margin-top: 24px;
+  }
+
+  .link-group h3 {
+    margin: 0 0 12px;
+    font-size: 17px;
+  }
+</style>
