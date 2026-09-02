@@ -47,6 +47,11 @@ const eventsByYear = Object.groupBy(
             <strong>{event.date.slice(5).replace("-", ".")}</strong>
             <h3>{event.title}</h3>
             {event.description && <p>{event.description}</p>}
+            {event.sourceUrl && event.source && (
+              <a class="detail-link" href={event.sourceUrl} target="_blank" rel="noopener noreferrer">
+                來源：{event.source} →
+              </a>
+            )}
             {event.href && <span class="detail-link">查看事件詳情 →</span>}
             {event.relatedHref && (
               <a class="detail-link" href={event.relatedHref}>{event.relatedLabel}</a>

@@ -1,5 +1,15 @@
 export const events = [
   {
+    id: "william-chan-xiaohongshu-brunch-2026-09-02",
+    date: "2026-09-02",
+    title: "陳偉霆分享 Brunch 日常",
+    category: "社交平台／日常",
+    description:
+      "陳偉霆於小紅書分享用餐短片，配文「白天刷不到，晚上逃不掉」，並加入 #簡簡單單又一餐 等話題。",
+    source: "陳偉霆本人小紅書",
+    sourceUrl: "http://xhslink.com/o/74RygAgf2O6",
+  },
+  {
     date: "2026-08-28",
     title: "陳偉霆探班惠英紅並為《電影數到三》應援",
     category: "探班／電影應援",
