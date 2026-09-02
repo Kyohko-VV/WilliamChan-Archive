@@ -219,6 +219,7 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
         <strong>${event.date}</strong>
         <h3>${event.title}</h3>
         ${event.description ? `<p>${event.description}</p>` : ""}
+        ${event.source && event.sourceUrl ? `<p><a class="today-source-link" href="${event.sourceUrl}" target="_blank" rel="noopener noreferrer">來源：${event.source} →</a></p>` : ""}
       </article>
     `).join("");
 
@@ -409,6 +410,7 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
 
   .work-preview a,
   .all-works-link,
+  :global(.today-source-link),
   :global(.today-broadcast .all-works-link) {
     color: inherit;
     text-decoration: none;
@@ -418,6 +420,8 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
   .work-preview a:focus-visible,
   .all-works-link:hover,
   .all-works-link:focus-visible,
+  :global(.today-source-link:hover),
+  :global(.today-source-link:focus-visible),
   :global(.today-broadcast .all-works-link:hover),
   :global(.today-broadcast .all-works-link:focus-visible) {
     text-decoration: underline;
