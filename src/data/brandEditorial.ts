@@ -57,6 +57,12 @@ export const brandEditorialEntries: BrandEditorialEntry[] = [
         summary: "CHANEL 品牌形象大使辛芷蕾與陳偉霆出席上海活動；系列重新演繹山茶花、星辰、太陽與獅子等象徵符號。",
       },
       {
+        name: "CHANEL 香奈兒｜微信視頻號",
+        url: "https://weixin.qq.com/sph/AS3gylbEB6",
+        type: "品牌官方",
+        summary: "CHANEL 香奈兒官方發布上海 SIGNES & SYMBOLES 臻品珠寶活動內容，記錄品牌形象大使辛芷蕾、陳偉霆出席活動，並介紹山茶花、星辰、太陽與獅子等品牌標誌性符號。",
+      },
+      {
         name: "陳偉霆本人微博",
         url: "https://weibo.com/1712570933/5334826380955991",
         type: "本人官方",
