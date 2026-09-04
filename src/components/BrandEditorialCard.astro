@@ -4,9 +4,10 @@ import GalleryCarousel from "./events/GalleryCarousel.astro";
 
 interface Props {
   entry: BrandEditorialEntry;
+  showDetailLink?: boolean;
 }
 
-const { entry } = Astro.props;
+const { entry, showDetailLink = true } = Astro.props;
 
 const sourceGroups: { label: string; sources: BrandEditorialSource[] }[] = [
   { label: "官方／第一手", sources: entry.officialSources },
@@ -19,7 +20,11 @@ const galleryItems = entry.images.map((image) => ({
   image: image.url,
   alt: image.alt,
   ariaLabel: `開啟${image.alt}原圖`,
-  hideCaption: true,
+  source: image.source,
+  sourceUrl: image.sourceUrl,
+  sourceSuffix: image.sourceUrl ? " →" : undefined,
+  hideTitle: true,
+  hideCaption: !image.source || !image.sourceUrl,
 }));
 ---
 
@@ -44,7 +49,7 @@ const galleryItems = entry.images.map((image) => ({
   )}
 
   <div class="source-groups">
-    {sourceGroups.map((group) => (
+    {sourceGroups.filter((group) => group.sources.length > 0).map((group) => (
       <section class="source-group">
         <h4>{group.label}</h4>
         <ul>
@@ -60,6 +65,11 @@ const galleryItems = entry.images.map((image) => ({
         </ul>
       </section>
     ))}
+  </div>
+
+  <div class="related-links">
+    {showDetailLink && entry.href && <a href={entry.href}>查看品牌資料 →</a>}
+    {entry.relatedTimelineHref && <a href={entry.relatedTimelineHref}>查看 Timeline 記錄 →</a>}
   </div>
 </section>
 
@@ -180,6 +190,19 @@ const galleryItems = entry.images.map((image) => ({
   .source-heading span {
     color: #9a7d55;
     font-size: 11px;
+  }
+
+  .related-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin-top: 22px;
+  }
+
+  .related-links a {
+    color: #675f5a;
+    font-size: 14px;
+    text-underline-offset: 3px;
   }
 
   @media (max-width: 800px) {

@@ -8,12 +8,16 @@ export interface BrandEditorialSource {
 export interface BrandEditorialImage {
   url: string;
   alt: string;
+  source?: string;
+  sourceUrl?: string;
 }
 
 export interface BrandEditorialEntry {
   id: string;
+  href?: string;
   date: string;
   brand: string;
+  brandDescription?: string;
   title: string;
   type: string;
   location: string;
@@ -23,9 +27,53 @@ export interface BrandEditorialEntry {
   officialSources: BrandEditorialSource[];
   editorialSources: BrandEditorialSource[];
   mediaSources: BrandEditorialSource[];
+  relatedTimelineHref?: string;
 }
 
 export const brandEditorialEntries: BrandEditorialEntry[] = [
+  {
+    id: "descente-zhengzhou-delta-2026-09-04",
+    href: "/brand-editorial/descente",
+    date: "2026-09-04",
+    brand: "DESCENTE 迪桑特",
+    brandDescription: "整理陳偉霆與 DESCENTE 迪桑特的品牌合作、廣告及公開活動記錄。",
+    title: "鄭州 DELTA 競速體驗場及門店活動",
+    type: "品牌合作 / 運動品牌",
+    location: "鄭州",
+    role: "品牌代言人",
+    summary: "品牌代言人陳偉霆到訪鄭州 DESCENTE「DELTA 競速體驗場」及門店，參與品牌體驗活動。",
+    images: [
+      {
+        url: "https://media.williamchanfanpage.com/Brand/descente20260904-01.jpg",
+        alt: "陳偉霆出席 DESCENTE 迪桑特鄭州 DELTA 競速體驗活動（一）",
+        source: "w-Daily 微博｜官方",
+        sourceUrl: "https://weibo.com/6269525799/RgA0cwxV5",
+      },
+      {
+        url: "https://media.williamchanfanpage.com/Brand/descente20260904-02.jpg",
+        alt: "陳偉霆出席 DESCENTE 迪桑特鄭州 DELTA 競速體驗活動（二）",
+        source: "w-Daily 微博｜官方",
+        sourceUrl: "https://weibo.com/6269525799/RgA0cwxV5",
+      },
+      {
+        url: "https://media.williamchanfanpage.com/Brand/descente20260904-03.jpg",
+        alt: "陳偉霆出席 DESCENTE 迪桑特鄭州 DELTA 競速體驗活動（三）",
+        source: "w-Daily 微博｜官方",
+        sourceUrl: "https://weibo.com/6269525799/Rgz5AE5K6",
+      },
+    ],
+    officialSources: [
+      {
+        name: "w-Daily｜陳偉霆工作室",
+        url: "https://weibo.com/6269525799/5339516447756887",
+        type: "工作室官方",
+        summary: "工作室記錄陳偉霆到訪鄭州 DESCENTE「DELTA 競速體驗場」及門店並參與品牌體驗活動。",
+      },
+    ],
+    editorialSources: [],
+    mediaSources: [],
+    relatedTimelineHref: "/timeline#descente-zhengzhou-delta-2026-09-04",
+  },
   {
     id: "chanel-signes-symboles-shanghai-2026",
     date: "2026-08-20",

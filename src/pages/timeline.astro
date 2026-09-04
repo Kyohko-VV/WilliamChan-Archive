@@ -49,7 +49,7 @@ const eventsByYear = Object.groupBy(
             {event.description && <p>{event.description}</p>}
             {event.sourceUrl && event.source && (
               <a class="detail-link" href={event.sourceUrl} target="_blank" rel="noopener noreferrer">
-                來源：{event.source} →
+                來源：{event.source}{event.sourceType && `｜${event.sourceType}`} →
               </a>
             )}
             {event.href && <span class="detail-link">查看事件詳情 →</span>}

@@ -1,5 +1,18 @@
 export const events = [
   {
+    id: "descente-zhengzhou-delta-2026-09-04",
+    date: "2026-09-04",
+    title: "陳偉霆出席 DESCENTE 迪桑特鄭州 DELTA 競速體驗活動",
+    category: "品牌活動",
+    description:
+      "DESCENTE 迪桑特品牌代言人陳偉霆到訪鄭州「DELTA 競速體驗場」及門店，參與品牌體驗活動並展示相關產品。",
+    source: "w-Daily｜陳偉霆工作室",
+    sourceType: "工作室官方",
+    sourceUrl: "https://weibo.com/6269525799/5339516447756887",
+    relatedHref: "/brand-editorial/descente",
+    relatedLabel: "查看 DESCENTE 品牌資料 →",
+  },
+  {
     id: "william-chan-xiaohongshu-brunch-2026-09-02",
     date: "2026-09-02",
     title: "陳偉霆分享 Brunch 日常",

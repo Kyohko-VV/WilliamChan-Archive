@@ -120,7 +120,7 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
             <p>
               <strong>{entry.date}</strong>
               {"　"}
-              <a href="/brand-editorial">{entry.brand}｜{entry.title}</a>
+              <a href={entry.href ?? "/brand-editorial"}>{entry.brand}｜{entry.title}</a>
             </p>
           ))}
         </div>

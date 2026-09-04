@@ -1,0 +1,55 @@
+---
+import BrandEditorialCard from "../../components/BrandEditorialCard.astro";
+import SeoHead from "../../components/SeoHead.astro";
+import { brandEditorialEntries } from "../../data/brandEditorial";
+
+const entries = brandEditorialEntries
+  .filter((entry) => entry.brand === "DESCENTE 迪桑特")
+  .sort((a, b) => b.date.localeCompare(a.date));
+const brandDescription = entries[0]?.brandDescription ?? "整理陳偉霆與 DESCENTE 迪桑特的品牌合作、廣告及公開活動記錄。";
+const title = "DESCENTE 迪桑特｜陳偉霆資料庫";
+const description = "陳偉霆與 DESCENTE 迪桑特品牌合作、廣告與公開活動記錄。";
+
+if (entries.length === 0) throw new Error("DESCENTE brand data not found");
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <SeoHead title={title} description={description} />
+  </head>
+
+  <body>
+    <main>
+      <a class="back" href="/brand-editorial">← 返回 Brand / Editorial</a>
+
+      <header>
+        <p class="eyebrow">Brand / Editorial</p>
+        <h1>DESCENTE 迪桑特</h1>
+        <p>{brandDescription}</p>
+      </header>
+
+      <div class="entries">
+        {entries.map((entry) => <BrandEditorialCard entry={entry} showDetailLink={false} />)}
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #f7f5f2; color: #292624; font-family: "Noto Sans TC", "Noto Sans JP", Arial, sans-serif; }
+  main { width: 88%; max-width: 1100px; margin: 0 auto; padding: 50px 0 80px; }
+  .back { display: inline-block; margin-bottom: 30px; color: #77706b; text-decoration: none; }
+  .back:hover, .back:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+  header { margin-bottom: 35px; }
+  .eyebrow { margin: 0 0 8px; color: #9a7d55; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+  h1 { margin: 0 0 10px; font-size: 36px; }
+  header > p:last-child { margin: 0; color: #77706b; line-height: 1.7; }
+  .entries { display: grid; gap: 20px; }
+  @media (max-width: 700px) { main { padding: 30px 0 50px; } h1 { font-size: 30px; } }
+</style>
