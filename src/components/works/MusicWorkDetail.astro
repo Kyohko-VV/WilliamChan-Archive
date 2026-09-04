@@ -9,9 +9,7 @@ import YouTubeEmbed from "./YouTubeEmbed.astro";
 interface Props { work: Work; }
 const { work } = Astro.props;
 
-if (!work.cover) throw new Error(`Music work cover not found: ${work.id ?? work.title}`);
-
-const gallery = [
+const gallery = work.cover ? [
   {
     title: "單曲封面",
     image: work.cover.src,
@@ -20,7 +18,7 @@ const gallery = [
     sourceUrl: work.images?.[0]?.sourceUrl ?? work.officialSources?.[0]?.url ?? work.cover.src,
   },
   ...(work.images ?? []).map((image, index) => ({ title: `作品圖片 ${index + 1}`, image: image.src, alt: image.alt, source: image.source, sourceUrl: image.sourceUrl })),
-];
+] : [];
 const relatedStages = work.relatedStages
   ?.map((stageHref) => works.find((entry) => entry.href === stageHref))
   .filter((stage) => stage !== undefined);
@@ -30,13 +28,13 @@ const [year, month, day] = displayDate.split("-");
 
 <WorkLayout
   pageTitle={`${work.title}｜陳偉霆資料庫`}
-  description={work.description ?? `陳偉霆單曲${work.title}作品資料。`}
+  description={work.seoDescription ?? work.description ?? `陳偉霆單曲${work.title}作品資料。`}
   date={`${year}年${Number(month)}月${Number(day)}日`}
   dateTime={displayDate}
   title={work.title}
   category={`${work.category} / ${work.type}`}
   artist={work.artist}
-  ogImage={work.cover.src}
+  ogImage={work.cover?.src}
 >
   <EventSection id="summary-heading" title="作品簡介"><p class="summary">{work.description}</p></EventSection>
 
@@ -78,7 +76,20 @@ const [year, month, day] = displayDate.split("-");
     </EventSection>
   )}
 
-  <EventGallery items={gallery} />
+  {(work.visualHighlights?.length ?? 0) > 0 && (
+    <EventSection id="visual-highlights-heading" title="MV 造型 / Visual 延伸內容">
+      <ul class="video-list">
+        {work.visualHighlights?.map((highlight) => (
+          <li>
+            <a href={highlight.sourceUrl} target="_blank" rel="noopener noreferrer">{highlight.title}</a>
+            <p>{highlight.description}</p>
+          </li>
+        ))}
+      </ul>
+    </EventSection>
+  )}
+
+  {gallery.length > 0 && <EventGallery items={gallery} />}
 
   {(work.officialSources?.length ?? 0) > 0 && <EventSection id="sources-heading" title="官方來源"><ul class="video-list">{work.officialSources?.map((source) => <li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.displayName}</a>{source.note && <p>{source.note}</p>}</li>)}</ul></EventSection>}
 </WorkLayout>

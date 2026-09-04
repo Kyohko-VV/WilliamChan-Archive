@@ -131,7 +131,7 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
             ];
 
             return (
-              <article class="music-work-card">
+              <article class:list={["music-work-card", { "music-work-card--no-cover": !work.cover }]}>
                 <div class="music-work-info">
                   <p class="work-date"><time datetime={work.releaseDate ?? work.date}>{work.releaseDate ?? work.date}</time></p>
                   <h3>{work.href ? <a href={work.href}>{work.title}</a> : work.title}</h3>
@@ -142,11 +142,11 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
                       {work.artist && <span>{work.artist}</span>}
                     </p>
                   )}
-                  {work.streamingLinks && (
+                  {(work.cardLinks ?? work.streamingLinks) && (
                     <div class="work-links">
                       <p>官方收聽</p>
                       <ul class="music-link-list">
-                        {work.streamingLinks.map((link) => (
+                        {(work.cardLinks ?? work.streamingLinks)?.map((link) => (
                           <li>
                             {link.url ? (
                               <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a>
@@ -367,6 +367,10 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
 
     .music-work-info {
       min-width: 0;
+    }
+
+    .music-work-card--no-cover {
+      grid-template-columns: 1fr;
     }
 
     .music-metadata {

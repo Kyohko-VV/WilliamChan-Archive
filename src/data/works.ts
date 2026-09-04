@@ -40,6 +40,12 @@ export interface WorkRelatedPerformance {
   source?: string;
 }
 
+export interface WorkVisualHighlight {
+  title: string;
+  description: string;
+  sourceUrl: string;
+}
+
 export interface Work {
   id?: string;
   date: string;
@@ -54,6 +60,7 @@ export interface Work {
   releaseDate?: string;
   status?: string;
   description?: string;
+  seoDescription?: string;
   cover?: WorkCover;
   images?: WorkImage[];
   leadActor?: string;
@@ -67,7 +74,9 @@ export interface Work {
   sources?: WorkSource[];
   watchLinks?: WorkWatchLink[];
   streamingLinks?: WorkWatchLink[];
+  cardLinks?: WorkWatchLink[];
   officialSources?: WorkSource[];
+  visualHighlights?: WorkVisualHighlight[];
   relatedStages?: string[];
   relatedPerformances?: WorkRelatedPerformance[];
   archiveVideos?: WorkArchiveVideo[];
@@ -138,6 +147,118 @@ export const works: Work[] = [
     category: "舞台・活動",
     location: "香港・啟德主場館",
     href: "/events/2026-tima",
+  },
+  {
+    id: "music-dear-future-lover",
+    date: "2021-08-11",
+    releaseDate: "2021-08-11",
+    title: "〈Dear Future Lover〉",
+    category: "音樂",
+    type: "單曲",
+    artist: "陳偉霆",
+    status: "已公開",
+    description: "陳偉霆於 2021 年 8 月 11 日推出單曲〈Dear Future Lover〉，並同步公開 MV 與多組官方造型宣傳內容。",
+    seoDescription: "陳偉霆 2021 年單曲〈Dear Future Lover〉，整理官方 MV、Apple Music 與本人及工作室宣傳來源。",
+    href: "/works/music-dear-future-lover",
+    cover: {
+      src: "https://media.williamchanfanpage.com/work/dearfuturelover00.jpg",
+      alt: "〈Dear Future Lover〉單曲封面",
+    },
+    images: [
+      {
+        src: "https://media.williamchanfanpage.com/work/dearfuturelover01.jpg",
+        alt: "〈Dear Future Lover〉作品圖片 1",
+        source: "官方宣傳圖片",
+        sourceUrl: "https://media.williamchanfanpage.com/work/dearfuturelover01.jpg",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/dearfuturelover02.jpg",
+        alt: "〈Dear Future Lover〉作品圖片 2",
+        source: "官方宣傳圖片",
+        sourceUrl: "https://media.williamchanfanpage.com/work/dearfuturelover02.jpg",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/dearfuturelover03.jpg",
+        alt: "〈Dear Future Lover〉作品圖片 3",
+        source: "官方宣傳圖片",
+        sourceUrl: "https://media.williamchanfanpage.com/work/dearfuturelover03.jpg",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/dearfuturelover04.jpg",
+        alt: "〈Dear Future Lover〉作品圖片 4",
+        source: "官方宣傳圖片",
+        sourceUrl: "https://media.williamchanfanpage.com/work/dearfuturelover04.jpg",
+      },
+    ],
+    streamingLinks: [
+      {
+        label: "YouTube 音樂版",
+        url: "https://youtu.be/Q83uf-4CsHM?si=TlAMq4Zc6rCWUpP5",
+      },
+      {
+        label: "Apple Music",
+        url: "https://music.apple.com/jp/album/dear-future-lover/1579265345?i=1579265556",
+      },
+    ],
+    watchLinks: [
+      {
+        label: "YouTube Official MV",
+        url: "https://youtu.be/pA--RD6P5vc?si=Rg1sh3PZuTcCpLNb",
+      },
+    ],
+    cardLinks: [
+      {
+        label: "YouTube 音樂版",
+        url: "https://youtu.be/Q83uf-4CsHM?si=TlAMq4Zc6rCWUpP5",
+      },
+      {
+        label: "Apple Music",
+        url: "https://music.apple.com/jp/album/dear-future-lover/1579265345?i=1579265556",
+      },
+    ],
+    officialSources: [
+      {
+        displayName: "陳偉霆本人微博｜官方",
+        url: "https://weibo.com/1712570933/4668947456333012",
+        type: "官方",
+        note: "2021-08-11｜本人官方｜陳偉霆宣傳新歌〈Dear Future Lover〉，並以限定版橙色頭髮造型配合歌曲宣傳。",
+      },
+      {
+        displayName: "W-Daily｜官方",
+        url: "https://weibo.com/6269525799/4668972719674798",
+        type: "官方",
+        note: "2021-08-11 12:41｜工作室官方 / 新歌宣傳 / MV 造型｜工作室發布新歌宣傳內容，重點呈現限定版橙色頭髮與綠色外套、紅色拳擊手套造型。",
+      },
+      {
+        displayName: "W-Daily｜官方",
+        url: "https://weibo.com/6269525799/4668962249642509",
+        type: "官方",
+        note: "2021-08-11 12:00｜工作室官方 / MV 宣傳｜工作室發布〈Dear Future Lover〉MV 九宮格花絮，展示眺望台場景與橙髮造型。",
+      },
+      {
+        displayName: "W-Daily｜官方",
+        url: "https://weibo.com/6269525799/4669311202885978",
+        type: "官方",
+        note: "2021-08-12｜工作室官方 / MV 造型｜工作室分享〈Dear Future Lover〉MV 中粉紅牛仔帽與橘紫印花襯衫造型。",
+      },
+    ],
+    visualHighlights: [
+      {
+        title: "眺望台場景與橙髮造型",
+        description: "MV 九宮格花絮呈現眺望台場景與限定版橙色頭髮造型。",
+        sourceUrl: "https://weibo.com/6269525799/4668962249642509",
+      },
+      {
+        title: "綠色外套與紅色拳擊手套造型",
+        description: "新歌宣傳內容呈現橙色頭髮、綠色外套與紅色拳擊手套的視覺搭配。",
+        sourceUrl: "https://weibo.com/6269525799/4668972719674798",
+      },
+      {
+        title: "粉紅牛仔帽與印花襯衫造型",
+        description: "MV 造型以粉紅牛仔帽搭配橘紫印花襯衫。",
+        sourceUrl: "https://weibo.com/6269525799/4669311202885978",
+      },
+    ],
   },
   {
     id: "na-pa-wo-men-2026",
