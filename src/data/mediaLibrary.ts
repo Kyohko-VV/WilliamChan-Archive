@@ -1,16 +1,49 @@
 export type MediaVisibility = "private" | "public";
+export const mediaCategories = ["Music", "Brand / Editorial", "Works", "Event / Stage", "Fan Activities", "Other"] as const;
+export type MediaCategory = typeof mediaCategories[number];
 
 export interface MediaLibraryItem {
-  fileName: string;
-  imageUrl: string;
-  event: string;
+  id?: string;
+  type?: "image" | "video";
+  fileName?: string;
+  /** Legacy readable URL. Never derive a URL from storageKey. */
+  imageUrl?: string;
+  url?: string;
+  storageKey?: string;
+  event?: string;
+  category?: MediaCategory;
+  album?: string;
+  relatedType?: string;
+  relatedId?: string;
+  relatedTitle?: string;
   date: string;
-  source: string;
-  sourceUrl: string;
+  source?: string;
+  sourceUrl?: string;
   visibility: MediaVisibility;
+  caption?: string;
+  tags?: string[];
+  notes?: string;
 }
 
-export const mediaLibrary: MediaLibraryItem[] = [
+/** Read-only compatibility adapter for the local library; not a public gallery feed. */
+export function normalizeMediaItem(item: MediaLibraryItem) {
+  const readableUrl = item.url ?? item.imageUrl;
+  const category = item.category ?? (item.event?.includes("TIMA") ? "Event / Stage" : item.fileName?.startsWith("fan-activities") ? "Fan Activities" : "Other");
+  const album = item.album ?? item.event ?? item.relatedTitle ?? "未分類相冊";
+  return {
+    ...item,
+    type: item.type ?? "image",
+    fileName: item.fileName ?? item.storageKey?.split("/").pop() ?? item.id ?? "未命名媒體",
+    url: readableUrl,
+    category,
+    album,
+    // Category is part of the key so same-named albums never mix across categories.
+    albumKey: JSON.stringify([category, album]),
+  };
+}
+
+// Server/build-time input only. Public consumers must use mediaIndex's public projection.
+export const mediaItems: MediaLibraryItem[] = [
   {
     fileName: "006Qii3Rgy1ige3vbhhbhj36qo8zk7wj.jpg",
     imageUrl: "https://media.williamchanfanpage.com/events/2026-tima/006Qii3Rgy1ige3vbhhbhj36qo8zk7wj.jpg",
@@ -36,7 +69,7 @@ export const mediaLibrary: MediaLibraryItem[] = [
     date: "2026-08-23",
     source: "英皇娛樂－北京（官方微博）",
     sourceUrl: "https://weibo.com/3270824053/ReRjPxOwS",
-    visibility: "private",
+    visibility: "public",
   },
   {
     fileName: "c2f4d075ly1iget3xktexj235s23w7wi.jpg",
@@ -45,7 +78,7 @@ export const mediaLibrary: MediaLibraryItem[] = [
     date: "2026-08-23",
     source: "英皇娛樂－北京（官方微博）",
     sourceUrl: "https://weibo.com/3270824053/ReRjPxOwS",
-    visibility: "private",
+    visibility: "public",
   },
   {
     fileName: "fan-activities2025-03-12-people.webp",
@@ -129,3 +162,27 @@ export const mediaLibrary: MediaLibraryItem[] = [
     visibility: "public",
   },
 ];
+
+// The complete management catalog remains development-only.
+export const mediaLibrary: MediaLibraryItem[] = import.meta.env.DEV ? mediaItems : [];
+
+/** Server/build-time public projection. Never spread management records into public props. */
+export function selectPublicMedia(items: MediaLibraryItem[]) {
+  return items.filter((item) => item.visibility === "public").map((item) => {
+    const normalized = normalizeMediaItem(item);
+    return {
+      type: normalized.type,
+      date: item.date,
+      category: normalized.category,
+      album: normalized.album,
+      albumKey: normalized.albumKey,
+      url: normalized.url,
+      caption: item.caption,
+      source: item.source,
+      sourceUrl: item.sourceUrl,
+      relatedType: item.relatedType,
+      relatedId: item.relatedId,
+      relatedTitle: item.relatedTitle,
+    };
+  });
+}

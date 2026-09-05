@@ -1,0 +1,186 @@
+---
+import SeoHead from "../components/SeoHead.astro";
+import FooterSocialLinks from "../components/FooterSocialLinks.astro";
+import { publicMediaIndex } from "../data/mediaIndex";
+import { works } from "../data/works";
+import { brandEditorialEntries } from "../data/brandEditorial";
+import { events } from "../data/events";
+import { fanActivities } from "../data/fanActivities";
+
+const title = "影像資料｜陳偉霆資料庫";
+const description = "整理陳偉霆相關公開照片與影片資料，依作品、品牌、活動與年份瀏覽，並保留原始官方來源。";
+const items = [...publicMediaIndex].sort((a, b) => b.date.localeCompare(a.date));
+const categories = [...new Set(items.map((item) => item.category))].sort();
+const albums = [...new Map(items.map((item) => [item.albumKey, { key: item.albumKey, category: item.category, title: item.album }])).values()];
+const years = [...new Set(items.map((item) => item.date.slice(0, 4)))].sort().reverse();
+
+// Resolve existing records only; unknown IDs never create guessed routes.
+function relatedLink(item: typeof items[number]) {
+  if (!item.relatedType || !item.relatedId) return;
+  const id = item.relatedId;
+  const kind = item.relatedType.toLowerCase();
+  if (["music", "work", "works"].includes(kind)) {
+    const work = works.find((entry) => entry.id === id || entry.href?.split("/").pop() === id);
+    if (work?.href) return { href: work.href, label: "查看相關作品 →" };
+  }
+  if (["brand", "editorial", "brand-editorial", "brand / editorial"].includes(kind)) {
+    const entry = brandEditorialEntries.find((entry) => entry.id === id || entry.href?.split("/").pop() === id);
+    if (entry) return { href: entry.href ?? `/brand-editorial#brand-editorial-${entry.id}`, label: "查看相關品牌／活動 →" };
+  }
+  if (["event", "stage", "event / stage"].includes(kind)) {
+    const stage = works.find((entry) => entry.href?.split("/").pop() === id);
+    if (stage?.href) return { href: stage.href, label: "查看相關品牌／活動 →" };
+    const event = events.find((entry) => entry.id === id);
+    if (event) return { href: `/timeline#${event.id}`, label: "查看相關品牌／活動 →" };
+  }
+  if (["fan-activity", "fan-activities", "fan activities"].includes(kind)) {
+    const activity = fanActivities.find((entry) => entry.detailUrl?.split("/").filter(Boolean).pop() === id);
+    if (activity?.detailUrl?.startsWith("/")) return { href: activity.detailUrl, label: "查看相關品牌／活動 →" };
+  }
+}
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <SeoHead title={title} description={description} />
+  </head>
+  <body>
+    <main>
+      <a class="back" href="/">← 返回首頁</a>
+      <header>
+        <p class="eyebrow">William Chan Archive</p>
+        <h1>Media Archive / 影像資料</h1>
+        <p>整理網站已公開的照片與影片資料，可依作品、品牌、活動與年份瀏覽。</p>
+      </header>
+      <section class="toolbar" aria-label="搜尋與篩選">
+        <label class="search-field"><span>搜尋</span><input id="media-search" type="search" placeholder="搜尋相冊、作品、說明或來源…" autocomplete="off" /></label>
+        <label><span>Category</span><select id="category-filter"><option value="all">全部分類</option>{categories.map((category) => <option value={category}>{category}</option>)}</select></label>
+        <label><span>Album</span><select id="album-filter"><option value="all">全部相冊</option>{albums.map((album) => <option value={album.key} data-category={album.category}>{album.title}</option>)}</select></label>
+        <label><span>年份</span><select id="year-filter"><option value="all">全部年份</option>{years.map((year) => <option value={year}>{year}</option>)}</select></label>
+        <label><span>Image / Video</span><select id="type-filter"><option value="all">全部類型</option><option value="image">Image</option><option value="video">Video</option></select></label>
+      </section>
+      <div class="results-summary"><p aria-live="polite"><span id="result-count">{items.length}</span> 筆影像資料</p><button id="reset-filters" type="button">清除篩選</button></div>
+      <section class="media-grid" aria-label="公開影像資料">
+        {items.map((item) => {
+          const related = relatedLink(item);
+          return <article class="media-card"
+            data-category={item.category} data-album={item.albumKey} data-year={item.date.slice(0, 4)} data-type={item.type}
+            data-search={[item.album, item.relatedTitle, item.category, item.caption, item.source].filter(Boolean).join(" ").toLocaleLowerCase("zh-Hant")}>
+            <div class="thumbnail-frame">
+              {item.url ? <button class="preview-button" type="button" data-preview-url={item.url} data-preview-type={item.type} data-preview-alt={item.caption ?? item.relatedTitle ?? item.album} aria-label={`預覽 ${item.caption ?? item.album}`}>
+                {item.type === "image" ? <img src={item.url} alt={item.caption ?? item.relatedTitle ?? item.album} loading="lazy" /> : <span class="placeholder">▶ 播放影片</span>}
+              </button> : <div class="placeholder">暫無可預覽內容</div>}
+            </div>
+            <div class="card-body">
+              <p class="metadata"><time datetime={item.date}>{item.date}</time> · {item.category}</p>
+              <h2>{item.relatedTitle ?? item.album}</h2>
+              {item.relatedTitle && item.relatedTitle !== item.album && <p>{item.album}</p>}
+              {item.caption && <p>{item.caption}</p>}
+              {item.sourceUrl ? <p><a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">來源：{item.source ?? "原始來源"} →</a></p> : item.source && <p>來源：{item.source}</p>}
+              {related && <p><a href={related.href}>{related.label}</a></p>}
+            </div>
+          </article>;
+        })}
+      </section>
+      <p id="empty-state" hidden>找不到符合條件的影像資料。</p>
+    </main>
+    <footer class="site-footer"><div class="footer-inner"><p>陳偉霆資料庫 · William Chan Archive</p><FooterSocialLinks /><p>非官方粉絲資料庫 · 本站內容僅作資料整理與記錄用途。</p><p>© 2026 William Chan Archive</p></div></footer>
+    <dialog id="lightbox" aria-label="影像預覽">
+      <div class="lightbox-content">
+        <button id="lightbox-close" type="button" aria-label="關閉預覽">×</button>
+        <img id="lightbox-image" alt="" hidden />
+        <video id="lightbox-video" controls playsinline preload="none" hidden></video>
+      </div>
+    </dialog>
+    <script>
+      const search = document.querySelector<HTMLInputElement>("#media-search")!;
+      const category = document.querySelector<HTMLSelectElement>("#category-filter")!;
+      const album = document.querySelector<HTMLSelectElement>("#album-filter")!;
+      const year = document.querySelector<HTMLSelectElement>("#year-filter")!;
+      const type = document.querySelector<HTMLSelectElement>("#type-filter")!;
+      const filters: [HTMLSelectElement, string][] = [[category, "category"], [album, "album"], [year, "year"], [type, "type"]];
+      const cards = [...document.querySelectorAll<HTMLElement>(".media-card")];
+      function updateResults() {
+        for (const option of album.options) option.hidden = option.value !== "all" && category.value !== "all" && option.dataset.category !== category.value;
+        if (album.selectedOptions[0]?.hidden) album.value = "all";
+        const query = search.value.trim().toLocaleLowerCase("zh-Hant");
+        let count = 0;
+        for (const card of cards) {
+          card.hidden = !(filters.every(([filter, key]) => filter.value === "all" || filter.value === card.dataset[key]) && (!query || card.dataset.search?.includes(query)));
+          if (!card.hidden) count++;
+        }
+        document.querySelector("#result-count")!.textContent = String(count);
+        document.querySelector<HTMLElement>("#empty-state")!.hidden = count > 0;
+      }
+      search.addEventListener("input", updateResults);
+      filters.forEach(([filter]) => filter.addEventListener("change", updateResults));
+      document.querySelector("#reset-filters")!.addEventListener("click", () => { search.value = ""; filters.forEach(([filter]) => { filter.value = "all"; }); updateResults(); });
+      const lightbox = document.querySelector<HTMLDialogElement>("#lightbox")!;
+      const image = document.querySelector<HTMLImageElement>("#lightbox-image")!;
+      const video = document.querySelector<HTMLVideoElement>("#lightbox-video")!;
+      let previewScrollY = 0;
+      document.querySelectorAll<HTMLButtonElement>("[data-preview-url]").forEach((button) => {
+        button.addEventListener("click", () => {
+          if (!button.dataset.previewUrl) return;
+          previewScrollY = window.scrollY;
+          const isVideo = button.dataset.previewType === "video";
+          image.hidden = isVideo; video.hidden = !isVideo;
+          if (isVideo) video.src = button.dataset.previewUrl;
+          else { image.src = button.dataset.previewUrl; image.alt = button.dataset.previewAlt ?? "影像預覽"; }
+          lightbox.showModal();
+        });
+      });
+      document.querySelector("#lightbox-close")!.addEventListener("click", () => lightbox.close());
+      lightbox.addEventListener("click", (event) => { if (event.target === lightbox || event.target === document.querySelector(".lightbox-content")) lightbox.close(); });
+      lightbox.addEventListener("close", () => {
+        image.removeAttribute("src"); image.alt = ""; image.hidden = true;
+        video.pause(); video.removeAttribute("src"); video.load(); video.hidden = true;
+        requestAnimationFrame(() => window.scrollTo(0, previewScrollY));
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #f8f6f3; color: #292624; font-family: "Noto Sans TC", "Noto Sans JP", Arial, sans-serif; }
+  :global(body:has(dialog[open])) { overflow: hidden; }
+  [hidden] { display: none !important; }
+  main { width: min(1280px, calc(100% - 48px)); margin: auto; padding: 48px 0 72px; }
+  a { color: #675f5a; text-underline-offset: 3px; }
+  .back { display: inline-block; margin-bottom: 28px; text-decoration: none; }
+  header { margin-bottom: 28px; }
+  h1 { font-size: clamp(28px, 4vw, 42px); margin: 8px 0 16px; }
+  .eyebrow, .metadata { color: #77706b; font-size: 13px; }
+  p { line-height: 1.7; }
+  .toolbar { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; padding: 20px; border: 1px solid #e5e1dc; border-radius: 14px; background: #fff; }
+  .search-field { grid-column: 1 / -1; }
+  label { display: grid; gap: 8px; font-size: 13px; color: #675f5a; min-width: 0; }
+  input, select { width: 100%; min-width: 0; height: 44px; padding: 0 12px; border: 1px solid #d8d2ca; border-radius: 8px; background: #fff; font: inherit; color: inherit; }
+  .results-summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 14px 0; font-size: 14px; }
+  #reset-filters { border: 1px solid #d8d2ca; border-radius: 8px; padding: 10px 14px; background: #fff; color: #675f5a; cursor: pointer; }
+  .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 22px; }
+  .media-card { overflow: hidden; border: 1px solid #e5e1dc; border-radius: 14px; background: #fff; }
+  .thumbnail-frame { aspect-ratio: 4 / 3; background: #e5e1dc; }
+  .preview-button { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+  .preview-button img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .placeholder { display: grid; place-items: center; height: 100%; padding: 24px; color: #675f5a; }
+  .card-body { padding: 20px; overflow-wrap: anywhere; }
+  .card-body h2 { margin: 10px 0; font-size: 18px; line-height: 1.6; }
+  .card-body p { margin: 8px 0; }
+  #empty-state { text-align: center; margin: 48px 0; }
+  dialog { width: 100vw; max-width: none; height: 100vh; max-height: none; margin: 0; padding: 28px; border: 0; background: transparent; }
+  dialog::backdrop { background: rgb(20 18 16 / 86%); backdrop-filter: blur(5px); }
+  .lightbox-content { display: grid; place-items: center; width: 100%; height: 100%; }
+  dialog img, dialog video { max-width: min(calc(100vw - 56px), 1500px); max-height: calc(100dvh - 80px); object-fit: contain; border-radius: 6px; }
+  #lightbox-close { position: fixed; top: 20px; right: 24px; width: 44px; height: 44px; border: 1px solid #aaa; border-radius: 50%; background: #292624; color: #fff; font-size: 30px; cursor: pointer; }
+  .site-footer { padding: 28px 24px; background: #675f5a; border-top: 4px solid #d8d0ca; color: #e3ddd8; font-size: 14px; }
+  .footer-inner { max-width: 1280px; margin: auto; }
+  @media (max-width: 700px) { main { width: calc(100% - 28px); padding-top: 28px; } .toolbar { grid-template-columns: 1fr 1fr; padding: 16px; } }
+  @media (max-width: 400px) { .toolbar { grid-template-columns: 1fr; } }
+</style>
