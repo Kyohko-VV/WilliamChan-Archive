@@ -3,6 +3,7 @@ export interface BrandEditorialSource {
   url: string;
   type: string;
   summary: string;
+  publishedDate?: string;
 }
 
 export interface BrandEditorialImage {
@@ -63,6 +64,13 @@ export const brandEditorialEntries: BrandEditorialEntry[] = [
       },
     ],
     officialSources: [
+      {
+        name: "DESCENTE 迪桑特官方微博",
+        url: "https://weibo.com/6166921562/5339787725899137",
+        type: "品牌官方／第一手",
+        publishedDate: "2026-09-05",
+        summary: "DESCENTE 迪桑特官方回顧「DELTA 競速體驗場」鄭州站活動，記錄品牌代言人陳偉霆到訪門店、體驗專業運動裝備及 DELTA 系列跑鞋，並公布鄭州丹尼斯大衛城活動持續至 9 月 13 日。",
+      },
       {
         name: "w-Daily｜陳偉霆工作室",
         url: "https://weibo.com/6269525799/5339516447756887",

@@ -59,6 +59,7 @@ const galleryItems = entry.images.map((image) => ({
                 <a href={source.url} target="_blank" rel="noopener noreferrer">{source.name}</a>
                 <span>{source.type}</span>
               </p>
+              {source.publishedDate && <p>發布日期：<time datetime={source.publishedDate}>{source.publishedDate}</time></p>}
               <p>{source.summary}</p>
             </li>
           ))}
