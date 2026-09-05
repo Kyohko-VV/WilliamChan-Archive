@@ -86,6 +86,104 @@ export interface Work {
 
 export const works: Work[] = [
   {
+    id: "music-yi-bi-jiang-hu",
+    date: "2018-04-20",
+    releaseDate: "2018-04-20",
+    title: "〈一筆江湖〉",
+    category: "音樂",
+    type: "單曲",
+    artist: "陳偉霆",
+    status: "已公開",
+    description: "陳偉霆於 2018 年 4 月 20 日推出中國風單曲〈一筆江湖〉，以舞為核心延續中華舞魂；Official MV 於 2018 年 6 月 9 日公開，以「立地成我」為主題，呈現不問天命問自我的態度。",
+    seoDescription: "整理陳偉霆 2018 年單曲〈一筆江湖〉的官方音樂版、Official MV、Apple Music、官方微博來源與 MV 圖片資料。",
+    href: "/works/music-yi-bi-jiang-hu",
+    cover: {
+      src: "https://media.williamchanfanpage.com/work/yibijianghu00.jpg",
+      alt: "〈一筆江湖〉單曲封面",
+    },
+    images: [
+      {
+        src: "https://media.williamchanfanpage.com/work/yibijianghu01.jpg",
+        alt: "〈一筆江湖〉作品圖片 1",
+        source: "英皇娛樂--北京｜官方",
+        sourceUrl: "https://weibo.com/3270824053/GcVNJtYJW",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/yibijianghu02.jpg",
+        alt: "〈一筆江湖〉作品圖片 2",
+        source: "英皇娛樂--北京｜官方",
+        sourceUrl: "https://weibo.com/3270824053/GcVNJtYJW",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/yibijianghu03.jpg",
+        alt: "〈一筆江湖〉作品圖片 3",
+        source: "英皇娛樂--北京｜官方",
+        sourceUrl: "https://weibo.com/3270824053/GcVNJtYJW",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/yibijianghu04.jpg",
+        alt: "〈一筆江湖〉作品圖片 4",
+        source: "陳偉霆本人微博｜官方",
+        sourceUrl: "https://weibo.com/1712570933/GkzbUvjme",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/yibijianghu05.jpg",
+        alt: "〈一筆江湖〉作品圖片 5",
+        source: "陳偉霆本人微博｜官方",
+        sourceUrl: "https://weibo.com/1712570933/GkzbUvjme",
+      },
+    ],
+    streamingLinks: [
+      {
+        label: "YouTube 音樂版",
+        url: "https://youtu.be/dxJ0pMxvw_s?si=zcCow_rsnRfvj6R_",
+      },
+      {
+        label: "Apple Music",
+        url: "https://music.apple.com/jp/album/%E4%B8%80%E7%AD%86%E6%B1%9F%E6%B9%96/1374090135?i=1374091333",
+      },
+    ],
+    watchLinks: [
+      {
+        label: "YouTube Official MV｜2018-06-09 公開",
+        url: "https://youtu.be/hB0Qa7nAdZc?si=NIFBQBPFRVasO6lb",
+      },
+    ],
+    credits: [
+      { label: "定位製作人", value: "劉洲" },
+      { label: "作詞", value: "臨渡" },
+      { label: "作曲", value: "劉洲" },
+      { label: "編曲", value: "劉洲" },
+      { label: "Official MV", value: "2018-06-09" },
+    ],
+    officialSources: [
+      {
+        displayName: "英皇娛樂--北京｜新歌正式上線",
+        url: "https://weibo.com/3270824053/GcVNJtYJW",
+        type: "官方",
+        note: "2018-04-20｜公司官方 / 新歌發行｜英皇娛樂--北京宣布陳偉霆全新中國風單曲〈一筆江湖〉於當日上午 10:00 正式上線，介紹歌曲以激情潑墨揮毫、勾勒熱血舞林江湖。",
+      },
+      {
+        displayName: "英皇娛樂--北京｜MV 上線倒數",
+        url: "https://weibo.com/3270824053/GkpuhBWRq",
+        type: "官方",
+        note: "公司官方 / MV 宣傳｜英皇娛樂--北京發布〈一筆江湖〉MV 上線倒數 1 天宣傳，介紹 MV 以「立地成我」為主題，表達不問天命問自我的態度。",
+      },
+      {
+        displayName: "英皇娛樂--北京｜MV 花絮",
+        url: "https://weibo.com/3270824053/GkIMzj9ss",
+        type: "官方",
+        note: "公司官方 / MV 花絮｜英皇娛樂--北京公開〈一筆江湖〉MV 拍攝花絮圖，記錄拍攝過程中的精彩瞬間。",
+      },
+      {
+        displayName: "陳偉霆本人微博｜官方",
+        url: "https://weibo.com/1712570933/GkzbUvjme",
+        type: "官方",
+        note: "本人官方 / MV 相關內容｜Gallery 圖片 04、05 的原始來源。",
+      },
+    ],
+  },
+  {
     date: "2026.08.25",
     title: "《我們的宿舍》宿舍友情 Party",
     category: "影視",
