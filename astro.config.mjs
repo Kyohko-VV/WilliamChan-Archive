@@ -11,6 +11,11 @@ const localMediaLibrary = () => ({
           pattern: '/media-library',
           entrypoint: './src/dev-pages/media-library.astro',
         });
+        injectRoute({
+          pattern: '/api/media-library/private-preview',
+          entrypoint: './src/dev-pages/private-preview.ts',
+          prerender: false,
+        });
       }
     },
   },
@@ -19,6 +24,7 @@ const localMediaLibrary = () => ({
 // https://astro.build/config
 export default defineConfig({
   site: 'https://williamchanfanpage.com',
+  vite: { server: { fs: { deny: ['.env', '.env.*', '**/.git/**', '**/.local/**'] } } },
   integrations: [
     localMediaLibrary(),
     sitemap({

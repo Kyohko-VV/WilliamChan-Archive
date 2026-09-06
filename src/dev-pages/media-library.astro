@@ -1,16 +1,22 @@
 ---
 import { mediaCategories } from "../data/mediaLibrary";
 import { mediaIndex } from "../data/mediaIndex";
+import { isLocalRequest, readPrivateMedia } from './private-media';
 
-const localHosts = new Set(["localhost", "127.0.0.1", "[::1]"]);
-if (!import.meta.env.DEV || !localHosts.has(Astro.url.hostname)) {
+if (!import.meta.env.DEV || !isLocalRequest(Astro.request)) {
   return new Response("Not Found", {
     status: 404,
     headers: { "Content-Type": "text/plain; charset=utf-8" },
   });
 }
 Astro.response.headers.set("Cache-Control", "no-store");
-const items = mediaIndex;
+Astro.response.headers.set("Referrer-Policy", "no-referrer");
+let privateError = '';
+const privateItems = await readPrivateMedia().catch(() => {
+  privateError = '無法讀取 .local/media-library.private.json，請檢查清單格式。';
+  return [];
+});
+const items = [...mediaIndex, ...privateItems];
 const albums = [...new Map(items.map((item) => [item.albumKey, { key: item.albumKey, title: item.album, category: item.category }])).values()]
   .sort((a, b) => `${a.category} ${a.title}`.localeCompare(`${b.category} ${b.title}`, "zh-Hant"));
 const years = [...new Set(items.map((item) => item.date.slice(0, 4)).filter(Boolean))].sort().reverse();
@@ -31,7 +37,9 @@ const years = [...new Set(items.map((item) => item.date.slice(0, 4)).filter(Bool
           <p class="eyebrow">LOCAL DEVELOPMENT ONLY</p>
           <h1>Media Library</h1>
           <p class="intro">照片與影片整理，共 {items.length} 筆。</p>
-          <p class="intro">Private 是整理標記，不會改變檔案存取權限。未提供可讀 URL 的素材只顯示佔位。</p>
+          <p class="intro">私有 R2 素材點擊後取得 300 秒預覽連結；再次點擊會取得新連結。</p>
+          {privateError && <p role="alert">{privateError}</p>}
+          <p id="preview-status" role="status" aria-live="polite"></p>
         </div>
         <span class="local-badge">localhost</span>
       </header>
@@ -98,20 +106,25 @@ const years = [...new Set(items.map((item) => item.date.slice(0, 4)).filter(Bool
             data-index={index}
           >
             <div class="thumbnail-frame">
-              {item.url ? <button
+              {item.url || privateItems.includes(item) ? <button
                 class="preview-button"
                 type="button"
                 data-preview-url={item.url}
+                data-private-id={privateItems.includes(item) ? item.id : undefined}
                 data-preview-type={item.type}
                 data-preview-alt={`${item.album}－${item.fileName}`}
                 aria-label={`預覽 ${item.fileName}`}
               >
-                {item.type === "image" ? <img src={item.url} alt={`${item.album}－${item.fileName}`} loading="lazy" /> : <span class="media-placeholder">▶ Video · 點擊預覽</span>}
+                {item.type === "image" && item.url ? <img src={item.url} alt={`${item.album}－${item.fileName}`} loading="lazy" /> : <span class="media-placeholder">{item.type === 'video' ? '▶ Video' : 'Image'} · 點擊預覽</span>}
               </button> : <div class="media-placeholder">{item.type === "video" ? "Video" : "Image"} · 尚無可讀 URL</div>}
               <span class:list={["visibility", `visibility--${item.visibility}`]}>{item.visibility}</span>
             </div>
             <div class="card-body">
               <h2 title={item.fileName}>{item.fileName}</h2>
+              {privateItems.includes(item) && <div>
+                <p data-private-status role="status" aria-live="polite"></p>
+                <button data-private-retry type="button" hidden>重新尝试预览</button>
+              </div>}
               <dl>
                 <div><dt>分類</dt><dd>{item.category}</dd></div>
                 <div><dt>相冊</dt><dd><button class="album-link" type="button" data-open-album={item.albumKey}>{item.album}</button></dd></div>
@@ -252,28 +265,84 @@ const years = [...new Set(items.map((item) => item.date.slice(0, 4)).filter(Bool
       const lightboxContent = document.querySelector<HTMLElement>(".lightbox-content");
       let previewScrollY = 0;
 
-      document.querySelectorAll<HTMLButtonElement>("[data-preview-url]").forEach((button) => {
-        button.addEventListener("click", () => {
-          if (!lightbox || !lightboxImage || !lightboxVideo || !button.dataset.previewUrl) return;
+      const previewStatus = document.querySelector<HTMLElement>('#preview-status')!;
+      let previewRequest = 0;
+      let activePreviewButton: HTMLButtonElement | undefined;
+      const setPrivateStatus = (button: HTMLButtonElement, message: string, retry = false) => {
+        const card = button.closest('.media-card');
+        const status = card?.querySelector<HTMLElement>('[data-private-status]');
+        const retryButton = card?.querySelector<HTMLButtonElement>('[data-private-retry]');
+        if (status) status.textContent = message;
+        if (retryButton) retryButton.hidden = !retry;
+      };
+      document.querySelectorAll<HTMLButtonElement>("[data-preview-url], [data-private-id]").forEach((button) => {
+        button.closest('.media-card')?.querySelector('[data-private-retry]')?.addEventListener('click', () => button.click());
+        button.addEventListener("click", async () => {
+          if (!lightbox || !lightboxImage || !lightboxVideo) return;
+          const requestId = ++previewRequest;
+          let previewUrl = button.dataset.previewUrl;
+          previewStatus.textContent = '';
+          if (button.dataset.privateId) {
+            button.disabled = true;
+            previewStatus.textContent = '正在取得私有預覽連結…';
+            setPrivateStatus(button, '正在请求预览…');
+            let httpStatus: number | undefined;
+            let failureType = '网络请求失败';
+            try {
+              const response = await fetch(`/api/media-library/private-preview?id=${encodeURIComponent(button.dataset.privateId)}`, { method: 'GET', cache: 'no-store' });
+              httpStatus = response.status;
+              if (!response.ok) {
+                failureType = ({ 404: '路由或媒体不存在／访问受限', 503: '服务端配置未就绪', 500: '服务端预览处理失败' } as Record<number, string>)[response.status] ?? 'API 请求失败';
+                throw new Error();
+              }
+              failureType = 'API 响应格式错误';
+              const result = await response.json();
+              if (typeof result.url !== 'string' || result.expiresIn !== 300 || new URL(result.url).protocol !== 'https:') throw new Error();
+              previewUrl = result.url;
+            } catch {
+              if (requestId === previewRequest) {
+                const message = `HTTP ${httpStatus ?? '不可用'} · ${failureType}`;
+                setPrivateStatus(button, message, true);
+                previewStatus.textContent = '私有预览失败，详情见对应卡片。';
+              }
+              return;
+            } finally { button.disabled = false; }
+          }
+          if (requestId !== previewRequest || !previewUrl) return;
+          activePreviewButton = button;
+          setPrivateStatus(button, 'API HTTP 200 · 正在载入媒体…');
+          previewStatus.textContent = button.dataset.privateId ? '私有連結有效 300 秒；失效時請關閉後重新點擊預覽。' : '';
           previewScrollY = window.scrollY;
           const video = button.dataset.previewType === "video";
           lightboxImage.hidden = video;
           lightboxVideo.hidden = !video;
           if (video) {
-            lightboxVideo.src = button.dataset.previewUrl;
+            lightboxVideo.src = previewUrl;
           } else {
-            lightboxImage.src = button.dataset.previewUrl;
+            lightboxImage.src = previewUrl;
             lightboxImage.alt = button.dataset.previewAlt ?? "圖片預覽";
           }
           lightbox.showModal();
         });
       });
 
+      [lightboxImage, lightboxVideo].forEach((media) => media?.addEventListener('error', () => {
+        if (!media?.getAttribute('src')) return;
+        if (activePreviewButton) setPrivateStatus(activePreviewButton, 'API HTTP 200 · 媒体载入失败（媒体 HTTP 状态无法由浏览器元素读取）', true);
+        previewStatus.textContent = '媒體載入失敗。請關閉後重新預覽，或檢查 R2 物件與權限。';
+        lightbox?.close();
+      }));
+      const loaded = () => {
+        if (activePreviewButton) setPrivateStatus(activePreviewButton, 'API HTTP 200 · 预览已载入（链接有效期 300 秒）');
+      };
+      lightboxImage?.addEventListener('load', loaded);
+      lightboxVideo?.addEventListener('loadeddata', loaded);
       closeButton?.addEventListener("click", () => lightbox?.close());
       lightbox?.addEventListener("click", (event) => {
         if (event.target === lightbox || event.target === lightboxContent) lightbox.close();
       });
       lightbox?.addEventListener("close", () => {
+        activePreviewButton = undefined;
         if (!lightboxImage) return;
         lightboxImage.removeAttribute("src");
         lightboxImage.alt = "";
