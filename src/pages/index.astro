@@ -188,9 +188,11 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
 </html>
 <script>
   import { events } from "../data/events";
+  import { getCountdownEvent } from "../utils/countdown.js";
   import { getTaiyoToHoshiBroadcast } from "../utils/taiyoToHoshiBroadcast.js";
   import { getWatashiNoKanpekiNaKekkonBroadcast } from "../utils/watashiNoKanpekiNaKekkonBroadcast.js";
 
+  const renderToday = () => {
   const now = new Date();
 
   const japaneseDateParts = new Intl.DateTimeFormat("en-CA", {
@@ -213,7 +215,11 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
     label.textContent = `歷史上的今天 · ${Number(month)}月${Number(day)}日`;
   }
 
-  const currentEvents = events.filter((event) => event.date === currentDate);
+  const currentEvents = events.flatMap((event) => {
+    const countdown = getCountdownEvent(event, currentDate);
+    if (countdown) return [countdown];
+    return event.date === currentDate ? [{ ...event, countdownText: "" }] : [];
+  });
   const historicalEvents = events.filter(
     (event) => event.date.slice(5) === today && event.date.slice(0, 4) !== year
   );
@@ -223,9 +229,11 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
   if (currentContainer) {
     const currentEventsHtml = currentEvents.map((event) => `
       <article>
-        <strong>${event.date}</strong>
+        <strong>${currentDate}</strong>
         <h3>${event.title}</h3>
         ${event.description ? `<p>${event.description}</p>` : ""}
+        ${event.countdownText && event.countdown ? `<p>公開日：${event.countdown.targetDate}</p>` : ""}
+        ${event.countdownText ? `<p><strong>${event.countdownText}</strong></p>` : ""}
         ${event.source && event.sourceUrl ? `<p><a class="today-source-link" href="${event.sourceUrl}" target="_blank" rel="noopener noreferrer">來源：${event.source} →</a></p>` : ""}
       </article>
     `).join("");
@@ -264,6 +272,13 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
 
     historyContainer.innerHTML = eventsHtml || "<p>暫無記錄</p>";
   }
+  };
+  renderToday();
+  // Refresh across Japan midnight, including pages resumed from a sleeping tab.
+  window.setInterval(renderToday, 60_000);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) renderToday();
+  });
 </script>
 
 

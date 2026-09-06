@@ -1,5 +1,24 @@
 export const events = [
   {
+    id: "na-pa-wo-men-mv-2026-09-10",
+    date: "2026-09-10",
+    title: "〈哪怕我們〉MV 公開",
+    category: "音樂／MV",
+    description: "陳偉霆〈哪怕我們〉MV 預定於 2026 年 9 月 10 日公開。9 月 6 日，陳偉霆本人微博發布倒數影片，預告「MV 上線還有④天」。",
+    source: "陳偉霆本人微博",
+    sourceUrl: "https://weibo.com/1712570933/5340104676606068",
+    relatedHref: "/works/music-na-pa-wo-men",
+    relatedLabel: "查看〈哪怕我們〉音樂作品 →",
+    countdown: {
+      startDate: "2026-09-06",
+      targetDate: "2026-09-10",
+      title: "〈哪怕我們〉MV 公開倒數",
+      description: "陳偉霆本人微博發布 MV 倒數預告。",
+      countdownTitle: "距離〈哪怕我們〉MV 公開還有 {days} 天",
+      releaseDayTitle: "〈哪怕我們〉MV 今日公開",
+    },
+  },
+  {
     id: "descente-zhengzhou-delta-2026-09-04",
     date: "2026-09-04",
     title: "陳偉霆出席 DESCENTE 迪桑特鄭州 DELTA 競速體驗活動",
