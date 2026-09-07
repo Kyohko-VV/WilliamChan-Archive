@@ -13,7 +13,21 @@ export const events = [
       startDate: "2026-09-06",
       targetDate: "2026-09-10",
       title: "〈哪怕我們〉MV 公開倒數",
-      description: "陳偉霆本人微博發布 MV 倒數預告。",
+      // Today only displays each update on its publication date.
+      updates: [
+        {
+          date: "2026-09-06",
+          description: "陳偉霆本人微博發布 MV 倒數預告。",
+          source: "陳偉霆本人微博",
+          sourceUrl: "https://weibo.com/1712570933/5340104676606068",
+        },
+        {
+          date: "2026-09-07",
+          description: "“🐬”拍了拍“你”说 MV 上线还有③天",
+          source: "陳偉霆本人微博",
+          sourceUrl: "https://weibo.com/1712570933/5340466969051157",
+        },
+      ],
       countdownTitle: "距離〈哪怕我們〉MV 公開還有 {days} 天",
       releaseDayTitle: "〈哪怕我們〉MV 今日公開",
     },
