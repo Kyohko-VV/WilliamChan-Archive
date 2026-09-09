@@ -33,6 +33,12 @@ export const events = [
           source: "陳偉霆本人微博",
           sourceUrl: "https://weibo.com/1712570933/5340814289141956",
         },
+        {
+          date: "2026-09-09",
+          description: "“🐈”拍了拍“你”说 MV 上线还有①天 #七号打歌中心# #微博音乐派对ING#",
+          source: "陳偉霆本人微博",
+          sourceUrl: "https://weibo.com/1712570933/5341176659974086",
+        },
       ],
       countdownTitle: "距離〈哪怕我們〉MV 公開還有 {days} 天",
       releaseDayTitle: "〈哪怕我們〉MV 今日公開",
