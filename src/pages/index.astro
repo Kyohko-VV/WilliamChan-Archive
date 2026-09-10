@@ -235,6 +235,7 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
         ${event.countdownText && event.countdown ? `<p>公開日：${event.countdown.targetDate}</p>` : ""}
         ${event.countdownText ? `<p><strong>${event.countdownText}</strong></p>` : ""}
         ${event.source && event.sourceUrl ? `<p><a class="today-source-link" href="${event.sourceUrl}" target="_blank" rel="noopener noreferrer">來源：${event.source} →</a></p>` : ""}
+        ${event.officialMvUrl ? `<p><a class="today-source-link" href="${event.officialMvUrl}" target="_blank" rel="noopener noreferrer">Official MV｜YouTube →</a></p>` : ""}
       </article>
     `).join("");
 

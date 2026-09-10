@@ -9,7 +9,8 @@ export function getCountdownEvent(event, currentDate) {
   const update = countdown.updates?.find(({ date }) => date === currentDate);
   return {
     ...event,
-    title: countdown.title,
+    title: days === 0 ? countdown.releaseDayTitle : countdown.title,
+    officialMvUrl: days === 0 ? event.officialMvUrl : undefined,
     description: update?.description ?? "",
     source: update?.source ?? "",
     sourceUrl: update?.sourceUrl ?? "",

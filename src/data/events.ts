@@ -4,9 +4,11 @@ export const events = [
     date: "2026-09-10",
     title: "〈哪怕我們〉MV 公開",
     category: "音樂／MV",
-    description: "陳偉霆〈哪怕我們〉MV 預定於 2026 年 9 月 10 日公開。9 月 6 日，陳偉霆本人微博發布倒數影片，預告「MV 上線還有④天」。",
+    description: "陳偉霆〈哪怕我們〉MV 正式公開。MV 以搖滾樂隊形式展開，陳偉霆擔任主唱 William，並公布菲彈 Fizz、銀影 Silver、刺仔 Spike、泰坦 Titan 等樂隊角色。",
     source: "陳偉霆本人微博",
-    sourceUrl: "https://weibo.com/1712570933/5340104676606068",
+    sourceUrl: "https://weibo.com/1712570933/5341539146400636",
+    officialMvUrl: "https://youtu.be/Acb7ME91XJg?si=bMLeyEwOYnrKyfjY",
+    additionalSources: [{ label: "英皇娛樂--北京", url: "https://weibo.com/3270824053/5341539430564305" }],
     relatedHref: "/works/music-na-pa-wo-men",
     relatedLabel: "查看〈哪怕我們〉音樂作品 →",
     countdown: {
@@ -15,6 +17,12 @@ export const events = [
       title: "〈哪怕我們〉MV 公開倒數",
       // Today only displays each update on its publication date.
       updates: [
+        {
+          date: "2026-09-10",
+          description: "陳偉霆〈哪怕我們〉MV 正式公開，並公布 MV 樂隊成員。",
+          source: "陳偉霆本人微博",
+          sourceUrl: "https://weibo.com/1712570933/5341539146400636",
+        },
         {
           date: "2026-09-06",
           description: "陳偉霆本人微博發布 MV 倒數預告。",

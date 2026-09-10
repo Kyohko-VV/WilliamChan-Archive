@@ -23,6 +23,8 @@ export interface WorkCover {
 export interface WorkImage extends WorkCover {
   source: string;
   sourceUrl: string;
+  publishedDate?: string;
+  tags?: string[];
 }
 
 export interface WorkArchiveVideo {
@@ -60,8 +62,13 @@ export interface Work {
   releaseDate?: string;
   status?: string;
   description?: string;
+  introduction?: string[];
+  mvReleaseDate?: string;
+  mvBand?: { label: string; value: string }[];
+  promotion?: WorkSource[];
   seoDescription?: string;
   cover?: WorkCover;
+  mediaAlbum?: string;
   images?: WorkImage[];
   leadActor?: string;
   role?: string;
@@ -368,7 +375,67 @@ export const works: Work[] = [
     artist: "陳偉霆",
     status: "已公開",
     description: "陳偉霆於 2026 年 8 月 2 日公開單曲〈哪怕我們〉。",
+    introduction: [
+      "〈哪怕我們〉以強烈鼓點、電吉他與搖滾編制展開，MV 以荒原、熔岩、巨獸與傷痕等意象構築帶有末世感的世界。作品沒有迴避受傷、困境與失敗，而是把重點放在即使身處裂痕之中，仍選擇保持信念、繼續向前。",
+      "MV 中，陳偉霆組成一支虛構樂隊，自己擔任主唱 William，並以不同角色構成鍵盤手菲彈 Fizz、吉他手銀影 Silver、鼓手刺仔 Spike 與貝斯手泰坦 Titan。音樂與視覺共同呈現出「在困境中重新出發」的力量感，也呼應官方宣傳中「裂痕之上，不是終點，是新生之地」的概念。",
+    ],
+    mvReleaseDate: "2026-09-10",
+    mvBand: [
+      { label: "主唱", value: "陳偉霆 William" },
+      { label: "鍵盤手", value: "菲彈 Fizz" },
+      { label: "吉他手", value: "銀影 Silver" },
+      { label: "鼓手", value: "刺仔 Spike" },
+      { label: "貝斯手", value: "泰坦 Titan" },
+    ],
+    watchLinks: [{ label: "Official MV｜YouTube", url: "https://youtu.be/Acb7ME91XJg?si=bMLeyEwOYnrKyfjY" }],
+    promotion: [
+      {
+        displayName: "w-Daily／陳偉霆工作室｜MV 拍攝記錄",
+        url: "https://weibo.com/6269525799/5341542782600127",
+        type: "官方",
+        note: "2026-09-10｜〈哪怕我們〉MV 拍攝／幕後照片組。",
+      },
+      {
+        displayName: "陳偉霆本人微博｜18 宮格與直播預告",
+        url: "https://weibo.com/1712570933/5341593386356404",
+        type: "官方",
+        note: "2026-09-10 14:36｜發布〈哪怕我們〉相關 18 宮格照片，並預告「晚上 18:30 直播聊」。",
+      },
+      {
+        displayName: "陳偉霆本人微博｜當晚微博直播",
+        url: "https://weibo.com/1712570933/5341667470084903",
+        type: "官方",
+        note: "2026-09-10 19:30 相關微博｜直播開始階段先由陳偉霆本人單獨談〈哪怕我們〉MV，之後才進入粉絲連線／互動環節。",
+      },
+    ],
     href: "/works/music-na-pa-wo-men",
+    mediaAlbum: "《哪怕我們》",
+    images: [
+      {
+        src: "https://media.williamchanfanpage.com/work/napawomen20260910-3.jpg",
+        alt: "《哪怕我們》MV 公開日照片 3",
+        publishedDate: "2026-09-10",
+        tags: ["MV", "Promotion"],
+        source: "陳偉霆本人微博｜官方",
+        sourceUrl: "https://weibo.com/1712570933/Rhs26qFAE",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/napawomen20260910-5.jpg",
+        alt: "《哪怕我們》MV 公開日照片 5",
+        publishedDate: "2026-09-10",
+        tags: ["MV", "Promotion"],
+        source: "陳偉霆本人微博｜官方",
+        sourceUrl: "https://weibo.com/1712570933/Rhs26qFAE",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/napawomen20260910-6.jpg",
+        alt: "《哪怕我們》MV 公開日照片 6",
+        publishedDate: "2026-09-10",
+        tags: ["MV", "Promotion"],
+        source: "陳偉霆本人微博｜官方",
+        sourceUrl: "https://weibo.com/1712570933/Rhs26qFAE",
+      },
+    ],
     cover: {
       src: "https://media.williamchanfanpage.com/work/%E5%93%AA%E6%80%95%E6%88%91%E5%80%91%20%E5%B0%81%E9%9D%A2.jpg",
       alt: "〈哪怕我們〉單曲封面",
@@ -389,6 +456,18 @@ export const works: Work[] = [
         url: "https://weibo.com/1712570933/RbuXfA3G5",
         type: "官方",
         note: "從《我門》到《哪怕我們》，不變的是我。",
+      },
+      {
+        displayName: "陳偉霆本人微博｜MV 正式公開與樂隊設定",
+        url: "https://weibo.com/1712570933/5341539146400636",
+        type: "官方",
+        note: "2026-09-10 11:00｜正式宣布〈哪怕我們〉MV 上線，並介紹樂隊成員。",
+      },
+      {
+        displayName: "英皇娛樂--北京｜MV 正式公開",
+        url: "https://weibo.com/3270824053/5341539430564305",
+        type: "官方",
+        note: "2026-09-10 11:01｜〈哪怕我們〉MV 正式上線宣傳：「裂痕之上，不是終點，是新生之地。」",
       },
     ],
     relatedStages: ["/events/2026-tima"],

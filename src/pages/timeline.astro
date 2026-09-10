@@ -53,6 +53,8 @@ const eventsByYear = Object.groupBy(
               </a>
             )}
             {event.href && <span class="detail-link">查看事件詳情 →</span>}
+            {event.officialMvUrl && <p><a class="detail-link" href={event.officialMvUrl} target="_blank" rel="noopener noreferrer">Official MV｜YouTube →</a></p>}
+            {event.additionalSources?.map((source) => <p><a class="detail-link" href={source.url} target="_blank" rel="noopener noreferrer">來源：{source.label} →</a></p>)}
             {event.relatedHref && (
               <a class="detail-link" href={event.relatedHref}>{event.relatedLabel}</a>
             )}

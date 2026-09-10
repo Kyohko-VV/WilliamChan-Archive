@@ -17,6 +17,7 @@ export interface MediaLibraryItem {
   relatedId?: string;
   relatedTitle?: string;
   date: string;
+  publishedDate?: string;
   source?: string;
   sourceUrl?: string;
   visibility: MediaVisibility;
@@ -38,7 +39,9 @@ export function normalizeMediaItem(item: MediaLibraryItem) {
     category,
     album,
     // Category is part of the key so same-named albums never mix across categories.
-    albumKey: JSON.stringify([category, album]),
+    albumKey: category === "Music" && item.relatedType === "work" && item.relatedId
+      ? JSON.stringify([category, "work", item.relatedId])
+      : JSON.stringify([category, album]),
   };
 }
 
@@ -172,7 +175,8 @@ export function selectPublicMedia(items: MediaLibraryItem[]) {
     const normalized = normalizeMediaItem(item);
     return {
       type: normalized.type,
-      date: item.date,
+      date: item.publishedDate || item.date,
+      publishedDate: item.publishedDate,
       category: normalized.category,
       album: normalized.album,
       albumKey: normalized.albumKey,

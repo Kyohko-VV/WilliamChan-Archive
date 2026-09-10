@@ -1,6 +1,21 @@
 import { mediaItems, normalizeMediaItem, selectPublicMedia, type MediaLibraryItem } from "./mediaLibrary";
 import { works, type Work } from "./works";
 
+/** Resolve explicit work IDs/slugs only; similar titles never establish a relationship. */
+export function normalizeMusicAlbum(item: MediaLibraryItem, entries: Work[] = works) {
+  if (item.category !== "Music" || item.relatedType !== "work" || !item.relatedId) return normalizeMediaItem(item);
+  const matches = entries.filter((work) => work.category === "音樂" &&
+    (work.id === item.relatedId || work.href?.split("/").filter(Boolean).pop() === item.relatedId));
+  if (matches.length !== 1) return normalizeMediaItem(item);
+  const work = matches[0];
+  return normalizeMediaItem({
+    ...item,
+    relatedId: work.id ?? work.href?.split("/").filter(Boolean).pop(),
+    relatedTitle: work.title,
+    album: work.mediaAlbum ?? work.title,
+  });
+}
+
 /** Derive from the original works; never persist copies in the manual catalog. */
 export function musicMediaItems(entries: Work[]): MediaLibraryItem[] {
   return entries.filter((work) => work.category === "音樂").flatMap((work) => {
@@ -16,8 +31,10 @@ export function musicMediaItems(entries: Work[]): MediaLibraryItem[] {
       id: `music:${relatedId ?? work.title}:${image.src}`,
       type: "image",
       date: work.releaseDate ?? work.date.replaceAll(".", "-"),
+      publishedDate: image.publishedDate,
+      tags: image.tags,
       category: "Music",
-      album: work.title,
+      album: work.mediaAlbum ?? work.title,
       relatedType: "work",
       relatedId,
       relatedTitle: work.title,
@@ -58,7 +75,7 @@ export function deduplicateMedia(items: MediaLibraryItem[]): MediaLibraryItem[] 
 
 /** Add future source adapters here, keeping both pages on the same aggregation path. */
 export function buildMediaIndex(manual: MediaLibraryItem[], musicWorks: Work[]) {
-  return deduplicateMedia([...manual, ...musicMediaItems(musicWorks)]).map(normalizeMediaItem);
+  return deduplicateMedia([...manual, ...musicMediaItems(musicWorks)]).map((item) => normalizeMusicAlbum(item, musicWorks));
 }
 
 const aggregatedMedia = buildMediaIndex(mediaItems, works);

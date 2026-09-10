@@ -3,11 +3,16 @@ import EventGallery from "../events/EventGallery.astro";
 import EventSection from "../events/EventSection.astro";
 import type { Work } from "../../data/works";
 import { works } from "../../data/works";
+import { events } from "../../data/events";
 import WorkLayout from "../../layouts/WorkLayout.astro";
 import YouTubeEmbed from "./YouTubeEmbed.astro";
 
 interface Props { work: Work; }
 const { work } = Astro.props;
+// relatedHref is the explicit stable Work route; never infer links from titles.
+const relatedTimeline = events
+  .filter((event) => Boolean(work.href) && event.relatedHref === work.href)
+  .sort((a, b) => a.date.localeCompare(b.date));
 
 const gallery = work.cover ? [
   {
@@ -36,13 +41,14 @@ const [year, month, day] = displayDate.split("-");
   artist={work.artist}
   ogImage={work.cover?.src}
 >
-  <EventSection id="summary-heading" title="作品簡介"><p class="summary">{work.description}</p></EventSection>
+  <EventSection id="summary-heading" title="作品簡介">{(work.introduction ?? [work.description]).map((paragraph) => <p class="summary">{paragraph}</p>)}</EventSection>
 
   <EventSection id="details-heading" title="作品資料">
     <dl>
       <div><dt>類型</dt><dd>{work.category} / {work.type}</dd></div>
       <div><dt>歌手</dt><dd>{work.artist}</dd></div>
       <div><dt>發行日期</dt><dd><time datetime={displayDate}>{displayDate}</time></dd></div>
+      {work.mvReleaseDate && <div><dt>MV 公開日</dt><dd><time datetime={work.mvReleaseDate}>{work.mvReleaseDate}</time></dd></div>}
       {work.status && <div><dt>狀態</dt><dd>{work.status}</dd></div>}
       {work.credits?.map((credit) => <div><dt>{credit.label}</dt><dd>{credit.value}</dd></div>)}
     </dl>
@@ -52,6 +58,10 @@ const [year, month, day] = displayDate.split("-");
     {work.streamingLinks && <div class="link-group"><h3>官方收聽</h3><ul class="video-list">{work.streamingLinks.map((link) => <li>{link.url ? <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a> : link.label}</li>)}</ul></div>}
     {work.watchLinks && <div class="link-group"><h3>Official MV</h3><ul class="video-list">{work.watchLinks.map((link) => <li>{link.url ? <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a> : link.label}</li>)}</ul></div>}
   </EventSection>
+
+  {work.mvBand?.length && <EventSection id="mv-band-heading" title="MV 樂隊設定"><dl>{work.mvBand.map((member) => <div><dt>{member.label}</dt><dd>{member.value}</dd></div>)}</dl></EventSection>}
+
+  {work.promotion?.length && <EventSection id="promotion-heading" title="官方宣傳記錄 / Promotion"><ul class="video-list">{work.promotion.map((source) => <li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.displayName}</a><p>{source.note}</p></li>)}</ul></EventSection>}
 
   {(work.notes?.length ?? 0) > 0 && <EventSection id="notes-heading" title="歌曲理念 / Notes">{work.notes?.map((note) => <p class="summary note-item">{note}</p>)}</EventSection>}
 
@@ -92,6 +102,16 @@ const [year, month, day] = displayDate.split("-");
   {gallery.length > 0 && <EventGallery items={gallery} />}
 
   {(work.officialSources?.length ?? 0) > 0 && <EventSection id="sources-heading" title="官方來源"><ul class="video-list">{work.officialSources?.map((source) => <li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.displayName}</a>{source.note && <p>{source.note}</p>}</li>)}</ul></EventSection>}
+
+  {relatedTimeline.length > 0 && (
+    <EventSection id="related-timeline-heading" title="Related Timeline / 相關時間線">
+      <ul class="video-list">
+        {relatedTimeline.map((event) => (
+          <li><a href={event.id || event.anchor ? `/timeline#${event.id ?? event.anchor}` : "/timeline"}><time datetime={event.date}>{event.date}</time>｜{event.title}</a></li>
+        ))}
+      </ul>
+    </EventSection>
+  )}
 </WorkLayout>
 
 <style>
