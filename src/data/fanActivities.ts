@@ -30,6 +30,16 @@ export interface FanActivity {
 
 export const fanActivities: FanActivity[] = [
   {
+    date: "2026-09-11",
+    title: "跨出小小的一步",
+    category: "建站記錄",
+    description:
+      "今天，網站得到了一個小小的成績。剛剛整理完成的〈哪怕我們〉Work 頁面，一方面在 X 搜尋「ウィリアムチャン」時，被 Grok 的摘要引用；另一方面，也已經能在 Google 搜尋結果中直接找到並顯示。",
+    detailUrl: "/fan-activities/2026-09-11-a-small-step",
+    detailLabel: "閱讀全文 →",
+    recorder: "Kyohko",
+  },
+  {
     date: "2026-08-30",
     title: "十年日記｜ずっと作りたかった形が、やっと少しずつ現実に",
     category: "サイト記録・推し活記録",

@@ -1,0 +1,124 @@
+---
+import FooterSocialLinks from "../../components/FooterSocialLinks.astro";
+import SeoHead from "../../components/SeoHead.astro";
+import { fanActivities } from "../../data/fanActivities";
+
+const entry = fanActivities.find((activity) => activity.detailUrl === "/fan-activities/2026-09-11-a-small-step")!;
+const { title, description, date, category } = entry;
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} | 陳偉霆資料庫</title>
+    <SeoHead title={`${title} | 陳偉霆資料庫`} description={description} />
+  </head>
+  <body>
+    <main>
+      <nav aria-label="返回">
+        <a href="/fan-activities" class="back">← 返回 Fan Activities</a>
+      </nav>
+      <p class="site-identity">陳偉霆資料庫 · William Chan Archive</p>
+      <article lang="zh-Hant">
+        <header>
+          <p class="category">{category}</p>
+          <h1>{title}</h1>
+          <div class="article-meta">
+            <time datetime={date}>{date}</time>
+            <span>記錄者：{entry.recorder}</span>
+          </div>
+        </header>
+        <div class="article-body">
+          <p>今天，網站得到了一個小小的成績。</p>
+          <p>剛剛整理完成的〈哪怕我們〉Work 頁面，一方面在 X 搜尋「ウィリアムチャン」時，被 Grok 的摘要引用；另一方面，也已經能在 Google 搜尋結果中直接找到並顯示。</p>
+          <p>其實都只是很小的一步。<br />網站也才剛開始，內容還遠遠沒有整理完。</p>
+          <p>但看到它真的被搜尋引擎找到、被 AI 讀取並引用時，還是忍不住有一點開心。</p>
+          <p>當初我跟 ChatGPT 說，我想重新做一個陳偉霆資料庫網站的時候，我其實很清楚自己想要的是什麼。</p>
+          <p>一個是 <strong>SEO 要做好，希望真正想找資料的人能搜尋得到。</strong></p>
+          <p>另一個是——<strong>希望這些整理過的資料，未來能被 AI 正確地讀取和引用。</strong></p>
+          <p>當時我還笑著說，自己的野心是不是有點大。😂</p>
+          <p>但隨著 AI 技術發展得越來越快，我反而越來越覺得這件事很重要。</p>
+          <p>現在只需要一張照片，就可以生成一段看起來似真似假的影片；飯製圖片、飯製影片的完成度越來越高，有時甚至已經很難一眼分辨真假。更不用說把一句話抽出來、重新剪輯、重新配字幕之後形成的各種二次創作。</p>
+          <p>我並不排斥這些東西。</p>
+          <p>粉絲也好、媒體也好，用自己的方式去創作、去想像，本身就是追星和娛樂的一部分，我自己也會看，也會覺得有趣。</p>
+          <p>可是對我來說，那些始終是建立在另一個東西之上的。</p>
+          <p><strong>最基礎的，還是陳偉霆本人真正說過什麼、做過什麼，以及他的工作室、公司和官方平台真正公開過什麼。</strong></p>
+          <p>效果好不好、宣傳做得成功不成功，甚至作品最後得到什麼樣的評價，都是之後的事情。</p>
+          <p>至少「原來發生了什麼」，應該有一個地方可以回頭找到。</p>
+          <p>所以在設計這個網站的時候，ChatGPT 給我的很多建議，最後其實都慢慢指向同一件事——<strong>不要只做一個「看起來漂亮」的粉絲網站，而是盡量讓資料彼此之間有關聯。</strong></p>
+          <p>一首歌，不只是放一張封面和一個 MV 連結。</p>
+          <p>它可以有發行日期、有官方來源、有 MV、有舞台、有當時的宣傳記錄，也可以和 Timeline 裡真正發生過的事件連在一起。</p>
+          <p>一場活動，也不只是一組照片。</p>
+          <p>它有日期、有地點、有官方發布、有不同來源，之後再回頭看的時候，應該仍然能知道「這張照片為什麼會出現在這裡」。</p>
+          <p>所以現在網站慢慢有了 Timeline、Works、Brand / Editorial、Fan Activities、Sources、Media Archive……看起來像是很多不同的頁面，其實我希望它們最後都是互相連得起來的。</p>
+          <p>還有一件我自己很在意的事情，就是照片。</p>
+          <p>現在每一個公開頁面，我通常只會挑幾張自己喜歡、也比較適合頁面閱讀的照片放出來。</p>
+          <p>不是因為只有這幾張。</p>
+          <p>實際保存下來的數量，要比網站上看到的多得多。</p>
+          <p>只是我慢慢覺得，<strong>「保存」和「全部公開」其實是兩件不同的事。</strong></p>
+          <p>其實以前我也跟 ChatGPT 聊過「保存」這件事。</p>
+          <p>我那時候還很得意地說，陳偉霆相關的照片、影片和素材，我幾乎都有存進硬碟。</p>
+          <p>結果再聊下去才發現——存是都存了，可是沒有整理。等到自己真的想找某一張照片、某一段影片時，反而完全不知道它被我丟在哪個資料夾裡。</p>
+          <p>ChatGPT 當時還很不客氣地吐槽我：</p>
+          <p><strong>「那這樣最後不就是等硬碟慢慢壞掉嗎😂」</strong></p>
+          <p>當時覺得很好笑，現在回頭看，這句話其實很有道理。</p>
+          <p><strong>真正的保存，不只是把檔案留下來，而是要知道它是什麼、從哪裡來、什麼時候發生，需要的時候還能找得到。</strong></p>
+          <p>所以現在網站另外做了一個只在本機使用的 Media Library。</p>
+          <p>公開的圖片會進入網站的 Media Archive，而更多沒有公開展示的照片，則存放在私人空間裡。它們依然會按照作品、日期和來源被整理，只是不會出現在公開網站上。</p>
+          <p>公開頁面應該讓人容易閱讀，知道這件事情發生過，也能看到具有代表性的影像；而資料庫背後，則可以盡可能把當時的素材、來源和日期保存完整。</p>
+          <p>對我來說，這反而更接近「資料庫」這三個字。</p>
+          <p>不是把所有東西全部堆到訪客面前，而是<strong>知道自己保存了什麼，也知道每一筆資料從哪裡來；需要的時候，還能重新找到它。</strong></p>
+          <p>今天 Google 能找到〈哪怕我們〉，Grok 也開始引用網站裡整理的內容，當然還不能代表什麼。</p>
+          <p>搜尋結果會變，AI 也可能讀錯，網站本身更還有一大堆內容沒有補完。</p>
+          <p>但至少，它真的跨出了我一開始想像中的那一小步。</p>
+          <p>從「我想做一個資料庫」，變成了——</p>
+          <p><strong>這個資料庫，開始有機會被別人找到、被機器讀懂，也把我想留下來的那些資料，一點一點留在網路上。</strong></p>
+          <p>小小的一步。</p>
+          <p>繼續慢慢做。❤️</p>
+        </div>
+      </article>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-title">陳偉霆資料庫 · William Chan Archive</p>
+        <FooterSocialLinks />
+        <p class="footer-nav">Timeline ｜ Works ｜ People &amp; Characters ｜ Sources</p>
+        <p>非官方粉絲資料庫</p>
+        <p>本站內容僅作資料整理與記錄用途。</p>
+        <p class="footer-copyright">© 2026 William Chan Archive</p>
+      </div>
+    </footer>
+  </body>
+  <style>
+    :global(*) { box-sizing: border-box; }
+    :global(body) { margin: 0; background: #f8f6f3; color: #292624; font-family: "Noto Sans TC", "Noto Sans JP", Arial, sans-serif; }
+    main { width: 88%; max-width: 800px; margin: 0 auto; padding: 50px 0 80px; }
+    .back { display: inline-block; margin-bottom: 30px; color: #77706b; text-decoration: none; }
+    .site-identity { margin: -18px 0 28px; color: #958d87; font-size: 13px; letter-spacing: .3px; }
+    article { padding: 48px 54px 54px; background: #fff; border: 1px solid #e5e1dc; border-radius: 12px; }
+    header { padding-bottom: 28px; border-bottom: 1px solid #ebe6e2; }
+    .category { margin: 0 0 12px; color: #8a6f5b; font-size: 14px; font-weight: 600; letter-spacing: .4px; }
+    h1 { margin: 0 0 16px; font-size: clamp(28px, 5vw, 40px); line-height: 1.4; letter-spacing: .3px; }
+    .article-meta { display: flex; flex-wrap: wrap; gap: 6px 16px; color: #77706b; font-size: 14px; }
+    .article-body { margin-top: 32px; }
+    .article-body p { color: #4f4945; font-size: 17px; line-height: 2; margin: 0 0 1.45em; }
+    .article-body p:last-child { margin-bottom: 0; }
+    .site-footer { margin-top: 24px; padding: 32px 8%; background: #675f5a; border-top: 4px solid #d8d0ca; color: #e3ddd8; }
+    .footer-inner { width: 100%; max-width: 1100px; margin: 0 auto; }
+    .site-footer p { margin: 6px 0; font-size: 14px; line-height: 1.55; }
+    .site-footer .footer-title { margin-top: 0; color: #f5f1ee; font-weight: 600; }
+    .footer-nav { overflow-wrap: anywhere; }
+    .footer-copyright { margin-bottom: 0; color: #c6bdb7; }
+    @media (max-width: 700px) {
+      main { width: 88%; padding: 30px 0 50px; }
+      article { padding: 30px 22px 34px; }
+      .article-body { margin-top: 26px; }
+      .article-body p { font-size: 16px; line-height: 1.9; }
+      .site-footer { margin-top: 10px; padding: 22px 6%; }
+      .site-footer p { margin: 4px 0; font-size: 13px; line-height: 1.45; }
+    }
+  </style>
+</html>
