@@ -1,5 +1,17 @@
 export const events = [
   {
+    id: "my-lady-release-2019-09-23",
+    date: "2019-09-23",
+    title: "〈My Lady〉正式發布",
+    category: "音樂／單曲",
+    description: "陳偉霆歌曲〈My Lady〉正式發布。作品發布期間同步展開 MV、音樂平台及官方社群宣傳。",
+    source: "陳偉霆本人微博｜〈My Lady〉發布",
+    sourceUrl: "https://weibo.com/1712570933/4419623623513535",
+    officialMvUrl: "https://youtu.be/ot4OhKZRvDw?si=-T1ejUIXN54qbLSR",
+    relatedHref: "/works/music-my-lady",
+    relatedLabel: "查看〈My Lady〉音樂作品 →",
+  },
+  {
     id: "yi-bi-jiang-hu-release-2018-04-20",
     date: "2018-04-20",
     title: "〈一筆江湖〉正式發布",

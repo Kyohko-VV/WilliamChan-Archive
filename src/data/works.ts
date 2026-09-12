@@ -93,6 +93,111 @@ export interface Work {
 
 export const works: Work[] = [
   {
+    id: "music-my-lady",
+    date: "2019-09-23",
+    // 發行日期核對：Apple Music 列出 2019-09-23。
+    // https://music.apple.com/us/album/my-lady-single/1480664044
+    releaseDate: "2019-09-23",
+    title: "〈My Lady〉",
+    category: "音樂",
+    type: "單曲",
+    artist: "陳偉霆",
+    status: "已公開",
+    href: "/works/music-my-lady",
+    mediaAlbum: "〈My Lady〉",
+    cover: {"src":"https://media.williamchanfanpage.com/work/mylady00.jpg","alt":"〈My Lady〉單曲封面"},
+    // Cover date follows releaseDate; no cover source was provided.
+    images: [
+      {
+        "src": "https://media.williamchanfanpage.com/work/mylady00.jpg",
+        "alt": "〈My Lady〉單曲封面",
+        "publishedDate": "2019-09-23",
+        "tags": [
+          "Cover"
+        ],
+        "source": "",
+        "sourceUrl": ""
+      },
+      {
+        "src": "https://media.williamchanfanpage.com/work/mylady02.jpg",
+        "alt": "〈My Lady〉官方宣傳圖片 02",
+        "publishedDate": "2019-09-23",
+        "tags": [
+          "Promotion"
+        ],
+        "source": "英皇娛樂–北京",
+        "sourceUrl": "https://weibo.com/3270824053/I8eUsro58"
+      },
+      {
+        "src": "https://media.williamchanfanpage.com/work/mylady01.jpg",
+        "alt": "〈My Lady〉官方宣傳圖片 01",
+        "publishedDate": "2019-09-23",
+        "tags": [
+          "Promotion"
+        ],
+        "source": "英皇娛樂–北京",
+        "sourceUrl": "https://weibo.com/3270824053/I8eUsro58"
+      },
+      {
+        "src": "https://media.williamchanfanpage.com/work/mylady08.jpg",
+        "alt": "〈My Lady〉官方宣傳圖片 08",
+        "publishedDate": "2019-09-28",
+        "tags": [
+          "Promotion"
+        ],
+        "source": "英皇娛樂–北京",
+        "sourceUrl": "https://weibo.com/3270824053/I90l5E5kT"
+      },
+      {
+        "src": "https://media.williamchanfanpage.com/work/mylady09.jpg",
+        "alt": "〈My Lady〉官方宣傳圖片 09",
+        "publishedDate": "2019-09-28",
+        "tags": [
+          "Promotion"
+        ],
+        "source": "英皇娛樂–北京",
+        "sourceUrl": "https://weibo.com/3270824053/I90l5E5kT"
+      }
+    ],
+    description: "〈My Lady〉是陳偉霆於 2019 年 9 月 23 日發布的音樂作品。官方宣傳期間先後公開 MV 劇照、九宮格場景視覺及宣傳造型照，相關內容由陳偉霆本人微博及英皇娛樂–北京發布。",
+    seoDescription: "整理陳偉霆單曲〈My Lady〉的作品資料、Official MV、YouTube 官方音源、Apple Music、官方宣傳記錄及相關時間線。",
+    watchLinks: [
+      { label: "Official MV", url: "https://youtu.be/ot4OhKZRvDw?si=-T1ejUIXN54qbLSR" },
+    ],
+    streamingLinks: [
+      { label: "YouTube 官方音源", url: "https://youtube.com/watch?v=OiqfQftnIeM" },
+      { label: "Apple Music", url: "https://music.apple.com/jp/album/my-lady/1480664044?i=1480664045" },
+    ],
+    promotion: [
+      {
+        displayName: "2019-09-23｜英皇娛樂–北京",
+        url: "https://weibo.com/3270824053/4419639406527430",
+        type: "官方",
+        note: "Promotion / MV Visual｜〈My Lady〉新歌／MV 宣傳，公開九宮格 MV 劇情及場景劇照。原文：「一段都市烟火中的爱情独白，一场以分手告终的深情故事」。",
+      },
+      {
+        displayName: "2019-09-23｜陳偉霆本人微博",
+        url: "https://weibo.com/1712570933/4419623623513535",
+        type: "官方",
+        note: "Official Promotion / Release Promotion｜原文：「学会享受遗憾，先从《My Lady》开始。」〈My Lady〉正式宣傳與收聽入口，附 QQ 音樂、酷狗音樂、酷我音樂入口及影片。",
+      },
+      {
+        displayName: "2019-09-28｜英皇娛樂–北京",
+        url: "https://weibo.com/3270824053/4421462599553635",
+        type: "官方",
+        note: "Promotion / Fashion Visual｜〈My Lady〉相關宣傳，公開 9 張宣傳造型照，主題為復古潮酷造型與秋季時尚穿搭。原文標籤：#陈伟霆mylady#、#陈伟霆花衬衫搭配高领毛衣#。",
+      },
+    ],
+    officialSources: [
+      {
+        displayName: "陳偉霆本人微博｜〈My Lady〉發布",
+        url: "https://weibo.com/1712570933/4419623623513535",
+        type: "官方",
+        note: "2019-09-23｜陳偉霆本人分享〈My Lady〉影片及音樂平台收聽入口。",
+      },
+    ],
+  },
+  {
     id: "music-hu-hang",
     date: "2021-12-20",
     releaseDate: "2021-12-20",
