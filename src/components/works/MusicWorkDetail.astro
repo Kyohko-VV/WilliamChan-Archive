@@ -9,6 +9,10 @@ import YouTubeEmbed from "./YouTubeEmbed.astro";
 
 interface Props { work: Work; }
 const { work } = Astro.props;
+// Same public cover, resized for sharing; retain the original Work/Gallery asset.
+const shareImage = work.id === "na-pa-wo-men-2026"
+  ? new URL("/share/na-pa-wo-men-cover.jpg", Astro.site).href
+  : work.cover?.src;
 // Display only: retain the original date text, timestamps, and source order in data.
 const displaySourceText = (text: string | undefined) => work.id === "music-hu-hang"
   ? text?.replace(/(\d{4}-\d{2}-\d{2})[ \t]+\d{2}:\d{2}\b/g, "$1")
@@ -43,7 +47,7 @@ const [year, month, day] = displayDate.split("-");
   title={work.title}
   category={`${work.category} / ${work.type}`}
   artist={work.artist}
-  ogImage={work.cover?.src}
+  ogImage={shareImage}
 >
   <EventSection id="summary-heading" title="作品簡介">{(work.introduction ?? [work.description]).map((paragraph) => <p class="summary">{paragraph}</p>)}</EventSection>
 
