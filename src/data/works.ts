@@ -93,6 +93,132 @@ export interface Work {
 
 export const works: Work[] = [
   {
+    id: "music-hu-hang",
+    date: "2021-12-20",
+    releaseDate: "2021-12-20",
+    title: "〈護航〉",
+    category: "音樂",
+    type: "單曲",
+    artist: "陳偉霆",
+    status: "已公開",
+    href: "/works/music-hu-hang",
+    mediaAlbum: "〈護航〉",
+    cover: {
+      src: "https://media.williamchanfanpage.com/work/hu-hang00.jpg",
+      alt: "〈護航〉單曲封面",
+    },
+    images: [
+      // Cover date follows the owner-specified release date; no source was provided.
+      {
+        src: "https://media.williamchanfanpage.com/work/hu-hang00.jpg",
+        alt: "〈護航〉單曲封面",
+        publishedDate: "2021-12-20",
+        tags: ["Cover"],
+        source: "",
+        sourceUrl: "",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/hu-hang13.jpg",
+        alt: "〈護航〉官方圖片 13",
+        publishedDate: "2021-12-20",
+        source: "英皇娛樂–北京",
+        sourceUrl: "https://weibo.com/3270824053/L6TJtx6Zb",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/hu-hang15.jpg",
+        alt: "〈護航〉官方圖片 15",
+        publishedDate: "2021-12-20",
+        source: "英皇娛樂–北京",
+        sourceUrl: "https://weibo.com/3270824053/L6TJtx6Zb",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/hu-hang18.jpg",
+        alt: "〈護航〉官方圖片 18",
+        publishedDate: "2021-12-17",
+        source: "英皇娛樂–北京",
+        sourceUrl: "https://weibo.com/3270824053/L6qTl5zSm",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/hu-hang20.jpg",
+        alt: "〈護航〉官方圖片 20",
+        publishedDate: "2021-12-17",
+        source: "英皇娛樂–北京",
+        sourceUrl: "https://weibo.com/3270824053/L6qTl5zSm",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/hu-hang22.jpg",
+        alt: "〈護航〉官方圖片 22",
+        publishedDate: "2021-12-17",
+        source: "英皇娛樂–北京",
+        sourceUrl: "https://weibo.com/3270824053/L6qTl5zSm",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/hu-hang27.jpg",
+        alt: "〈護航〉官方圖片 27",
+        publishedDate: "2021-12-17",
+        source: "英皇娛樂–北京",
+        sourceUrl: "https://weibo.com/3270824053/L6qTl5zSm",
+      },
+    ],
+    description: "〈護航〉是陳偉霆於 2021 年 12 月推出的粵語單曲。作品在正式發布前以一組 MV 場景照揭開序幕：舊式招牌、狹窄街巷、洗髮屋、老式家具與室內陳設，構成帶有濃厚舊香港氣息的視覺空間。",
+    introduction: [
+      "〈護航〉是陳偉霆於 2021 年 12 月推出的粵語單曲。作品在正式發布前以一組 MV 場景照揭開序幕：舊式招牌、狹窄街巷、洗髮屋、老式家具與室內陳設，構成帶有濃厚舊香港氣息的視覺空間。",
+      "官方預告亦特別以「九宮格空鏡頭」介紹 MV 場景，從環境、物件到家居擺設，都刻意保留老香港的生活質感。12 月 20 日歌曲正式上線，同日 MV 及相關拍攝花絮陸續公開；其後陳偉霆本人亦透過微博分享幕後內容。",
+    ],
+    seoDescription: "陳偉霆粵語單曲〈護航〉於 2021 年 12 月 20 日正式發布。整理作品介紹、Official MV、YouTube 官方音源、Apple Music、官方宣傳與幕後花絮來源，以及相關時間線。",
+    credits: [
+      { label: "語言", value: "粵語" },
+      { label: "官方預告上線時間", value: "英皇娛樂–北京於 2021-12-16 預告，歌曲將於 2021-12-20 10:00 在 QQ 音樂、酷狗音樂、酷我音樂上線。" },
+    ],
+    watchLinks: [
+      { label: "YouTube Official MV", url: "https://youtu.be/wxfybICSl5Y?si=lpSFuJ1stVq61rsf" },
+    ],
+    streamingLinks: [
+      { label: "YouTube 官方音源", url: "https://youtube.com/watch?v=m_kWH3rZSn0&si=russxgcQpgkZNeAC" },
+      { label: "Apple Music", url: "https://music.apple.com/jp/album/%E8%AD%B7%E8%88%AA/1600188161?i=1600188163" },
+    ],
+    promotion: [
+      {
+        displayName: "2021-12-16 11:20｜陳偉霆本人微博",
+        url: "https://weibo.com/1712570933/4714975597693585",
+        type: "官方",
+        note: "預熱／宣傳／MV 視覺｜原文：「先给你们剧透一点点。」以 9 張場景照片預熱〈護航〉MV 的環境視覺。",
+      },
+      {
+        displayName: "2021-12-17 11:01｜陳偉霆本人微博",
+        url: "https://weibo.com/1712570933/4715333136683025",
+        type: "官方",
+        note: "宣傳／MV 視覺｜原文：「答应你们的18宫格，安排！」公開 18 宮格〈護航〉相關照片。",
+      },
+      {
+        displayName: "2021-12-20 11:13｜陳偉霆本人微博",
+        url: "https://weibo.com/1712570933/4716423350321398",
+        type: "官方",
+        note: "正式發行｜文案核心：「终于终于终于发粤语新歌了，《护航》一起听🎵」正式宣布粵語新歌〈護航〉發布，當時附 QQ 音樂、酷狗音樂、酷我音樂入口，話題包含 #亚洲新歌榜#、#陈伟霆护航#。",
+      },
+      {
+        displayName: "2021-12-20 12:28｜英皇娛樂–北京",
+        url: "https://weibo.com/3270824053/4716442077891681",
+        type: "官方",
+        note: "宣傳／幕後花絮｜粵語新歌〈護航〉持續載入驚喜，公開 18 宮格 MV 相關花絮，並詢問歌迷是否已聽新歌、觀看 MV。",
+      },
+      {
+        displayName: "2021-12-21 11:05｜陳偉霆本人微博",
+        url: "https://weibo.com/1712570933/4716783715748109",
+        type: "官方",
+        note: "幕後花絮｜原文：「关于《护航》，我想说的。」分享〈護航〉MV／拍攝幕後內容。",
+      },
+    ],
+    officialSources: [
+      {
+        displayName: "陳偉霆本人微博｜〈護航〉正式發行",
+        url: "https://weibo.com/1712570933/4716423350321398",
+        type: "官方",
+        note: "2021-12-20 11:13｜本人正式宣布粵語新歌發布，作為本作品的主要正式發行來源。",
+      },
+    ],
+  },
+  {
     id: "music-yi-bi-jiang-hu",
     date: "2018-04-20",
     releaseDate: "2018-04-20",

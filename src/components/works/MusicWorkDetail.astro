@@ -9,6 +9,10 @@ import YouTubeEmbed from "./YouTubeEmbed.astro";
 
 interface Props { work: Work; }
 const { work } = Astro.props;
+// Display only: retain the original date text, timestamps, and source order in data.
+const displaySourceText = (text: string | undefined) => work.id === "music-hu-hang"
+  ? text?.replace(/(\d{4}-\d{2}-\d{2})[ \t]+\d{2}:\d{2}\b/g, "$1")
+  : text;
 // relatedHref is the explicit stable Work route; never infer links from titles.
 const relatedTimeline = events
   .filter((event) => Boolean(work.href) && event.relatedHref === work.href)
@@ -22,7 +26,7 @@ const gallery = work.cover ? [
     source: work.images?.[0]?.source ?? work.officialSources?.[0]?.displayName ?? "作品官方來源",
     sourceUrl: work.images?.[0]?.sourceUrl ?? work.officialSources?.[0]?.url ?? work.cover.src,
   },
-  ...(work.images ?? []).map((image, index) => ({ title: `作品圖片 ${index + 1}`, image: image.src, alt: image.alt, source: image.source, sourceUrl: image.sourceUrl })),
+  ...(work.images ?? []).filter((image) => image.src !== work.cover?.src).map((image, index) => ({ title: `作品圖片 ${index + 1}`, image: image.src, alt: image.alt, source: image.source, sourceUrl: image.sourceUrl })),
 ] : [];
 const relatedStages = work.relatedStages
   ?.map((stageHref) => works.find((entry) => entry.href === stageHref))
@@ -61,7 +65,7 @@ const [year, month, day] = displayDate.split("-");
 
   {work.mvBand?.length && <EventSection id="mv-band-heading" title="MV 樂隊設定"><dl>{work.mvBand.map((member) => <div><dt>{member.label}</dt><dd>{member.value}</dd></div>)}</dl></EventSection>}
 
-  {work.promotion?.length && <EventSection id="promotion-heading" title="官方宣傳記錄 / Promotion"><ul class="video-list">{work.promotion.map((source) => <li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.displayName}</a><p>{source.note}</p></li>)}</ul></EventSection>}
+  {work.promotion?.length && <EventSection id="promotion-heading" title="官方宣傳記錄 / Promotion"><ul class="video-list">{work.promotion.map((source) => <li><a href={source.url} target="_blank" rel="noopener noreferrer">{displaySourceText(source.displayName)}</a><p>{displaySourceText(source.note)}</p></li>)}</ul></EventSection>}
 
   {(work.notes?.length ?? 0) > 0 && <EventSection id="notes-heading" title="歌曲理念 / Notes">{work.notes?.map((note) => <p class="summary note-item">{note}</p>)}</EventSection>}
 
@@ -101,7 +105,7 @@ const [year, month, day] = displayDate.split("-");
 
   {gallery.length > 0 && <EventGallery items={gallery} />}
 
-  {(work.officialSources?.length ?? 0) > 0 && <EventSection id="sources-heading" title="官方來源"><ul class="video-list">{work.officialSources?.map((source) => <li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.displayName}</a>{source.note && <p>{source.note}</p>}</li>)}</ul></EventSection>}
+  {(work.officialSources?.length ?? 0) > 0 && <EventSection id="sources-heading" title="官方來源"><ul class="video-list">{work.officialSources?.map((source) => <li><a href={source.url} target="_blank" rel="noopener noreferrer">{displaySourceText(source.displayName)}</a>{source.note && <p>{displaySourceText(source.note)}</p>}</li>)}</ul></EventSection>}
 
   {relatedTimeline.length > 0 && (
     <EventSection id="related-timeline-heading" title="Related Timeline / 相關時間線">
