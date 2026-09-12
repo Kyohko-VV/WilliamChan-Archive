@@ -1,0 +1,13 @@
+---
+import TimelinePage from "../../components/timeline/TimelinePage.astro";
+import { events } from "../../data/events";
+import { buildTimeline } from "../../utils/timeline";
+
+export function getStaticPaths() {
+  return buildTimeline(events).years.map((year) => ({ params: { year }, props: { year } }));
+}
+
+const { year } = Astro.props;
+---
+
+<TimelinePage year={year} />

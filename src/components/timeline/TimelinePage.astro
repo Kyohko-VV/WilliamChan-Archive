@@ -1,0 +1,249 @@
+---
+import { events } from "../../data/events";
+import { buildTimeline } from "../../utils/timeline";
+import FooterSocialLinks from "../FooterSocialLinks.astro";
+import SeoHead from "../SeoHead.astro";
+
+interface Props { year?: string; }
+const timeline = buildTimeline(events);
+const year = Astro.props.year ?? timeline.years[0];
+const { events: yearEvents, groups } = timeline.forYear(year);
+const title = `${year} 年時間線 | 陳偉霆資料庫`;
+---
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta
+      name="description"
+      content="陳偉霆（William Chan）演藝時間線，整理影視作品、音樂、舞台、活動、日本播出與相關可靠來源。"
+    />
+    <SeoHead
+      title={title}
+      description="陳偉霆（William Chan）演藝時間線，整理影視作品、音樂、舞台、活動、日本播出與相關可靠來源。"
+    />
+  </head>
+
+<body>
+  <main>
+    <a href="/" class="back">← 返回首頁</a>
+
+    <header>
+      <h1>時間線</h1>
+      <p>William Chan Archive · Timeline</p>
+    </header>
+
+    <nav class="year-navigation" aria-label="時間線年份" data-anchor-years={JSON.stringify(timeline.anchorYears)} data-current-year={year}>
+      <label for="timeline-year">瀏覽年份</label>
+      <select id="timeline-year" aria-describedby="year-summary">
+        {timeline.years.map((entry) => <option value={`/timeline/${entry}/`} selected={entry === year}>{entry} 年</option>)}
+      </select>
+    </nav>
+    <h2 id="year-summary">{year} 年 <span>共 {yearEvents.length} 件事件</span></h2>
+    <noscript><p>選擇年份：{timeline.years.map((entry) => <a class="year-link" href={`/timeline/${entry}/`}>{entry} 年</a>)}</p></noscript>
+
+{groups.map(({ month, label, events: monthEvents }) => (
+    <section class="month-group" aria-labelledby={`month-${month || "unknown"}`}>
+      <h3 class="month-title" id={`month-${month || "unknown"}`}>{label}</h3>
+
+      {monthEvents.map((event) => {
+        const content = (
+          <article id={event.id ?? event.anchor} data-event-date={event.date}>
+            {event.anchor && event.id && event.anchor !== event.id && <span id={event.anchor} />}
+            <strong><time datetime={event.date}>{event.date}</time></strong>
+            <h4>{event.href ? <a class="event-link" href={event.href}>{event.title}</a> : event.title}</h4>
+            {event.description && <p>{event.description}</p>}
+            {event.sourceUrl && event.source && (
+              <a class="detail-link" href={event.sourceUrl} target="_blank" rel="noopener noreferrer">
+                來源：{event.source}{event.sourceType && `｜${event.sourceType}`} →
+              </a>
+            )}
+            {event.href && <a class="detail-link" href={event.href}>查看事件詳情 →</a>}
+            {event.officialMvUrl && <p><a class="detail-link" href={event.officialMvUrl} target="_blank" rel="noopener noreferrer">Official MV｜YouTube →</a></p>}
+            {event.additionalSources?.map((source) => <p><a class="detail-link" href={source.url} target="_blank" rel="noopener noreferrer">來源：{source.label} →</a></p>)}
+            {event.relatedHref && (
+              <a class="detail-link" href={event.relatedHref}>{event.relatedLabel}</a>
+            )}
+          </article>
+        );
+
+        return content;
+      })}
+    </section>
+  ))}
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-title">陳偉霆資料庫 · William Chan Archive</p>
+        <FooterSocialLinks />
+        <p class="footer-nav">Timeline ｜ Works ｜ People &amp; Characters ｜ Sources</p>
+        <p>非官方粉絲資料庫</p>
+        <p>本站內容僅作資料整理與記錄用途。</p>
+        <p class="footer-copyright">© 2026 William Chan Archive</p>
+      </div>
+    </footer>
+  </body>
+
+<script>
+  const navigation = document.querySelector<HTMLElement>("[data-anchor-years]");
+  const select = document.querySelector<HTMLSelectElement>("#timeline-year");
+  select?.addEventListener("change", () => window.location.assign(select.value));
+  if (navigation) {
+    const anchorYears: Record<string, string> = JSON.parse(navigation.dataset.anchorYears ?? "{}");
+    const followEvent = () => {
+      let id: string;
+      try { id = decodeURIComponent(window.location.hash.slice(1)); } catch { return; }
+      if (!id || !Object.hasOwn(anchorYears, id)) return;
+      const year = anchorYears[id];
+      if (year !== navigation.dataset.currentYear) {
+        window.location.replace(`/timeline/${year}/${window.location.search}#${encodeURIComponent(id)}`);
+      } else {
+        document.getElementById(id)?.scrollIntoView();
+      }
+    };
+    followEvent();
+    window.addEventListener("hashchange", followEvent);
+  }
+</script>
+
+<style>
+  :global(body) {
+    margin: 0;
+    background: #f7f5f2;
+    color: #222;
+    font-family: Arial, sans-serif;
+  }
+
+  main {
+    width: 88%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 50px 0 80px;
+  }
+
+  .back {
+    display: inline-block;
+    margin-bottom: 30px;
+    color: #77706b;
+    text-decoration: none;
+  }
+
+  header {
+    margin-bottom: 35px;
+  }
+
+  header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+
+  article {
+    background: white;
+    border: 1px solid #e5e1dc;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+  }
+
+  article h4 {
+    margin: 10px 0;
+    font-size: 22px;
+  }
+
+  article p {
+    color: #77706b;
+    line-height: 1.7;
+  }
+
+  .event-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .year-navigation { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .year-navigation select { max-width: 100%; min-height: 44px; padding: 10px 36px 10px 12px; border: 1px solid #cfc6bf; border-radius: 8px; background: white; color: #222; font: inherit; }
+  #year-summary { margin: 28px 0; }
+  #year-summary span { display: inline-block; font-size: 15px; font-weight: normal; color: #77706b; }
+  .month-group { margin-top: 32px; }
+  .month-title { font-size: 20px; color: #675f5a; }
+  .year-link { display: inline-block; margin: 4px 12px 4px 0; color: #746c66; }
+  article { overflow-wrap: anywhere; scroll-margin-top: 20px; }
+  article:target { border-color: #746c66; }
+  .event-link:hover { text-decoration: underline; }
+  select:focus-visible, a:focus-visible { outline: 2px solid #746c66; outline-offset: 3px; }
+
+  .detail-link {
+    display: inline-block;
+    color: #746c66;
+    font-size: 14px;
+    text-decoration-color: #aaa19a;
+    text-underline-offset: 3px;
+  }
+
+  .site-footer {
+    margin-top: 24px;
+    padding: 32px 8%;
+    background: #675f5a;
+    border-top: 4px solid #d8d0ca;
+    color: #e3ddd8;
+  }
+
+  .footer-inner {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .site-footer p {
+    margin: 6px 0;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .site-footer .footer-title {
+    margin-top: 0;
+    color: #f5f1ee;
+    font-weight: 600;
+  }
+
+  .footer-nav {
+    overflow-wrap: anywhere;
+  }
+
+  .footer-copyright {
+    margin-bottom: 0;
+    color: #c6bdb7;
+  }
+
+  @media (max-width: 700px) {
+    main {
+      width: 88%;
+      padding-top: 30px;
+    }
+
+    header h1 {
+      font-size: 30px;
+    }
+
+    article {
+      padding: 20px;
+    }
+
+    .site-footer {
+      margin-top: 10px;
+      padding: 22px 6%;
+    }
+
+    .site-footer p {
+      margin: 4px 0;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+  }
+</style>
+
+
+</html>
