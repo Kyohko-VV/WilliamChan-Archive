@@ -24,6 +24,9 @@ const localMediaLibrary = () => ({
 // https://astro.build/config
 export default defineConfig({
   site: 'https://williamchanfanpage.com',
+  image: {
+    remotePatterns: [{ protocol: 'https', hostname: 'media.williamchanfanpage.com', pathname: '/work/**' }],
+  },
   vite: { server: { fs: { deny: ['.env', '.env.*', '**/.git/**', '**/.local/**'] } } },
   integrations: [
     localMediaLibrary(),

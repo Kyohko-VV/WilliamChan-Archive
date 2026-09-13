@@ -1,0 +1,16 @@
+---
+import WorksPage from "../../../../components/works/WorksPage.astro";
+import { works } from "../../../../data/works";
+import { musicPages } from "../../../../utils/musicPagination";
+
+export function getStaticPaths() {
+  return musicPages(works).slice(1).map((_, index) => ({
+    params: { page: String(index + 2) },
+    props: { musicPage: index + 2 },
+  }));
+}
+
+const { musicPage } = Astro.props;
+---
+
+<WorksPage musicPage={musicPage} />

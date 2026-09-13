@@ -1,0 +1,142 @@
+---
+import { works } from "../../data/works";
+import { musicListening } from "../../utils/musicListening";
+import { Image } from "astro:assets";
+const { groups } = musicListening(works);
+const pageSize = 10;
+---
+
+<div class="music-listening" data-page-size={pageSize}>
+  <h3>聆聽與觀看</h3>
+  <p>收錄本站已整理作品</p>
+  <div class="listening-tabs" role="tablist" aria-label="聆聽與觀看分類" hidden>
+    {groups.map((group, index) => <button type="button" role="tab" id={`listening-tab-${group.id}`} aria-controls={`listening-panel-${group.id}`} aria-selected={index === 0 ? "true" : "false"} tabindex={index === 0 ? 0 : -1}>{group.label}</button>)}
+  </div>
+  {groups.map((group) => (
+    <div class="listening-panel" id={`listening-panel-${group.id}`}>
+      <h4>{group.label}</h4>
+      {group.links.length ? (
+        <ul class="listening-grid">
+          {group.links.map((link) => (
+            <li>
+              <a class="listening-card" href={link.url} target="_blank" rel="noopener noreferrer"
+                aria-label={`${link.title}｜${group.label}`} title={`${link.title}｜${group.label}`}>
+                <span class="listening-cover">
+                  {link.cover?.src ? (
+                    <Image src={link.cover.src} alt={`${link.title}封面｜${group.label}`} width={72} height={72}
+                      widths={[72, 144, 216]} sizes="72px"
+                      fit="contain" format="webp" loading="lazy" decoding="async" />
+                  ) : (
+                    <span class="cover-placeholder" aria-hidden="true">
+                      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="7" width="34" height="34" rx="3" /><circle cx="24" cy="24" r="10" /><circle cx="24" cy="24" r="2" /></svg>
+                    </span>
+                  )}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : <p>目前尚無已整理的連結。</p>}
+      {group.links.length > pageSize && (
+        <nav class="listening-pagination" aria-label={`${group.label}分頁`} hidden>
+          <button type="button" data-direction="previous">上一頁</button>
+          {Array.from({ length: Math.ceil(group.links.length / pageSize) }, (_, index) => (
+            <button type="button" data-page={index + 1} aria-label={`第 ${index + 1} 頁`}>{index + 1}</button>
+          ))}
+          <button type="button" data-direction="next">下一頁</button>
+        </nav>
+      )}
+      <p class="listening-status" role="status" aria-live="polite" aria-atomic="true" hidden></p>
+    </div>
+  ))}
+</div>
+
+<script>
+  for (const directory of document.querySelectorAll<HTMLElement>(".music-listening")) {
+    const tabs = [...directory.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const panels = [...directory.querySelectorAll<HTMLElement>(".listening-panel")];
+    const pageSize = Number(directory.dataset.pageSize);
+    let activeIndex = 0;
+    // Each panel owns its page state and controls; Works card pagination is separate.
+    const pagination = panels.map((panel, index) => {
+      const items = [...panel.querySelectorAll<HTMLLIElement>("li")];
+      const controls = panel.querySelector<HTMLElement>(".listening-pagination");
+      const status = panel.querySelector<HTMLElement>(".listening-status")!;
+      const pageCount = Math.max(1, Math.ceil(items.length / pageSize));
+      let currentPage = 1;
+      panel.setAttribute("role", "tabpanel");
+      panel.setAttribute("aria-labelledby", tabs[index].id);
+      panel.tabIndex = 0;
+
+      function showPage(page: number) {
+        currentPage = Math.max(1, Math.min(pageCount, page));
+        items.forEach((item, i) => {
+          item.hidden = i < (currentPage - 1) * pageSize || i >= currentPage * pageSize;
+        });
+        controls?.querySelectorAll<HTMLButtonElement>("button").forEach((button) => {
+          if (button.dataset.page) {
+            if (Number(button.dataset.page) === currentPage) button.setAttribute("aria-current", "page");
+            else button.removeAttribute("aria-current");
+          } else {
+            button.disabled = button.dataset.direction === "previous" ? currentPage === 1 : currentPage === pageCount;
+          }
+        });
+        status.textContent = `第 ${currentPage}／${pageCount} 頁，共 ${items.length} 首`;
+      }
+
+      controls?.addEventListener("click", (event) => {
+        const button = (event.target as HTMLElement).closest<HTMLButtonElement>("button");
+        if (!button || button.disabled) return;
+        showPage(button.dataset.page ? Number(button.dataset.page) : currentPage + (button.dataset.direction === "next" ? 1 : -1));
+        // Keep keyboard focus usable when previous/next becomes disabled at an edge.
+        if (button.disabled) controls.querySelector<HTMLButtonElement>('[aria-current="page"]')?.focus();
+      });
+      showPage(1);
+      if (controls) controls.hidden = false;
+      status.hidden = pageCount <= 1;
+      return { showPage };
+    });
+    function select(index: number) {
+      if (index !== activeIndex) pagination[index].showPage(1);
+      activeIndex = index;
+      tabs.forEach((tab, i) => { tab.setAttribute("aria-selected", String(i === index)); tab.tabIndex = i === index ? 0 : -1; });
+      panels.forEach((panel, i) => { panel.hidden = i !== index; });
+    }
+    select(0);
+    directory.classList.add("is-enhanced");
+    directory.querySelector<HTMLElement>(".listening-tabs")!.hidden = false;
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => select(index));
+      tab.addEventListener("keydown", (event) => {
+        const next = event.key === "ArrowRight" ? (index + 1) % tabs.length : event.key === "ArrowLeft" ? (index + tabs.length - 1) % tabs.length : event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : undefined;
+        if (next === undefined) return;
+        event.preventDefault(); select(next); tabs[next].focus();
+      });
+    });
+  }
+</script>
+
+<style>
+  .music-listening { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid #e5e1dc; min-width: 0; }
+  h3 { margin: 0 0 6px; font-size: 18px; }
+  h4 { margin: 16px 0 10px; font-size: 15px; }
+  .is-enhanced h4 { display: none; }
+  [hidden] { display: none !important; }
+  p { margin: 0 0 12px; color: #77706b; font-size: 13px; }
+  .listening-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  button { min-width: 44px; min-height: 44px; max-width: 100%; padding: 8px 10px; border: 1px solid #e5e1dc; border-radius: 6px; background: #f8f6f3; color: #675f5a; font: inherit; font-size: 13px; cursor: pointer; }
+  button[aria-selected="true"], button[aria-current="page"] { background: #675f5a; color: #fff; }
+  button:disabled { color: #958d87; cursor: default; }
+  button:focus-visible { outline: 2px solid #675f5a; outline-offset: 2px; }
+  .listening-pagination { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .listening-status { margin: 10px 0 0; }
+  .listening-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 72px)); justify-content: start; gap: 8px; padding: 0; margin: 0; list-style: none; }
+  li { min-width: 0; max-width: 100%; }
+  a { color: #675f5a; font-size: 14px; line-height: 1.6; text-underline-offset: 3px; overflow-wrap: anywhere; }
+  .listening-card { display: block; width: 100%; max-width: 72px; aspect-ratio: 1; text-decoration: none; }
+  .listening-cover { display: grid; place-items: center; width: 100%; height: 100%; }
+  .listening-cover img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .listening-card:focus-visible { outline: 2px solid #675f5a; outline-offset: 4px; }
+  .cover-placeholder { display: grid; place-items: center; width: 100%; height: 100%; background: #f1eeea; color: #958d87; }
+  .cover-placeholder svg { width: 28px; height: 28px; }
+</style>
