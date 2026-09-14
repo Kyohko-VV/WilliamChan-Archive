@@ -1,3 +1,5 @@
+import { diaryEntries, validateDiaryUrls } from './diary';
+
 export interface FanActivity {
   date: string;
   title: string;
@@ -28,7 +30,7 @@ export interface FanActivity {
   };
 }
 
-export const fanActivities: FanActivity[] = [
+const legacyFanActivities: FanActivity[] = [
   {
     date: "2026-09-11",
     title: "跨出小小的一步",
@@ -198,3 +200,12 @@ export const fanActivities: FanActivity[] = [
     },
   },
 ];
+
+const existingPages = Object.keys(import.meta.glob('../pages/fan-activities/*.astro'))
+  .filter((path) => !path.includes('['))
+  .map((path) => `/fan-activities/${path.split('/').pop()!.replace(/\.astro$/, '')}`);
+validateDiaryUrls([...legacyFanActivities.flatMap((entry) => entry.detailUrl ? [entry.detailUrl] : []), ...existingPages]);
+export const fanActivities: FanActivity[] = [...legacyFanActivities, ...diaryEntries.map(({ article, path, slug, cover, ...entry }) => ({
+  ...entry,
+  ...(cover ? { images: [{ src: cover, alt: entry.title }] } : {}),
+}))];

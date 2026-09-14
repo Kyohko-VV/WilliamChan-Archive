@@ -99,7 +99,7 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
               <p>
                 <strong>{work.date}</strong>
                 {"　"}
-                <a href={work.href}>{work.title}</a>
+                {work.href ? <a href={work.href}>{work.title}</a> : work.title}
               </p>
               <p class="work-category">
                 {work.href === "/events/2026-our-dormitory-party" ? "綜藝／節目" : work.category}
@@ -267,7 +267,7 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
       <article>
         <strong>${event.date}</strong>
         <h3>${event.title}</h3>
-        <p>${event.description}</p>
+        ${event.description ? `<p>${event.description}</p>` : ""}
       </article>
     `).join("");
 

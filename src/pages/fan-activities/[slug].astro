@@ -1,0 +1,87 @@
+---
+import FooterSocialLinks from "../../components/FooterSocialLinks.astro";
+import SeoHead from "../../components/SeoHead.astro";
+import { diaryEntries } from "../../data/diary";
+import "../../data/fanActivities";
+
+export function getStaticPaths() {
+  return diaryEntries.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { title, description, date, category, cover } = entry;
+const Content = entry.article.Content;
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} | 陳偉霆資料庫</title>
+    <SeoHead title={`${title} | 陳偉霆資料庫`} description={description} ogImage={cover || undefined} />
+  </head>
+  <body>
+    <main>
+      <nav aria-label="返回">
+        <a href="/fan-activities" class="back">← 返回 Fan Activities</a>
+      </nav>
+      <p class="site-identity">陳偉霆資料庫 · William Chan Archive</p>
+      <article lang="zh-Hant">
+        <header>
+          <p class="category">{category}</p>
+          <h1>{title}</h1>
+          <div class="article-meta">
+            <time datetime={date}>{date}</time>
+          </div>
+        </header>
+        {cover && <img class="cover" src={cover} alt={title} />}
+        <div class="article-body"><Content /></div>
+      </article>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-title">陳偉霆資料庫 · William Chan Archive</p>
+        <FooterSocialLinks />
+        <p class="footer-nav">Timeline ｜ Works ｜ People &amp; Characters ｜ Sources</p>
+        <p>非官方粉絲資料庫</p>
+        <p>本站內容僅作資料整理與記錄用途。</p>
+        <p class="footer-copyright">© 2026 William Chan Archive</p>
+      </div>
+    </footer>
+  </body>
+  <style>
+    .cover, .article-body :global(img) { max-width: 100%; height: auto; border-radius: 8px; }
+    .cover { margin-top: 28px; }
+    .article-body { overflow-wrap: anywhere; }
+    .article-body :global(li) { color: #4f4945; line-height: 2; }
+    .article-body :global(a) { color: #8a6f5b; }
+    :global(*) { box-sizing: border-box; }
+    :global(body) { margin: 0; background: #f8f6f3; color: #292624; font-family: "Noto Sans TC", "Noto Sans JP", Arial, sans-serif; }
+    main { width: 88%; max-width: 800px; margin: 0 auto; padding: 50px 0 80px; }
+    .back { display: inline-block; margin-bottom: 30px; color: #77706b; text-decoration: none; }
+    .site-identity { margin: -18px 0 28px; color: #958d87; font-size: 13px; letter-spacing: .3px; }
+    article { padding: 48px 54px 54px; background: #fff; border: 1px solid #e5e1dc; border-radius: 12px; }
+    header { padding-bottom: 28px; border-bottom: 1px solid #ebe6e2; }
+    .category { margin: 0 0 12px; color: #8a6f5b; font-size: 14px; font-weight: 600; letter-spacing: .4px; }
+    h1 { margin: 0 0 16px; font-size: clamp(28px, 5vw, 40px); line-height: 1.4; letter-spacing: .3px; }
+    .article-meta { display: flex; flex-wrap: wrap; gap: 6px 16px; color: #77706b; font-size: 14px; }
+    .article-body { margin-top: 32px; }
+    .article-body :global(p) { color: #4f4945; font-size: 17px; line-height: 2; margin: 0 0 1.45em; }
+    .article-body :global(p):last-child { margin-bottom: 0; }
+    .site-footer { margin-top: 24px; padding: 32px 8%; background: #675f5a; border-top: 4px solid #d8d0ca; color: #e3ddd8; }
+    .footer-inner { width: 100%; max-width: 1100px; margin: 0 auto; }
+    .site-footer p { margin: 6px 0; font-size: 14px; line-height: 1.55; }
+    .site-footer .footer-title { margin-top: 0; color: #f5f1ee; font-weight: 600; }
+    .footer-nav { overflow-wrap: anywhere; }
+    .footer-copyright { margin-bottom: 0; color: #c6bdb7; }
+    @media (max-width: 700px) {
+      main { width: 88%; padding: 30px 0 50px; }
+      article { padding: 30px 22px 34px; }
+      .article-body { margin-top: 26px; }
+      .article-body :global(p) { font-size: 16px; line-height: 1.9; }
+      .site-footer { margin-top: 10px; padding: 22px 6%; }
+      .site-footer p { margin: 4px 0; font-size: 13px; line-height: 1.45; }
+    }
+  </style>
+</html>

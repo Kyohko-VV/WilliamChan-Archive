@@ -73,7 +73,7 @@ function relatedLink(item: typeof items[number]) {
             data-search={[item.album, item.relatedTitle, item.category, item.caption, item.source].filter(Boolean).join(" ").toLocaleLowerCase("zh-Hant")}>
             <div class="thumbnail-frame">
               {item.url ? <button class="preview-button" type="button" data-preview-url={item.url} data-preview-type={item.type} data-preview-alt={item.caption ?? item.relatedTitle ?? item.album} aria-label={`預覽 ${item.caption ?? item.album}`}>
-                {item.type === "image" ? <img src={item.url} alt={item.caption ?? item.relatedTitle ?? item.album} loading="lazy" /> : <span class="placeholder">▶ 播放影片</span>}
+                {item.type === "image" ? <img src={item.url} alt={item.caption ?? item.relatedTitle ?? item.album} style={item.thumbnailFit ? { objectFit: item.thumbnailFit } : undefined} loading="lazy" /> : <span class="placeholder">▶ 播放影片</span>}
               </button> : <div class="placeholder">暫無可預覽內容</div>}
             </div>
             <div class="card-body">

@@ -1,6 +1,7 @@
 ---
 import type { BrandEditorialEntry, BrandEditorialSource } from "../data/brandEditorial";
 import GalleryCarousel from "./events/GalleryCarousel.astro";
+import EventVideos from "./events/EventVideos.astro";
 
 interface Props {
   entry: BrandEditorialEntry;
@@ -36,14 +37,16 @@ const galleryItems = entry.images.map((image) => ({
   <dl class="metadata">
     <div><dt>日期</dt><dd>{entry.date}</dd></div>
     <div><dt>類型</dt><dd>{entry.type}</dd></div>
-    <div><dt>地點</dt><dd>{entry.location}</dd></div>
+    {entry.location && <div><dt>地點</dt><dd>{entry.location}</dd></div>}
     <div><dt>陳偉霆身份</dt><dd>{entry.role}</dd></div>
   </dl>
 
   <p class="summary">{entry.summary}</p>
 
+  {!!entry.videos?.length && <EventVideos items={entry.videos} title="官方宣傳影片" />}
+
   {entry.images.length > 0 && (
-    <div class="gallery" aria-label={`${entry.brand} ${entry.title} 活動圖片`}>
+    <div class="gallery" aria-label={`${entry.brand} ${entry.title} 圖片`}>
       <GalleryCarousel items={galleryItems} />
     </div>
   )}

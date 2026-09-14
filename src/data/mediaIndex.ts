@@ -1,5 +1,29 @@
 import { mediaItems, normalizeMediaItem, selectPublicMedia, type MediaLibraryItem } from "./mediaLibrary";
 import { works, type Work } from "./works";
+import { brandEditorialEntries, type BrandEditorialEntry } from "./brandEditorial";
+
+/** Opted-in brand albums share their source images; never copy them into mediaItems. */
+export function brandMediaItems(entries: BrandEditorialEntry[]): MediaLibraryItem[] {
+  return entries.filter((entry) => entry.mediaAlbum).flatMap((entry) => entry.images.map((image, index) => ({
+    id: `brand:${entry.id}:${image.url}`,
+    type: "image",
+    visibility: "public",
+    url: image.url,
+    fileName: image.url.split('/').pop(),
+    category: "Brand / Editorial",
+    album: entry.mediaAlbum,
+    relatedType: "brand",
+    relatedId: entry.id,
+    relatedTitle: entry.title,
+    publishedDate: image.publishedDate,
+    date: image.publishedDate ?? entry.date,
+    source: image.source,
+    sourceUrl: image.sourceUrl,
+    caption: image.alt,
+    tags: index === 0 ? ["Cover"] : [],
+    thumbnailFit: "contain",
+  })));
+}
 
 /** Resolve explicit work IDs/slugs only; similar titles never establish a relationship. */
 export function normalizeMusicAlbum(item: MediaLibraryItem, entries: Work[] = works) {
@@ -74,11 +98,11 @@ export function deduplicateMedia(items: MediaLibraryItem[]): MediaLibraryItem[] 
 }
 
 /** Add future source adapters here, keeping both pages on the same aggregation path. */
-export function buildMediaIndex(manual: MediaLibraryItem[], musicWorks: Work[]) {
-  return deduplicateMedia([...manual, ...musicMediaItems(musicWorks)]).map((item) => normalizeMusicAlbum(item, musicWorks));
+export function buildMediaIndex(manual: MediaLibraryItem[], musicWorks: Work[], brands: BrandEditorialEntry[] = []) {
+  return deduplicateMedia([...manual, ...musicMediaItems(musicWorks), ...brandMediaItems(brands)]).map((item) => normalizeMusicAlbum(item, musicWorks));
 }
 
-const aggregatedMedia = buildMediaIndex(mediaItems, works);
+const aggregatedMedia = buildMediaIndex(mediaItems, works, brandEditorialEntries);
 export const mediaIndex = import.meta.env.DEV ? aggregatedMedia : [];
 // Filter strictly after dedupe, then explicitly project only public fields.
 export const publicMediaIndex = selectPublicMedia(aggregatedMedia);

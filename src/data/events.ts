@@ -1,4 +1,6 @@
-export const events = [
+import { readOwnerTimeline } from './ownerTimeline';
+
+const legacyEvents = [
   {
     id: "my-lady-release-2019-09-23",
     date: "2019-09-23",
@@ -240,3 +242,6 @@ export const events = [
       "チャンネル銀河於2026年6月25日起播出，週一至週五09:30～10:30，全18集，最終話於2026年7月20日播出。另於6月7日21:00～22:00先行播出第1集。",
   },
 ];
+
+// Keep every existing consumer (including Today) on this synchronous entry point.
+export const events: (typeof legacyEvents)[number][] = [...legacyEvents, ...readOwnerTimeline(legacyEvents)];

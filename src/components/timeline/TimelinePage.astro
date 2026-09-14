@@ -59,6 +59,7 @@ const title = `${year} 年時間線 | 陳偉霆資料庫`;
                 來源：{event.source}{event.sourceType && `｜${event.sourceType}`} →
               </a>
             )}
+            {event.source && !event.sourceUrl && <p>來源：{event.source}</p>}
             {event.href && <a class="detail-link" href={event.href}>查看事件詳情 →</a>}
             {event.officialMvUrl && <p><a class="detail-link" href={event.officialMvUrl} target="_blank" rel="noopener noreferrer">Official MV｜YouTube →</a></p>}
             {event.additionalSources?.map((source) => <p><a class="detail-link" href={source.url} target="_blank" rel="noopener noreferrer">來源：{source.label} →</a></p>)}

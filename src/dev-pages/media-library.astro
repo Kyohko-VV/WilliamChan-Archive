@@ -115,7 +115,7 @@ const years = [...new Set(items.map((item) => item.date.slice(0, 4)).filter(Bool
                 data-preview-alt={`${item.album}－${item.fileName}`}
                 aria-label={`預覽 ${item.fileName}`}
               >
-                {item.type === "image" && item.url ? <img src={item.url} alt={`${item.album}－${item.fileName}`} loading="lazy" /> : <span class="media-placeholder">{item.type === 'video' ? '▶ Video' : 'Image'} · 點擊預覽</span>}
+                {item.type === "image" && item.url ? <img src={item.url} alt={item.caption ?? `${item.album}－${item.fileName}`} style={item.thumbnailFit ? { objectFit: item.thumbnailFit } : undefined} loading="lazy" /> : <span class="media-placeholder">{item.type === 'video' ? '▶ Video' : 'Image'} · 點擊預覽</span>}
               </button> : <div class="media-placeholder">{item.type === "video" ? "Video" : "Image"} · 尚無可讀 URL</div>}
               <span class:list={["visibility", `visibility--${item.visibility}`]}>{item.visibility}</span>
             </div>

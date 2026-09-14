@@ -3,6 +3,7 @@ export const mediaCategories = ["Music", "Brand / Editorial", "Works", "Event / 
 export type MediaCategory = typeof mediaCategories[number];
 
 export interface MediaLibraryItem {
+  thumbnailFit?: "contain";
   id?: string;
   type?: "image" | "video";
   fileName?: string;
@@ -182,6 +183,7 @@ export function selectPublicMedia(items: MediaLibraryItem[]) {
       albumKey: normalized.albumKey,
       url: normalized.url,
       caption: item.caption,
+      thumbnailFit: item.thumbnailFit,
       source: item.source,
       sourceUrl: item.sourceUrl,
       relatedType: item.relatedType,

@@ -11,6 +11,7 @@ export interface BrandEditorialImage {
   alt: string;
   source?: string;
   sourceUrl?: string;
+  publishedDate?: string;
 }
 
 export interface BrandEditorialEntry {
@@ -21,10 +22,13 @@ export interface BrandEditorialEntry {
   brandDescription?: string;
   title: string;
   type: string;
-  location: string;
+  location?: string;
   role: string;
   summary: string;
   images: BrandEditorialImage[];
+  /** Opt in to the shared public archive/library using these original images. */
+  mediaAlbum?: string;
+  videos?: { title: string; platform: string; url: string; source: string }[];
   officialSources: BrandEditorialSource[];
   editorialSources: BrandEditorialSource[];
   mediaSources: BrandEditorialSource[];
@@ -32,6 +36,93 @@ export interface BrandEditorialEntry {
 }
 
 export const brandEditorialEntries: BrandEditorialEntry[] = [
+  {
+    id: "descente-rwsb-style-promotion-2026-09-14",
+    href: "/brand-editorial/descente",
+    date: "2026-09-14",
+    brand: "DESCENTE 迪桑特",
+    title: "迪桑特 DESCENTE｜RWSB STYLE 硬殼夾克宣傳",
+    type: "品牌合作／產品宣傳",
+    role: "品牌代言人",
+    summary: "迪桑特 DESCENTE 公開品牌代言人陳偉霆演繹 RWSB STYLE 硬殼夾克的宣傳圖片，以「隨心而行，探索多維場景」為主題。",
+    mediaAlbum: "迪桑特 DESCENTE｜2026-09-14 RWSB STYLE 宣傳",
+    images: [
+      {
+        url: "https://media.williamchanfanpage.com/Brand/descente2026-09-14-01.jpg",
+        alt: "陳偉霆演繹迪桑特 DESCENTE RWSB STYLE 硬殼夾克宣傳圖片（一）",
+        publishedDate: "2026-09-14",
+        source: "迪桑特 DESCENTE",
+        sourceUrl: "https://weibo.com/6166921562/Ri2J1kk0d",
+      },
+      {
+        url: "https://media.williamchanfanpage.com/Brand/descente2026-09-14-02.jpg",
+        alt: "陳偉霆演繹迪桑特 DESCENTE RWSB STYLE 硬殼夾克宣傳圖片（二）",
+        publishedDate: "2026-09-14",
+        source: "迪桑特 DESCENTE",
+        sourceUrl: "https://weibo.com/6166921562/Ri2J1kk0d",
+      },
+    ],
+    officialSources: [{
+      name: "迪桑特 DESCENTE",
+      url: "https://weibo.com/6166921562/Ri2J1kk0d",
+      type: "品牌官方／產品宣傳",
+      publishedDate: "2026-09-14",
+      summary: "品牌發布陳偉霆演繹 RWSB STYLE 硬殼夾克的兩張宣傳圖片，以「隨心而行，探索多維場景」為主題。",
+    }],
+    editorialSources: [],
+    mediaSources: [],
+    relatedTimelineHref: "/timeline/2026/#descente-rwsb-style-promotion-2026-09-14",
+  },
+  {
+    id: "beauever-ambassador-announcement-2026-09-13",
+    href: "/brand-editorial/beauever",
+    date: "2026-09-13",
+    brand: "BeauEver",
+    title: "BeauEver｜亞太地區品牌代言人官宣",
+    type: "品牌合作／代言官宣",
+    role: "亞太地區品牌代言人",
+    summary: "2026-09-13，BeauEver 官宣陳偉霆擔任亞太地區品牌代言人，並公開品牌宣傳影片。w-Daily 與英皇娛樂–北京同日發布官宣內容及代言海報。",
+    mediaAlbum: "BeauEver｜亞太地區品牌代言人官宣",
+    images: [{
+      url: "https://media.williamchanfanpage.com/Brand/beauever2026-09-13.jpg",
+      alt: "陳偉霆 BeauEver 亞太地區品牌代言人官宣海報",
+      source: "英皇娛樂–北京",
+      sourceUrl: "https://weibo.com/3270824053/5342648841798389",
+      publishedDate: "2026-09-13",
+    }],
+    videos: [{
+      title: "官方宣傳影片",
+      platform: "微博",
+      url: "https://weibo.com/7919852798/5342648811914717",
+      source: "BeauEver 官方微博",
+    }],
+    officialSources: [
+      {
+        name: "BeauEver 官方微博",
+        url: "https://weibo.com/7919852798/5342648811914717",
+        type: "品牌官方／主要官宣來源",
+        publishedDate: "2026-09-13",
+        summary: "品牌發布陳偉霆代言宣傳影片，文案以優雅、頸線與境界為主題。此貼文亦為官方宣傳影片入口。",
+      },
+      {
+        name: "w-Daily 微博",
+        url: "https://weibo.com/6269525799/5342648877715733",
+        type: "工作室官方／官宣補充與代言海報來源",
+        publishedDate: "2026-09-13",
+        summary: "官方原文：「无论是否被看见，都守住对自我的要求；任凭时间向前，认真对待每一个当下。」",
+      },
+      {
+        name: "英皇娛樂–北京微博",
+        url: "https://weibo.com/3270824053/5342648841798389",
+        type: "公司官方／官宣補充與代言海報來源",
+        publishedDate: "2026-09-13",
+        summary: "官方原文：「坦然接纳时光，回归本真状态」「循着自己的步调从容前行。」",
+      },
+    ],
+    editorialSources: [],
+    mediaSources: [],
+    relatedTimelineHref: "/timeline/2026/#beauever-ambassador-announcement-2026-09-13",
+  },
   {
     id: "descente-zhengzhou-delta-2026-09-04",
     href: "/brand-editorial/descente",
