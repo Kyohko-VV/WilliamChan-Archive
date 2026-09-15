@@ -1,5 +1,6 @@
 ---
 import { events } from "../data/events";
+import { buildTimeline } from "../utils/timeline";
 import { fanActivities } from "../data/fanActivities";
 import { peopleCharacters } from "../data/peopleCharacters";
 import { sourceCategories, sources } from "../data/sources";
@@ -8,9 +9,7 @@ import { brandEditorialEntries } from "../data/brandEditorial";
 import FooterSocialLinks from "../components/FooterSocialLinks.astro";
 import SeoHead from "../components/SeoHead.astro";
 
-const latestEvents = [...events]
-  .sort((a, b) => b.date.localeCompare(a.date))
-  .slice(0, 3);
+const latestEvents = buildTimeline(events).events.slice(0, 3);
 
 const latestFanActivities = [...fanActivities]
   .sort((a, b) => b.date.localeCompare(a.date))

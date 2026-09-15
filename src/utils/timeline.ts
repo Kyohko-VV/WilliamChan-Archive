@@ -13,6 +13,7 @@ export function buildTimeline<T extends TimelineEntry>(entries: readonly T[]) {
       .map((id) => [id, event.date.slice(0, 4)]),
   ));
   return {
+    events: sorted,
     years,
     anchorYears,
     forYear(year: string) {
