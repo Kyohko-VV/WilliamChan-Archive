@@ -37,6 +37,33 @@ export interface BrandEditorialEntry {
 
 export const brandEditorialEntries: BrandEditorialEntry[] = [
   {
+    id: "2026-09-16-descente-ski-season-promo",
+    href: "/brand-editorial/descente",
+    date: "2026-09-16",
+    brand: "DESCENTE 迪桑特",
+    title: "DESCENTE 迪桑特雪季裝備宣傳影片",
+    type: "品牌合作／產品宣傳",
+    role: "品牌代言人",
+    summary: "迪桑特官方微博於 2026-09-16 12:00 發布品牌代言人陳偉霆的雪季裝備宣傳影片，配合「天猫小黑盒超级新品日」新品宣傳，邀請大家一起「上板、開滑」。",
+    images: [],
+    videos: [{
+      title: "DESCENTE 迪桑特雪季裝備宣傳影片",
+      platform: "微博",
+      url: "https://weibo.com/6166921562/5343728430221545",
+      source: "迪桑特DESCENTE",
+    }],
+    officialSources: [{
+      name: "迪桑特DESCENTE",
+      url: "https://weibo.com/6166921562/5343728430221545",
+      type: "品牌官方／產品宣傳",
+      publishedDate: "2026-09-16",
+      summary: "官方微博發布時間：12:00。此貼文為雪季裝備宣傳影片入口；2026-09-16 為微博發布日期。",
+    }],
+    editorialSources: [],
+    mediaSources: [],
+    relatedTimelineHref: "/timeline/2026/#2026-09-16-descente-ski-season-promo",
+  },
+  {
     id: "descente-rwsb-style-promotion-2026-09-14",
     href: "/brand-editorial/descente",
     date: "2026-09-14",
