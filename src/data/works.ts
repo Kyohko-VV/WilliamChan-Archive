@@ -93,6 +93,88 @@ export interface Work {
 
 export const works: Work[] = [
   {
+    id: "music-yin-ni",
+    date: "2017-07-07",
+    releaseDate: "2017-07-07",
+    mvReleaseDate: "2017-09-21",
+    title: "〈因你〉",
+    category: "音樂",
+    type: "電視劇主題曲",
+    artist: "陳偉霆",
+    status: "已公開",
+    href: "/works/music-yin-ni",
+    description: "〈因你〉由陳偉霆演唱，為電視劇《醉玲瓏》主題曲。歌曲於 2017 年 7 月 7 日上線，完整版 MV 於同年 9 月 21 日推出，結合劇集畫面與陳偉霆的錄音室實況。",
+        mediaAlbum: "〈因你〉",
+    cover: {
+      src: "https://media.williamchanfanpage.com/work/yin-ni00.jpg",
+      alt: "〈因你〉單曲封面",
+    },
+
+        images: [
+      {
+        src: "https://media.williamchanfanpage.com/work/yin-ni00.jpg",
+        alt: "〈因你〉單曲封面",
+        publishedDate: "2017-07-07",
+        tags: ["Cover"],
+        source: "",
+        sourceUrl: "",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/yin-ni01.jpg",
+        alt: "〈因你〉官方宣傳圖片 01",
+        publishedDate: "2017-07-07",
+        tags: ["Promotion"],
+        source: "英皇娛樂--北京",
+        sourceUrl: "https://weibo.com/3270824053/Fb7gqxHZN",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/yin-ni02.jpg",
+        alt: "〈因你〉官方宣傳圖片 02",
+        publishedDate: "2017-07-07",
+        tags: ["Promotion"],
+        source: "英皇娛樂--北京",
+        sourceUrl: "https://weibo.com/3270824053/Fb7gqxHZN",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/yin-ni08.jpg",
+        alt: "〈因你〉MV 宣傳圖片 08",
+        publishedDate: "2017-09-21",
+        tags: ["MV", "Promotion"],
+        source: "英皇娛樂--北京",
+        sourceUrl: "https://weibo.com/3270824053/FmOnnwLuF",
+      },
+      {
+        src: "https://media.williamchanfanpage.com/work/yin-ni09.jpg",
+        alt: "〈因你〉MV 宣傳圖片 09",
+        publishedDate: "2017-09-21",
+        tags: ["MV", "Promotion"],
+        source: "英皇娛樂--北京",
+        sourceUrl: "https://weibo.com/3270824053/FmOnnwLuF",
+      },
+    ],
+    streamingLinks: [
+      { label: "YouTube 音源", url: "https://www.youtube.com/watch?v=hVhDahMMnII" },
+      { label: "Apple Music", url: "https://music.apple.com/jp/album/1257007634?i=1257007653" },
+    ],
+    watchLinks: [
+      { label: "YouTube 官方 MV", url: "https://www.youtube.com/watch?v=_NtC4g1o1ck" },
+    ],
+    officialSources: [
+      {
+        displayName: "英皇娱乐--北京",
+        url: "https://weibo.com/3270824053/4126495348033947",
+        type: "官方",
+        note: "2017-07-06｜錄音花絮與歌曲上線預告，明確表示〈因你〉「将于明日上线」，歌曲上線日為 2017-07-07。",
+      },
+      {
+        displayName: "英皇娱乐--北京",
+        url: "https://weibo.com/3270824053/4154368657809065",
+        type: "官方",
+        note: "2017-09-21｜宣布「完整版MV今日上线」，並說明 MV 收錄劇集畫面與錄音室實況。此為完整版 MV 上線日期，不代表 YouTube 平台的上傳日期。",
+      },
+    ],
+  },
+  {
     id: "music-my-lady",
     date: "2019-09-23",
     // 發行日期核對：Apple Music 列出 2019-09-23。
@@ -504,26 +586,26 @@ export const works: Work[] = [
       {
         src: "https://media.williamchanfanpage.com/work/dearfuturelover01.jpg",
         alt: "〈Dear Future Lover〉作品圖片 1",
-        source: "官方宣傳圖片",
-        sourceUrl: "https://media.williamchanfanpage.com/work/dearfuturelover01.jpg",
+        source: "w-Daily｜陳偉霆工作室",
+        sourceUrl: "https://weibo.com/6269525799/KsW1qEssl",
       },
       {
         src: "https://media.williamchanfanpage.com/work/dearfuturelover02.jpg",
         alt: "〈Dear Future Lover〉作品圖片 2",
-        source: "官方宣傳圖片",
-        sourceUrl: "https://media.williamchanfanpage.com/work/dearfuturelover02.jpg",
+        source: "w-Daily｜陳偉霆工作室",
+        sourceUrl: "https://weibo.com/6269525799/KsWijEAR8",
       },
       {
         src: "https://media.williamchanfanpage.com/work/dearfuturelover03.jpg",
         alt: "〈Dear Future Lover〉作品圖片 3",
-        source: "官方宣傳圖片",
-        sourceUrl: "https://media.williamchanfanpage.com/work/dearfuturelover03.jpg",
+        source: "w-Daily｜陳偉霆工作室",
+        sourceUrl: "https://weibo.com/6269525799/Kt56gc6M2",
       },
       {
         src: "https://media.williamchanfanpage.com/work/dearfuturelover04.jpg",
         alt: "〈Dear Future Lover〉作品圖片 4",
-        source: "官方宣傳圖片",
-        sourceUrl: "https://media.williamchanfanpage.com/work/dearfuturelover04.jpg",
+        source: "英皇娛樂--北京",
+        sourceUrl: "https://weibo.com/3270824053/KtHAw5aoy",
       },
     ],
     streamingLinks: [
