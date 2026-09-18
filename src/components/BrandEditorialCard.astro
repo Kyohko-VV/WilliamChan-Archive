@@ -2,6 +2,7 @@
 import type { BrandEditorialEntry, BrandEditorialSource } from "../data/brandEditorial";
 import GalleryCarousel from "./events/GalleryCarousel.astro";
 import EventVideos from "./events/EventVideos.astro";
+import YouTubeEmbed from "./works/YouTubeEmbed.astro";
 
 interface Props {
   entry: BrandEditorialEntry;
@@ -27,6 +28,11 @@ const galleryItems = entry.images.map((image) => ({
   hideTitle: true,
   hideCaption: !image.source || !image.sourceUrl,
 }));
+const embeddedYouTubeVideo =
+  entry.id === "beauever-neck-renewal-launch-2026-09-17"
+    ? entry.videos?.find((video) => video.platform === "YouTube")
+    : undefined;
+
 ---
 
 <section class="brand-editorial-card" aria-labelledby={`brand-editorial-${entry.id}`}>
@@ -43,7 +49,21 @@ const galleryItems = entry.images.map((image) => ({
 
   <p class="summary">{entry.summary}</p>
 
-  {!!entry.videos?.length && <EventVideos items={entry.videos} title="官方宣傳影片" />}
+  {embeddedYouTubeVideo ? (
+  <EventVideos title="活動直播 cut" englishLabel="Video">
+    <YouTubeEmbed
+      url={embeddedYouTubeVideo.url}
+      title={embeddedYouTubeVideo.title}
+    />
+    <p>
+      YouTube · 來源：{embeddedYouTubeVideo.source}
+    </p>
+  </EventVideos>
+) : (
+  !!entry.videos?.length && (
+    <EventVideos items={entry.videos} title="官方宣傳影片" />
+  )
+)}
 
   {entry.images.length > 0 && (
     <div class="gallery" aria-label={`${entry.brand} ${entry.title} 圖片`}>

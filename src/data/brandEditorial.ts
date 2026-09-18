@@ -36,6 +36,90 @@ export interface BrandEditorialEntry {
 }
 
 export const brandEditorialEntries: BrandEditorialEntry[] = [
+
+{
+    id: "beauever-neck-renewal-launch-2026-09-17",
+    href: "/brand-editorial/beauever",
+    date: "2026-09-17",
+    brand: "BeauEver",
+    title: "BeauEver｜「頸界新生」新品發布盛典",
+    type: "品牌活動／新品發布會",
+    location: "上海",
+    role: "亞太地區品牌代言人",
+    summary:
+      "2026-09-17，BeauEver 亞太地區品牌代言人陳偉霆亮相上海「頸界新生」新品發布盛典，參與新品發布及現場互動活動。",
+    mediaAlbum: "BeauEver｜2026-09-17「頸界新生」新品發布盛典",
+
+    images: [
+      {
+        url: "https://media.williamchanfanpage.com/Brand/beauever-20260917-01.jpg",
+        alt: "陳偉霆出席 BeauEver「頸界新生」新品發布盛典（一）",
+        source: "w-Daily｜陳偉霆工作室",
+        sourceUrl: "https://weibo.com/6269525799/RizGMdmeO",
+        publishedDate: "2026-09-17",
+      },
+      {
+        url: "https://media.williamchanfanpage.com/Brand/beauever-20260917-02.jpg",
+        alt: "陳偉霆出席 BeauEver「頸界新生」新品發布盛典（二）",
+        source: "w-Daily｜陳偉霆工作室",
+        sourceUrl: "https://weibo.com/6269525799/RizGMdmeO",
+        publishedDate: "2026-09-17",
+      },
+      {
+        url: "https://media.williamchanfanpage.com/Brand/beauever-20260917-03.jpg",
+        alt: "陳偉霆出席 BeauEver「頸界新生」新品發布盛典（三）",
+        source: "w-Daily｜陳偉霆工作室",
+        sourceUrl: "https://weibo.com/6269525799/RizGMdmeO",
+        publishedDate: "2026-09-17",
+      },
+      {
+        url: "https://media.williamchanfanpage.com/Brand/beauever-20260917-04.jpg",
+        alt: "陳偉霆出席 BeauEver「頸界新生」新品發布盛典（四）",
+        source: "w-Daily｜陳偉霆工作室",
+        sourceUrl: "https://weibo.com/6269525799/RizGMdmeO",
+        publishedDate: "2026-09-17",
+      },
+    ],
+
+    videos: [
+      {
+        title: "BeauEver 2026-09-17 活動直播 cut",
+        platform: "YouTube",
+        url: "https://youtu.be/w5Vxo5E1MBs",
+        source: "KYOHKOの推し活｜非官方保存",
+      },
+    ],
+
+    officialSources: [
+      {
+        name: "w-Daily｜陳偉霆工作室",
+        url: "https://weibo.com/6269525799/5344250222611481",
+        type: "工作室官方／活動花絮",
+        publishedDate: "2026-09-17",
+        summary: "公開活動當日候場、幕後及現場花絮照片。",
+      },
+      {
+        name: "w-Daily｜陳偉霆工作室",
+        url: "https://weibo.com/6269525799/5344270963183750",
+        type: "工作室官方／活動回顧",
+        publishedDate: "2026-09-17",
+        summary: "記錄陳偉霆以 BeauEver 亞太地區品牌代言人身份亮相新品發布盛典。",
+      },
+      {
+        name: "英皇娛樂--北京",
+        url: "https://weibo.com/3270824053/5344270774178873",
+        type: "公司官方／活動紀錄",
+        publishedDate: "2026-09-17",
+        summary: "發布陳偉霆亮相 BeauEver 品牌活動的現場照片及活動紀錄。",
+      },
+    ],
+
+    editorialSources: [],
+    mediaSources: [],
+    relatedTimelineHref:
+      "/timeline/2026/#beauever-neck-renewal-launch-2026-09-17",
+  },
+
   {
     id: "2026-09-16-descente-ski-season-promo",
     href: "/brand-editorial/descente",
@@ -100,6 +184,9 @@ export const brandEditorialEntries: BrandEditorialEntry[] = [
     mediaSources: [],
     relatedTimelineHref: "/timeline/2026/#descente-rwsb-style-promotion-2026-09-14",
   },
+  
+
+
   {
     id: "beauever-ambassador-announcement-2026-09-13",
     href: "/brand-editorial/beauever",
