@@ -29,9 +29,10 @@ const galleryItems = entry.images.map((image) => ({
   hideCaption: !image.source || !image.sourceUrl,
 }));
 const embeddedYouTubeVideo =
-  entry.id === "beauever-neck-renewal-launch-2026-09-17"
-    ? entry.videos?.find((video) => video.platform === "YouTube")
-    : undefined;
+  entry.videos?.find((video) => video.platform === "YouTube");
+
+const linkedVideos =
+  entry.videos?.filter((video) => video.platform !== "YouTube") ?? [];
 
 ---
 
@@ -49,8 +50,14 @@ const embeddedYouTubeVideo =
 
   <p class="summary">{entry.summary}</p>
 
-  {embeddedYouTubeVideo ? (
-  <EventVideos title="活動直播 cut" englishLabel="Video">
+ {entry.images.length > 0 && (
+  <div class="gallery" aria-label={`${entry.brand} ${entry.title} 圖片`}>
+    <GalleryCarousel items={galleryItems} />
+  </div>
+)}
+
+{embeddedYouTubeVideo && (
+  <EventVideos title="活動影像" englishLabel="Video">
     <YouTubeEmbed
       url={embeddedYouTubeVideo.url}
       title={embeddedYouTubeVideo.title}
@@ -59,17 +66,11 @@ const embeddedYouTubeVideo =
       YouTube · 來源：{embeddedYouTubeVideo.source}
     </p>
   </EventVideos>
-) : (
-  !!entry.videos?.length && (
-    <EventVideos items={entry.videos} title="官方宣傳影片" />
-  )
 )}
 
-  {entry.images.length > 0 && (
-    <div class="gallery" aria-label={`${entry.brand} ${entry.title} 圖片`}>
-      <GalleryCarousel items={galleryItems} />
-    </div>
-  )}
+{!!linkedVideos.length && (
+  <EventVideos items={linkedVideos} title="相關影片" />
+)}
 
   <div class="source-groups">
     {sourceGroups.filter((group) => group.sources.length > 0).map((group) => (
