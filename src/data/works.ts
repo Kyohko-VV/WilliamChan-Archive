@@ -87,7 +87,7 @@ export interface Work {
   relatedStages?: string[];
   relatedPerformances?: WorkRelatedPerformance[];
   archiveVideos?: WorkArchiveVideo[];
-  credits?: { label: string; value: string }[];
+  credits?: { label: string; value: string; href?: string }[];
   notes?: string[];
 }
 
@@ -692,11 +692,11 @@ export const works: Work[] = [
       { label: "填詞", value: "張楚翹" },
       { label: "作曲", value: "陳偉霆 / 廖志華 / Daze in White" },
       { label: "編曲", value: "Johnny Yim" },
-      { label: "監製", value: "廖志華" },
+      { label: "監製", value: "廖志華", href: "/people-characters#wahwah-liu" },
       { label: "Guitar Solo Arranger", value: "張一" },
       { label: "Guitar Solo Performed by", value: "陳偉霆" },
-      { label: "MV 化妝", value: "Khaki Yan" },
-      { label: "MV 髮型", value: "Davy Yu" },
+      { label: "MV 化妝", value: "Khaki Yan", href: "/people-characters#khaki-yan" },
+      { label: "MV 髮型", value: "Davy Yu", href: "/people-characters#davy-yu" },
       { label: "MV 造型", value: "CCS studio" },
     ],
     introduction: [

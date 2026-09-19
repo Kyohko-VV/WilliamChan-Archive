@@ -58,7 +58,7 @@ const [year, month, day] = displayDate.split("-");
       <div><dt>發行日期</dt><dd><time datetime={displayDate}>{displayDate}</time></dd></div>
       {work.mvReleaseDate && <div><dt>MV 公開日</dt><dd><time datetime={work.mvReleaseDate}>{work.mvReleaseDate}</time></dd></div>}
       {work.status && <div><dt>狀態</dt><dd>{work.status}</dd></div>}
-      {work.credits?.map((credit) => <div><dt>{credit.label}</dt><dd>{credit.value}</dd></div>)}
+      {work.credits?.map((credit) => <div><dt>{credit.label}</dt><dd>{credit.href ? <a href={credit.href}>{credit.value}</a> : credit.value}</dd></div>)}
     </dl>
   </EventSection>
 
