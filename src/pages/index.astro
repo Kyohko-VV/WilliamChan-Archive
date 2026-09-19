@@ -28,6 +28,7 @@ const sourceCounts = sourceCategories.map((category) => ({
   count: sources.filter((source) => source.category === category).length,
 }));
 
+const personCount = peopleCharacters.filter((entry) => entry.type === "person").length;
 const characterCount = peopleCharacters.filter((entry) => entry.type === "character").length;
 ---
 
@@ -131,7 +132,7 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
         <section>
           <h2>People & Characters</h2>
           <p>人物與角色</p>
-          <p class="character-summary">角色 {characterCount}</p>
+          <p class="character-summary">人物 {personCount} ｜ 角色 {characterCount}</p>
           <p>查看人物與角色 →</p>
         </section>
       </a>

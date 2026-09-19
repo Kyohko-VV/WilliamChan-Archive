@@ -57,6 +57,16 @@ const characters = peopleCharacters.filter((entry) => entry.type === "character"
               </div>
               {person.roles && <p class="meta">{person.roles.join("・")}</p>}
               {person.description && <p class="description">{person.description}</p>}
+              {person.relatedWorks && (
+                <div class="related-group">
+                  <h4>相關作品</h4>
+                  <ul>
+                    {person.relatedWorks.map((work) => (
+                      <li>{work.href ? <a href={work.href}>{work.label} →</a> : work.label}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               {person.links && (
                 <nav class="entry-links" aria-label={`${person.name}相關連結`}>
                   {person.links.map((link) => (
