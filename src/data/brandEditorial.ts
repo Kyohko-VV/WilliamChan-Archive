@@ -38,6 +38,81 @@ export interface BrandEditorialEntry {
 export const brandEditorialEntries: BrandEditorialEntry[] = [
 
 {
+  id: "descente-zizai-zhuchang-shanghai-2026-09-19",
+  href: "/brand-editorial/descente",
+  date: "2026-09-19",
+  brand: "DESCENTE 迪桑特",
+  title: "DESCENTE 迪桑特｜「自在主場」主題活動",
+  type: "品牌活動／運動品牌",
+  location: "上海",
+  role: "品牌代言人",
+  summary:
+    "2026 年 9 月 19 日，DESCENTE 迪桑特品牌代言人陳偉霆於上海出席「自在主場」主題活動。活動以冰雪運動與都市生活場景為主題，陳偉霆參與現場互動及品牌體驗，呈現隨心而行的運動生活理念。",
+  mediaAlbum: "DESCENTE 迪桑特｜2026-09-19「自在主場」主題活動",
+  images: [
+    {
+      url: "https://media.williamchanfanpage.com/Brand/descente2026-09-19-01.jpg",
+      alt: "陳偉霆出席 DESCENTE 迪桑特「自在主場」上海主題活動（一）",
+      source: "英皇娛樂－北京",
+      sourceUrl: "https://weibo.com/3270824053/RiS9isyHS",
+      publishedDate: "2026-09-19",
+    },
+    {
+      url: "https://media.williamchanfanpage.com/Brand/descente2026-09-19-02.jpg",
+      alt: "陳偉霆出席 DESCENTE 迪桑特「自在主場」上海主題活動（二）",
+      source: "英皇娛樂－北京",
+      sourceUrl: "https://weibo.com/3270824053/RiS9isyHS",
+      publishedDate: "2026-09-19",
+    },
+    {
+      url: "https://media.williamchanfanpage.com/Brand/descente2026-09-19-03.jpg",
+      alt: "陳偉霆出席 DESCENTE 迪桑特「自在主場」上海主題活動（三）",
+      source: "英皇娛樂－北京",
+      sourceUrl: "https://weibo.com/3270824053/RiS9isyHS",
+      publishedDate: "2026-09-19",
+    },
+    {
+      url: "https://media.williamchanfanpage.com/Brand/descente2026-09-19-04.jpg",
+      alt: "陳偉霆出席 DESCENTE 迪桑特「自在主場」上海主題活動（四）",
+      source: "英皇娛樂－北京",
+      sourceUrl: "https://weibo.com/3270824053/RiS9isyHS",
+      publishedDate: "2026-09-19",
+    },
+    {
+      url: "https://media.williamchanfanpage.com/Brand/descente2026-09-19-05.jpg",
+      alt: "陳偉霆出席 DESCENTE 迪桑特「自在主場」上海主題活動（五）",
+      source: "英皇娛樂－北京",
+      sourceUrl: "https://weibo.com/3270824053/RiS9isyHS",
+      publishedDate: "2026-09-19",
+    },
+  ],
+  officialSources: [
+    {
+      name: "w-Daily｜陳偉霆工作室",
+      url: "https://weibo.com/6269525799/5344978425611815",
+      type: "工作室官方／活動回顧",
+      publishedDate: "2026-09-19",
+      summary:
+        "2026-09-19 22:47｜記錄品牌代言人陳偉霆現身迪桑特「自在主場」活動，並以冰雪與都市交織的空間語境呈現活動現場。",
+    },
+    {
+      name: "英皇娛樂－北京",
+      url: "https://weibo.com/3270824053/5344980566806600",
+      type: "公司官方／活動紀錄",
+      publishedDate: "2026-09-19",
+      summary:
+        "2026-09-19 22:55｜發布陳偉霆亮相「自在主場」主題活動的現場照片，記錄門店、品牌展示及活動互動畫面。",
+    },
+  ],
+  editorialSources: [],
+  mediaSources: [],
+  relatedTimelineHref:
+    "/timeline/2026/#descente-zizai-zhuchang-shanghai-2026-09-19",
+},
+
+
+
+{
     id: "beauever-neck-renewal-launch-2026-09-17",
     href: "/brand-editorial/beauever",
     date: "2026-09-17",
