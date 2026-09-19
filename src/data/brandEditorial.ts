@@ -86,6 +86,24 @@ export const brandEditorialEntries: BrandEditorialEntry[] = [
       publishedDate: "2026-09-19",
     },
   ],
+
+  videos: [
+
+{
+
+title: "DESCENTE「自在主場」2026-09-19 活動直播錄影",
+
+platform: "YouTube",
+
+url: "https://youtu.be/ObsdWGKAytg",
+
+source: "KYOHKOの推し活｜非官方保存",
+
+},
+
+],
+
+
   officialSources: [
     {
       name: "w-Daily｜陳偉霆工作室",
