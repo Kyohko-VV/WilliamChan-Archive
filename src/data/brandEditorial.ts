@@ -37,6 +37,68 @@ export interface BrandEditorialEntry {
 
 export const brandEditorialEntries: BrandEditorialEntry[] = [
 
+  {
+  id: "descente-ski-new-products-2026-09-20",
+  href: "/brand-editorial/descente",
+  date: "2026-09-20",
+  brand: "DESCENTE 迪桑特",
+  title: "DESCENTE 迪桑特｜雪季新品宣傳",
+  type: "品牌合作／新品宣傳",
+  role: "品牌代言人",
+  summary:
+    "2026 年 9 月 20 日，DESCENTE 迪桑特品牌代言人陳偉霆於本人微博分享全新雪季裝備，以充滿未來感的冰雪空間為背景，預告開啟新雪季，並配合天貓小黑盒新品宣傳。",
+  mediaAlbum: "DESCENTE 迪桑特｜2026-09-20 雪季新品宣傳",
+
+  images: [
+    {
+      url: "https://media.williamchanfanpage.com/Brand/descente2026-09-20-01.jpg",
+      alt: "陳偉霆 DESCENTE 迪桑特雪季新品宣傳圖片（一）",
+      source: "陳偉霆本人微博",
+      sourceUrl: "https://weibo.com/1712570933/5345254750555593",
+      publishedDate: "2026-09-20",
+    },
+    {
+      url: "https://media.williamchanfanpage.com/Brand/descente2026-09-20-02.jpg",
+      alt: "陳偉霆 DESCENTE 迪桑特雪季新品宣傳圖片（二）",
+      source: "陳偉霆本人微博",
+      sourceUrl: "https://weibo.com/1712570933/5345254750555593",
+      publishedDate: "2026-09-20",
+    },
+    {
+      url: "https://media.williamchanfanpage.com/Brand/descente2026-09-20-03.jpg",
+      alt: "陳偉霆 DESCENTE 迪桑特雪季新品宣傳圖片（三）",
+      source: "陳偉霆本人微博",
+      sourceUrl: "https://weibo.com/1712570933/5345254750555593",
+      publishedDate: "2026-09-20",
+    },
+    {
+      url: "https://media.williamchanfanpage.com/Brand/descente2026-09-20-04.jpg",
+      alt: "陳偉霆 DESCENTE 迪桑特雪季新品宣傳圖片（四）",
+      source: "陳偉霆本人微博",
+      sourceUrl: "https://weibo.com/1712570933/5345254750555593",
+      publishedDate: "2026-09-20",
+    },
+  ],
+
+  officialSources: [
+    {
+      name: "陳偉霆本人微博",
+      url: "https://weibo.com/1712570933/5345254750555593",
+      type: "本人官方／品牌宣傳",
+      publishedDate: "2026-09-20",
+      summary:
+        "陳偉霆分享 DESCENTE 全新滑雪裝備，提到充滿未來感的冰雪空間及開啟新雪季，並配合天貓小黑盒新品宣傳。",
+    },
+  ],
+
+  editorialSources: [],
+  mediaSources: [],
+  relatedTimelineHref:
+    "/timeline/2026/#descente-ski-new-products-2026-09-20",
+},
+
+
+
 {
   id: "descente-zizai-zhuchang-shanghai-2026-09-19",
   href: "/brand-editorial/descente",
