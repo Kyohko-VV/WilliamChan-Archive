@@ -46,7 +46,7 @@ const { pageTitle, description, date, dateTime, title, category, artist, ogImage
       <div class="footer-inner">
         <p class="footer-title">陳偉霆資料庫 · William Chan Archive</p>
         <FooterSocialLinks />
-        <p class="footer-nav">Timeline ｜ Works ｜ People &amp; Characters ｜ Sources</p>
+        <p class="footer-nav">Timeline ｜ Works ｜ People &amp; Characters ｜ Sources ｜ <a class="footer-feedback" href="https://lounge.williamchanfanpage.com/feedback">Feedback</a></p>
         <p>非官方粉絲資料庫</p>
         <p>本站內容僅作資料整理與記錄用途。</p>
         <p class="footer-copyright">© 2026 William Chan Archive</p>
@@ -54,3 +54,16 @@ const { pageTitle, description, date, dateTime, title, category, artist, ogImage
     </footer>
   </body>
 </html>
+
+<style>
+  .footer-nav .footer-feedback {
+    color: inherit;
+    text-decoration: none;
+    text-underline-offset: 3px;
+  }
+
+  .footer-nav .footer-feedback:hover,
+  .footer-nav .footer-feedback:focus-visible {
+    text-decoration: underline;
+  }
+</style>
