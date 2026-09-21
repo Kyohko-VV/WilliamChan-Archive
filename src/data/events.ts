@@ -2,6 +2,30 @@ import { readOwnerTimeline } from './ownerTimeline';
 
 const legacyEvents = [
   {
+    id: "jinlingguan-new-product-launch-urumqi-2026-09-21",
+    date: "2026-09-21",
+    title: "陳偉霆出席金領冠新品發布會（烏魯木齊）",
+    category: "品牌活動",
+    description: "金領冠全球品牌代言人陳偉霆於烏魯木齊出席品牌新品發布會。",
+    source: "W-Daily｜陳偉霆工作室",
+    sourceUrl: "https://weibo.com/6269525799/5345631142413426",
+    additionalSources: [
+      { label: "英皇娛樂--北京", url: "https://weibo.com/3270824053/5345636275719139" },
+      { label: "金領冠官方微博", url: "https://weibo.com/2360878517/5345630977262690" },
+    ],
+    relatedHref: "/brand-editorial/jinlingguan",
+    relatedLabel: "查看金領冠新品發布會活動資料 →",
+  },
+  {
+    id: "weibo-urumqi-daily-2026-09-21",
+    date: "2026-09-21",
+    title: "微博更新：「乌鲁木齐，吃了，喝了，没白来。」",
+    category: "社交平台／日常",
+    description: "陳偉霆於微博分享一組烏魯木齊日常照片，配文「乌鲁木齐，吃了，喝了，没白来。」",
+    source: "陳偉霆本人微博",
+    sourceUrl: "https://weibo.com/1712570933/5345655457582596",
+  },
+  {
     id: "my-lady-release-2019-09-23",
     date: "2019-09-23",
     title: "〈My Lady〉正式發布",

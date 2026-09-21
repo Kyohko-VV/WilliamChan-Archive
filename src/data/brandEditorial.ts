@@ -36,6 +36,72 @@ export interface BrandEditorialEntry {
 }
 
 export const brandEditorialEntries: BrandEditorialEntry[] = [
+  {
+    id: "jinlingguan-new-product-launch-urumqi-2026-09-21",
+    href: "/brand-editorial/jinlingguan",
+    date: "2026-09-21",
+    brand: "金領冠",
+    title: "陳偉霆出席金領冠新品發布會（烏魯木齊）",
+    type: "新品發布會",
+    location: "烏魯木齊",
+    role: "金領冠全球品牌代言人",
+    summary: "金領冠全球品牌代言人陳偉霆於 2026 年 9 月 21 日現身烏魯木齊，出席品牌新品發布會。官方以「天山为幕，秋光为序，专注同行」等文案記錄活動現場。金領冠官方亦以「和伟霆哥在乌鲁木齐的一天」分享現場照片。",
+    images: [
+      {
+        url: "https://media.williamchanfanpage.com/Brand/jinlingguang2026-09-21.jpg",
+        alt: "陳偉霆出席金領冠烏魯木齊新品發布會（一）",
+        source: "金領冠官方微博",
+        sourceUrl: "https://weibo.com/2360878517/5345630977262690",
+      },
+      {
+        url: "https://media.williamchanfanpage.com/Brand/jinlingguang2026-09-21-01.jpg",
+        alt: "陳偉霆出席金領冠烏魯木齊新品發布會（二）",
+        source: "金領冠官方微博",
+        sourceUrl: "https://weibo.com/2360878517/5345630977262690",
+        publishedDate: "2026-09-21",
+      },
+      {
+        url: "https://media.williamchanfanpage.com/Brand/jinlingguang2026-09-21-02.jpg",
+        alt: "陳偉霆出席金領冠烏魯木齊新品發布會（三）",
+        source: "金領冠官方微博",
+        sourceUrl: "https://weibo.com/2360878517/5345630977262690",
+        publishedDate: "2026-09-21",
+      },
+      {
+        url: "https://media.williamchanfanpage.com/Brand/jinlingguang2026-09-21-03.jpg",
+        alt: "陳偉霆出席金領冠烏魯木齊新品發布會（四）",
+        source: "金領冠官方微博",
+        sourceUrl: "https://weibo.com/2360878517/5345630977262690",
+        publishedDate: "2026-09-21",
+      },
+    ],
+    officialSources: [
+      {
+        name: "英皇娛樂--北京",
+        url: "https://weibo.com/3270824053/5345636275719139",
+        type: "公司官方／活動紀錄",
+        publishedDate: "2026-09-21",
+        summary: "英皇娛樂--北京記錄陳偉霆出席品牌活動，文案寫有「西陲之畔，纯粹之地。持素而立，沉敛雅正。」",
+      },
+      {
+        name: "W-Daily｜陳偉霆工作室",
+        url: "https://weibo.com/6269525799/5345631142413426",
+        type: "工作室官方／活動紀錄",
+        publishedDate: "2026-09-21",
+        summary: "W-Daily 記錄金領冠全球品牌代言人陳偉霆現身新品發布會，並以「天山为幕，秋光为序，专注同行。」記錄活動現場。",
+      },
+      {
+        name: "金領冠官方微博",
+        url: "https://weibo.com/2360878517/5345630977262690",
+        type: "品牌官方／活動紀錄",
+        publishedDate: "2026-09-21",
+        summary: "金領冠官方以「和伟霆哥在乌鲁木齐的一天」分享烏魯木齊活動現場照片，並帶有 #金领冠#、#中国专利配方 宝宝超凡守护# 話題。",
+      },
+    ],
+    editorialSources: [],
+    mediaSources: [],
+    relatedTimelineHref: "/timeline/2026/#jinlingguan-new-product-launch-urumqi-2026-09-21",
+  },
 
   {
   id: "descente-ski-new-products-2026-09-20",
