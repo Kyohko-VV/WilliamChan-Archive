@@ -104,6 +104,7 @@ export const works: Work[] = [
     href: "/works/aiqingmanman",
     leadActor: "陳偉霆（中國香港）、鍾楚曦（官方按姓氏筆畫排序）",
     role: "王志誠",
+    characterId: "wang-zhicheng",
     description: "《愛情慢慢》由陳偉霆、鍾楚曦領銜主演，陳偉霆飾演王志誠。作品尚未播出，官方於 2026 年 9 月 23 日公開「上癮版預告」及人物海報。",
     introduction: [
       "《愛情慢慢》是一部由陳偉霆、鍾楚曦領銜主演的影視劇。官方於 2026 年 9 月 23 日配合「2027 愛奇藝向新片單」及「2026 愛奇藝悅享會」公開新一輪宣傳內容。",
@@ -113,7 +114,7 @@ export const works: Work[] = [
     credits: [
       { label: "領銜主演", value: "陳偉霆（中國香港）、鍾楚曦；官方註明按姓氏筆畫排序。" },
       { label: "特別出演", value: "牛駿峰、王紫璇、向涵之（美國）；官方註明按姓氏筆畫排序。" },
-      { label: "演員／角色", value: "陳偉霆｜王志誠", href: "/people-characters#william-chan" },
+      { label: "演員／角色", value: "陳偉霆｜王志誠", href: "/people-characters#wang-zhicheng" },
     ],
     notes: [
       "作品主標題依 2026-09-23 官方宣傳使用《愛情慢慢》；官方微博帳號「影视剧爱情慢慢」的認證文字為「影视剧《爱情慢慢杀死你》官方微博」，另記錄《愛情慢慢殺死你》為官方微博認證名稱。此處並列兩種官方用法，不判定為舊名、原名或正式全名。",

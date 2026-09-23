@@ -20,6 +20,12 @@ export interface PeopleCharacterEntry {
   relatedWorks?: RelatedLink[];
   relatedEvents?: RelatedEvent[];
   links?: RelatedLink[];
+  thumbnail?: {
+    src: string;
+    alt: string;
+    source: string;
+    sourceUrl: string;
+  };
 }
 
 export const peopleCharacters: PeopleCharacterEntry[] = [
@@ -75,6 +81,26 @@ export const peopleCharacters: PeopleCharacterEntry[] = [
     relatedWorks: [{ label: "〈哪怕我們〉", href: "/works/music-na-pa-wo-men" }],
     links: [
       { label: "個人 Instagram", href: "https://www.instagram.com/khaki_yan/" },
+    ],
+  },
+  {
+    id: "wang-zhicheng",
+    name: "王志誠",
+    type: "character",
+    actor: "陳偉霆",
+    thumbnail: {
+      src: "https://media.williamchanfanpage.com/work/aiqingmanman2026-09-23-01.jpg",
+      alt: "《愛情慢慢》王志誠公開人物海報，陳偉霆飾王志誠",
+      source: "陳偉霆本人微博",
+      sourceUrl: "https://weibo.com/1712570933/5346261874247323",
+    },
+    description:
+      "王志誠是《愛情慢慢》中由陳偉霆飾演的角色。陳偉霆本人於 2026 年 9 月 23 日在微博公開人物海報，海報明確標示「陳偉霆 飾 王志誠」。",
+    relatedWorks: [{ label: "《愛情慢慢》", href: "/works/aiqingmanman" }],
+    links: [
+      { label: "飾演：陳偉霆", href: "/people-characters#william-chan" },
+      { label: "第一手來源：陳偉霆本人微博", href: "https://weibo.com/1712570933/5346261874247323" },
+      { label: "公開人物海報｜來源：陳偉霆本人微博", href: "https://media.williamchanfanpage.com/work/aiqingmanman2026-09-23-01.jpg" },
     ],
   },
   {
