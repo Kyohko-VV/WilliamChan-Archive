@@ -259,7 +259,15 @@ source: "KYOHKOの推し活｜非官方保存",
     },
   ],
   editorialSources: [],
-  mediaSources: [],
+  mediaSources: [
+    {
+      name: "davyyu_hair｜Instagram｜髮型造型紀錄",
+      url: "https://www.instagram.com/p/Ddnene5mGkL/?stkn=MXN1dmNocDZjcmM2cw==",
+      type: "髮型師／造型補充紀錄",
+      summary:
+        "髮型師 davyyu_hair 分享陳偉霆本次活動造型，使用冷灰色系與前刺 Crew Cut。貼文原文：「New Hairstyle・冷灰色系＋前刺 Crew Cut」「你哋又換咗新髮型迎接入秋未？」中文翻譯：「新髮型：冷灰色系＋前刺 Crew Cut。」「你們也換新髮型迎接入秋了嗎？」",
+    },
+  ],
   relatedTimelineHref:
     "/timeline/2026/#descente-zizai-zhuchang-shanghai-2026-09-19",
 },

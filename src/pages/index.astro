@@ -5,6 +5,7 @@ import { fanActivities } from "../data/fanActivities";
 import { peopleCharacters } from "../data/peopleCharacters";
 import { sourceCategories, sources } from "../data/sources";
 import { works } from "../data/works";
+import { newestWorkFirst, workDisplayCategory } from "../utils/workDisplay";
 import { brandEditorialEntries } from "../data/brandEditorial";
 import FooterSocialLinks from "../components/FooterSocialLinks.astro";
 import SeoHead from "../components/SeoHead.astro";
@@ -16,7 +17,7 @@ const latestFanActivities = [...fanActivities]
   .slice(0, 3);
 
 const latestWorks = [...works]
-  .sort((a, b) => b.date.localeCompare(a.date))
+  .sort(newestWorkFirst)
   .slice(0, 3);
 
 const latestBrandEditorialEntries = [...brandEditorialEntries]
@@ -91,7 +92,7 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
 </a>
       <section class="works-card">
         <h2>Works</h2>
-        <p class="works-subtitle">影視・音樂・舞台</p>
+        <p class="works-subtitle">影視・電影・綜藝節目・音樂・舞台</p>
 
         <div class="latest-works">
           {latestWorks.map((work) => (
@@ -102,7 +103,7 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
                 {work.href ? <a href={work.href}>{work.title}</a> : work.title}
               </p>
               <p class="work-category">
-                {work.href === "/events/2026-our-dormitory-party" ? "綜藝／節目" : work.category}
+                {workDisplayCategory(work)}
               </p>
             </div>
           ))}

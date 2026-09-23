@@ -7,17 +7,19 @@ interface GalleryItem {
   image: string;
   source: string;
   sourceUrl: string;
+  alt?: string;
 }
 
 interface Props {
   items: GalleryItem[];
+  contained?: boolean;
 }
 
-const { items } = Astro.props;
+const { items, contained = false } = Astro.props;
 ---
 
 {items.length > 0 && (
   <EventSection id="gallery-heading" title="照片集" englishLabel="Gallery">
-    <GalleryCarousel items={items} />
+    <GalleryCarousel items={items} contained={contained} />
   </EventSection>
 )}

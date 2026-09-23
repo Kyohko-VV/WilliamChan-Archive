@@ -6,14 +6,19 @@ import FooterSocialLinks from "../FooterSocialLinks.astro";
 import SeoHead from "../SeoHead.astro";
 import MusicListening from "./MusicListening.astro";
 import { musicPages, musicPageHref } from "../../utils/musicPagination";
+import { newestWorkFirst, workDisplayCategory } from "../../utils/workDisplay";
 
 interface Props { musicPage?: number; }
 const { musicPage = 1 } = Astro.props;
 const pages = musicPages(works);
 const pageTitle = musicPage === 1 ? "作品分類 | 陳偉霆資料庫" : `音樂作品・第 ${musicPage} 頁 | 陳偉霆資料庫`;
 
-const sortedWorks = [...works].sort((a, b) => b.date.localeCompare(a.date));
-const screenWorks = sortedWorks.filter((work) => work.category === "影視");
+const sortedWorks = [...works].sort(newestWorkFirst);
+const screenGroups = [
+  { label: "影視", id: "screen-heading" },
+  { label: "電影", id: "film-heading" },
+  { label: "綜藝節目", id: "variety-heading" },
+].map((group) => ({ ...group, works: sortedWorks.filter((work) => workDisplayCategory(work) === group.label) }));
 const musicWorks = pages[musicPage - 1];
 const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活動");
 ---
@@ -44,9 +49,9 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
       </header>
 
       <div class="category-grid">
-        <section aria-labelledby="screen-heading">
-          <h2 id="screen-heading">影視</h2>
-          {screenWorks.length > 0 ? screenWorks.map((work) => {
+        {screenGroups.map((group) => <section aria-labelledby={group.id}>
+          <h2 id={group.id}>{group.label}</h2>
+          {group.works.length > 0 ? group.works.map((work) => {
             const character = work.characterId
               ? peopleCharacters.find((entry) => entry.id === work.characterId && entry.type === "character")
               : undefined;
@@ -55,7 +60,7 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
                 <p class="work-date"><time datetime={work.date.replaceAll(".", "-")}>{work.date}</time></p>
                 <h3>{work.title}</h3>
                 {work.type && <p class="work-type">{work.type}</p>}
-                {work.href === "/events/2026-our-dormitory-party" && <p class="work-type">綜藝／節目</p>}
+                {work.href === "/events/2026-our-dormitory-party" && <p class="work-type">綜藝節目</p>}
                 {work.platform && (
                   <p class="work-location">{work.distribution ? `${work.platform}｜${work.distribution}` : work.platform}</p>
                 )}
@@ -124,7 +129,7 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
 
             return work.href ? <a class="work-link" href={work.href}>{content}</a> : content;
           }) : <p class="empty-state">內容整理中。</p>}
-        </section>
+        </section>)}
 
         <section aria-labelledby="music-heading">
           <h2 id="music-heading">音樂</h2>

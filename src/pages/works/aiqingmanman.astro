@@ -1,0 +1,113 @@
+---
+import WorkLayout from "../../layouts/WorkLayout.astro";
+import EventSection from "../../components/events/EventSection.astro";
+import EventGallery from "../../components/events/EventGallery.astro";
+import { works } from "../../data/works";
+import { events } from "../../data/events";
+
+const work = works.find((entry) => entry.id === "aiqingmanman")!;
+// Presentation-only batches reference the existing source records by URL.
+// Append a batch here for each confirmed promotion event; retain source notes in Work data.
+const promotionBatches = [
+  {
+    date: "2026-09-23",
+    title: "2027 愛奇藝向新片單・2026 愛奇藝悅享會",
+    summary: "官方於本輪宣傳公開《愛情慢慢》「上癮版預告」、人物／角色海報及相關劇情宣傳視頻，並開放愛奇藝與微博預約。本輪宣傳亦確認陳偉霆飾演王志誠。",
+    sourceUrls: [
+      "https://weibo.com/6293083837/5346261575140110",
+      "https://weibo.com/6293083837/5346262595404354",
+      "https://weibo.com/6293083837/5346261890499275",
+      "https://weibo.com/1712570933/5346261874247323",
+    ],
+  },
+].map((batch) => ({
+  ...batch,
+  sources: batch.sourceUrls.map((url) => {
+    const source = work.officialSources?.find((entry) => entry.url === url);
+    if (!source) throw new Error(`Missing promotion source: ${url}`);
+    return source;
+  }),
+}));
+const promotionUrls = new Set(promotionBatches.flatMap((batch) => batch.sourceUrls));
+const accountSources = work.officialSources?.filter((source) => !promotionUrls.has(source.url));
+const relatedTimeline = events
+  .filter((event) => event.relatedHref === work.href)
+  .sort((a, b) => a.date.localeCompare(b.date));
+const gallery = (work.images ?? []).map((image) => ({
+  title: "王志誠人物海報",
+  image: image.src,
+  alt: image.alt,
+  source: image.source,
+  sourceUrl: image.sourceUrl,
+}));
+---
+
+<WorkLayout
+  pageTitle={`${work.title}｜陳偉霆資料庫`}
+  description={work.description!}
+  date="官方宣傳公開：2026年9月23日"
+  dateTime={work.date}
+  title={work.title}
+  category={`${work.category} / ${work.type} · ${work.status}`}
+  ogImage={work.images?.[0]?.src}
+>
+  <EventSection id="summary-heading" title="作品簡介">
+    {work.introduction?.map((paragraph, index) => <p class:list={["summary", { "has-top-spacing": index > 0 }]}>{paragraph}</p>)}
+  </EventSection>
+
+  <EventSection id="details-heading" title="作品資料">
+    <dl>
+      <div><dt>類型</dt><dd>影視劇／{work.type}</dd></div>
+      <div><dt>平台</dt><dd>{work.platform}</dd></div>
+      <div><dt>狀態</dt><dd>{work.status}</dd></div>
+      {work.credits?.map((credit) => <div><dt>{credit.label}</dt><dd>{credit.href ? <a href={credit.href}>{credit.value}</a> : credit.value}</dd></div>)}
+    </dl>
+  </EventSection>
+
+  <EventSection id="notes-heading" title="名稱與公開記錄 / Notes">
+    {work.notes?.map((note, index) => <p class:list={["summary", { "has-top-spacing": index > 0 }]}>{note}</p>)}
+  </EventSection>
+
+  <EventGallery items={gallery} contained />
+
+  <EventSection id="sources-heading" title="官方來源">
+    <ul class="video-list">{accountSources?.map((source) => <li>
+      <a href={source.url} target="_blank" rel="noopener noreferrer">{source.displayName}</a>
+      {source.note && <p>{source.note}</p>}
+    </li>)}</ul>
+  </EventSection>
+
+  <EventSection id="promotion-heading" title="宣傳更新">
+    {promotionBatches.map((batch) => <article class="promotion-batch">
+      <h3><time datetime={batch.date}>{batch.date}</time>｜{batch.title}</h3>
+      <p class="summary">{batch.summary}</p>
+      <ul class="source-list promotion-sources">{batch.sources.map((source) => <li>
+        <a href={source.url} target="_blank" rel="noopener noreferrer">{source.displayName}</a>
+      </li>)}</ul>
+      <details>
+        <summary>查看本輪來源日期與完整文案</summary>
+        <ul class="source-list">{batch.sources.map((source) => <li>
+          {source.displayName}
+          {source.note && <p>{source.note}</p>}
+        </li>)}</ul>
+      </details>
+    </article>)}
+  </EventSection>
+
+  <EventSection id="related-timeline-heading" title="Related Timeline / 相關時間線">
+    <ul class="video-list">{relatedTimeline.map((event) => <li>
+      <a href={`/timeline#${event.id ?? event.anchor}`}><time datetime={event.date}>{event.date}</time>｜{event.title}</a>
+    </li>)}</ul>
+  </EventSection>
+</WorkLayout>
+
+<style>
+  .promotion-batch { overflow-wrap: anywhere; }
+  .promotion-batch + .promotion-batch { margin-top: 24px; padding-top: 24px; border-top: 1px solid #e5e1dc; }
+  .promotion-batch h3 { margin: 0 0 12px; font-size: 17px; line-height: 1.6; }
+  .promotion-sources { margin-top: 16px; gap: 8px; font-size: 14px; line-height: 1.6; }
+  details { margin-top: 16px; color: #77706b; font-size: 14px; line-height: 1.6; }
+  summary { cursor: pointer; text-underline-offset: 3px; }
+  summary:hover { text-decoration: underline; }
+  details[open] > summary { margin-bottom: 12px; }
+</style>

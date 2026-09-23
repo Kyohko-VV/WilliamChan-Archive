@@ -25,6 +25,7 @@ section {
 section h2 { margin: 0 0 20px; font-size: 22px; }
 .english-label { color: #958d87; font-size: 16px; font-weight: 400; }
 .summary { margin: 0; color: #5f5955; font-size: 16px; line-height: 1.85; }
+.summary.has-top-spacing { margin-top: 20px; }
 dl { margin: 0; }
 dl div { display: grid; grid-template-columns: 7rem 1fr; gap: 16px; padding: 10px 0; }
 dt { color: #77706b; }
@@ -39,6 +40,8 @@ dd { margin: 0; color: #4f4945; }
 .video-list li:last-child { padding-bottom: 0; border-bottom: 0; }
 .video-list p { margin-top: 6px; color: #77706b; font-size: 14px; }
 .empty-state { margin: 0; color: #958d87; }
+.source-list { display: grid; gap: 12px; margin: 0; padding-left: 1.25rem; }
+.source-list p { margin: 4px 0 0; padding-left: 10px; color: #958d87; font-size: 13px; line-height: 1.6; }
 section a { color: #675f5a; }
 
 .site-footer { margin-top: 24px; padding: 32px 8%; background: #675f5a; border-top: 4px solid #d8d0ca; color: #e3ddd8; }
