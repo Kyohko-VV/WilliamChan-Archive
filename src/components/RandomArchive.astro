@@ -1,0 +1,85 @@
+---
+import { works } from "../data/works";
+import { events } from "../data/events";
+import { peopleCharacters } from "../data/peopleCharacters";
+import { brandEditorialEntries } from "../data/brandEditorial";
+import { fanActivities } from "../data/fanActivities";
+import { diaryEntries } from "../data/diary";
+import { buildTimeline } from "../utils/timeline";
+
+// Only existing public routes in the requested categories may enter the pool.
+const staticPages = new Set(Object.keys(import.meta.glob([
+  "../pages/works/*.astro",
+  "../pages/events/*.astro",
+  "../pages/brand-editorial/*.astro",
+  "../pages/fan-activities/*.astro",
+  "../pages/people-characters.astro",
+])).filter((path) => !path.includes("[")).map((path) =>
+  path.replace("../pages", "").replace(/\.astro$/, ""),
+));
+const yearPages = buildTimeline(events).years.map((year) => `/timeline/${year}`);
+const existingPages = new Set([...staticPages, ...yearPages,
+  ...diaryEntries.map((entry) => entry.detailUrl),
+]);
+const urls = [...new Set([
+  ...works.map((entry) => entry.href),
+  ...events.map((entry) => entry.href),
+  ...yearPages,
+  ...peopleCharacters.map((entry) => `/people-characters#${entry.id}`),
+  ...brandEditorialEntries.map((entry) => entry.href),
+  ...fanActivities.map((entry) => entry.detailUrl),
+].filter((url): url is string => !!url && existingPages.has(url.split("#")[0])))];
+---
+
+{urls.length > 0 && <div class="random-archive" hidden>
+  <button type="button" data-random-urls={JSON.stringify(urls)}>🎲 隨機 Archive</button>
+  <p>不知道看什麼？交給 Archive 決定。</p>
+</div>}
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>("[data-random-urls]");
+  if (button) {
+    const urls: string[] = JSON.parse(button.dataset.randomUrls ?? "[]");
+    const storageKey = "archive:last-random-page";
+    let last = "";
+    try { last = sessionStorage.getItem(storageKey) ?? ""; } catch { /* Storage is optional. */ }
+    button.parentElement!.hidden = false;
+    button.addEventListener("click", () => {
+      const currentPath = location.pathname.replace(/\/$/, "");
+      const available = urls.filter((url) => url.split("#")[0] !== currentPath);
+      const fresh = available.filter((url) => url.split("#")[0] !== last.split("#")[0]);
+      const choices = fresh.length ? fresh : available;
+      if (!choices.length) return;
+      const next = choices[Math.floor(Math.random() * choices.length)];
+      last = next;
+      try { sessionStorage.setItem(storageKey, next); } catch { /* Keep navigation working. */ }
+      location.assign(next);
+    });
+  }
+</script>
+
+<style>
+  .random-archive {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    min-width: 0;
+  }
+  .random-archive[hidden] { display: none; }
+  button {
+    min-height: 44px;
+    max-width: 100%;
+    padding: 10px 16px;
+    border: 1px solid #d8d0ca;
+    border-radius: 8px;
+    background: #fff;
+    color: #4f4945;
+    font: inherit;
+    cursor: pointer;
+  }
+  button:hover { background: #ebe6e2; }
+  button:focus-visible { outline: 2px solid #675f5a; outline-offset: 3px; }
+  p { margin: 0; color: #77706b; font-size: 13px; line-height: 1.6; }
+</style>

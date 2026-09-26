@@ -9,6 +9,7 @@ import { newestWorkFirst, workDisplayCategory } from "../utils/workDisplay";
 import { brandEditorialEntries } from "../data/brandEditorial";
 import FooterSocialLinks from "../components/FooterSocialLinks.astro";
 import SeoHead from "../components/SeoHead.astro";
+import RandomArchive from "../components/RandomArchive.astro";
 
 const latestEvents = buildTimeline(events).events.slice(0, 3);
 
@@ -58,6 +59,7 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
     </header>
 
     <main>
+      <RandomArchive />
 
 
 
