@@ -6,7 +6,7 @@ import FooterSocialLinks from "../FooterSocialLinks.astro";
 import SeoHead from "../SeoHead.astro";
 import MusicListening from "./MusicListening.astro";
 import { musicPages, musicPageHref } from "../../utils/musicPagination";
-import { newestWorkFirst, workDisplayCategory } from "../../utils/workDisplay";
+import { musicWorkTypeLabel, newestWorkFirst, workDisplayCategory } from "../../utils/workDisplay";
 
 interface Props { musicPage?: number; }
 const { musicPage = 1 } = Astro.props;
@@ -150,7 +150,7 @@ const stageWorks = sortedWorks.filter((work) => work.category === "舞台・活�
                   <h3>{work.href ? <a href={work.href}>{work.title}</a> : work.title}</h3>
                   {(work.type || work.artist) && (
                     <p class="music-metadata">
-                      {work.type && <span>{work.type}</span>}
+                      {work.type && <span>{musicWorkTypeLabel(work.type)}</span>}
                       {work.type && work.artist && <span aria-hidden="true">・</span>}
                       {work.artist && <span>{work.artist}</span>}
                     </p>

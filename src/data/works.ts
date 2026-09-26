@@ -88,10 +88,66 @@ export interface Work {
   relatedPerformances?: WorkRelatedPerformance[];
   archiveVideos?: WorkArchiveVideo[];
   credits?: { label: string; value: string; href?: string }[];
+  tracks?: string[];
   notes?: string[];
 }
 
 export const works: Work[] = [
+  {
+    id: "music-zui-ai-da-da-shi-xiong",
+    date: "2014-09-02",
+    releaseDate: "2014-09-02",
+    title: "《最愛的大師兄》",
+    category: "音樂",
+    type: "album",
+    artist: "陳偉霆",
+    status: "已公開",
+    href: "/works/music-zui-ai-da-da-shi-xiong",
+    description: "《最愛的大師兄》是陳偉霆於 2014 年 9 月 2 日正式發行的精選專輯。",
+    cover: {
+      src: "https://media.williamchanfanpage.com/work/zuiaidedashixiong00.webp",
+      alt: "《最愛的大師兄》專輯封面",
+    },
+    credits: [
+      { label: "英文名", value: "William Chan" },
+      { label: "作品形式", value: "精選專輯" },
+      { label: "曲風", value: "廣東流行" },
+      { label: "曲目", value: "20 首" },
+      { label: "總長度", value: "1 小時 17 分鐘" },
+      { label: "發行", value: "英皇娛樂" },
+    ],
+    tracks: [
+      "有借有還 (電影 \"紮職\" 主題曲)",
+      "今天終於知道錯",
+      "女皇",
+      "Do You Wanna Dance",
+      "戰士",
+      "Love U2",
+      "Together",
+      "L.U.V.",
+      "Pop It Up",
+      "Get Up",
+      "Closer",
+      "愛你太快樂",
+      "Baby Don't Cry",
+      "我是誰",
+      "穿心箭",
+      "遺忘的勇氣",
+      "大峽谷",
+      "狐狸小姐",
+      "什麼是潮流",
+      "就在現場",
+    ],
+    officialSources: [
+      {
+        displayName: "Apple Music｜《最愛的大師兄》",
+        platform: "Apple Music",
+        url: "https://music.apple.com/jp/album/%E6%9C%80%E6%84%9B%E7%9A%84%E5%A4%A7%E5%B8%AB%E5%85%84/913520218",
+        type: "官方",
+        note: "專輯封面、發行日期、曲風、20 首曲目、總長度與發行資訊。",
+      },
+    ],
+  },
   {
     id: "aiqingmanman",
     // Official promotion date for archive sorting; no premiere date is confirmed.

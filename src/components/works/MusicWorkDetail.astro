@@ -6,9 +6,11 @@ import { works } from "../../data/works";
 import { events } from "../../data/events";
 import WorkLayout from "../../layouts/WorkLayout.astro";
 import YouTubeEmbed from "./YouTubeEmbed.astro";
+import { musicWorkTypeLabel } from "../../utils/workDisplay";
 
 interface Props { work: Work; }
 const { work } = Astro.props;
+const workType = musicWorkTypeLabel(work.type);
 // Same public cover, resized for sharing; retain the original Work/Gallery asset.
 const shareImage = work.id === "na-pa-wo-men-2026"
   ? new URL("/share/na-pa-wo-men-cover.jpg", Astro.site).href
@@ -24,7 +26,7 @@ const relatedTimeline = events
 
 const gallery = work.cover ? [
   {
-    title: "單曲封面",
+    title: `${workType ?? "音樂作品"}封面`,
     image: work.cover.src,
     alt: work.cover.alt,
     source: work.images?.[0]?.source ?? work.officialSources?.[0]?.displayName ?? "作品官方來源",
@@ -41,11 +43,11 @@ const [year, month, day] = displayDate.split("-");
 
 <WorkLayout
   pageTitle={`${work.title}｜陳偉霆資料庫`}
-  description={work.seoDescription ?? work.description ?? `陳偉霆單曲${work.title}作品資料。`}
+  description={work.seoDescription ?? work.description ?? `陳偉霆${workType ?? "音樂作品"}${work.title}作品資料。`}
   date={`${year}年${Number(month)}月${Number(day)}日`}
   dateTime={displayDate}
   title={work.title}
-  category={`${work.category} / ${work.type}`}
+  category={`${work.category} / ${workType}`}
   artist={work.artist}
   ogImage={shareImage}
 >
@@ -53,7 +55,7 @@ const [year, month, day] = displayDate.split("-");
 
   <EventSection id="details-heading" title="作品資料">
     <dl>
-      <div><dt>類型</dt><dd>{work.category} / {work.type}</dd></div>
+      <div><dt>類型</dt><dd>{work.category} / {workType}</dd></div>
       <div><dt>歌手</dt><dd>{work.artist}</dd></div>
       <div><dt>發行日期</dt><dd><time datetime={displayDate}>{displayDate}</time></dd></div>
       {work.mvReleaseDate && <div><dt>MV 公開日</dt><dd><time datetime={work.mvReleaseDate}>{work.mvReleaseDate}</time></dd></div>}
@@ -72,6 +74,15 @@ const [year, month, day] = displayDate.split("-");
   {work.promotion?.length && <EventSection id="promotion-heading" title="官方宣傳記錄 / Promotion"><ul class="video-list">{work.promotion.map((source) => <li><a href={source.url} target="_blank" rel="noopener noreferrer">{displaySourceText(source.displayName)}</a><p>{displaySourceText(source.note)}</p></li>)}</ul></EventSection>}
 
   {(work.notes?.length ?? 0) > 0 && <EventSection id="notes-heading" title="歌曲理念 / Notes">{work.notes?.map((note) => <p class="summary note-item">{note}</p>)}</EventSection>}
+
+  {(work.tracks?.length ?? 0) > 0 && (
+    <EventSection id="tracklist-heading" title={`曲目｜${work.tracks?.length} 首`}>
+      <details class="tracklist">
+        <summary>查看完整曲目</summary>
+        <ol>{work.tracks?.map((track) => <li>{track}</li>)}</ol>
+      </details>
+    </EventSection>
+  )}
 
   {((work.relatedPerformances?.length ?? 0) > 0 || (relatedStages?.length ?? 0) > 0) && (
     <EventSection id="related-stages-heading" title="相關舞台"><ul class="video-list">
@@ -126,6 +137,10 @@ const [year, month, day] = displayDate.split("-");
   .link-group + .link-group { margin-top: 24px; }
   .link-group h3 { margin: 0 0 12px; font-size: 17px; }
   .note-item + .note-item { margin-top: 16px; }
+  .tracklist summary { cursor: pointer; color: #675f5a; }
+  .tracklist ol { margin: 16px 0 0; padding-inline-start: 28px; }
+  .tracklist li { overflow-wrap: anywhere; }
+  .tracklist li + li { margin-top: 8px; }
   .archive-video-list { display: grid; gap: 28px; }
   .archive-video h3 { margin: 0 0 12px; font-size: 17px; }
   .archive-video p { margin: 10px 0 0; color: #77706b; font-size: 14px; }
