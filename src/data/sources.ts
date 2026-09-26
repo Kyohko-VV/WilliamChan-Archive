@@ -19,6 +19,28 @@ export interface ArchiveSource {
 
 export const sources: ArchiveSource[] = [
   {
+    name: "陳偉霆 微博｜2026 中秋節",
+    category: "陳偉霆本人",
+    platform: "微博",
+    url: "https://weibo.com/1712570933/5347111945112466",
+    description: "發布時間：2026-09-25 20:04（北京時間）。官方原文：#中秋小圆满#吃了个月饼，甜的。中秋节快乐！",
+    official: true,
+    accountName: "William威廉陳偉霆",
+    accountId: "1712570933",
+    accountIdLabel: "UID",
+  },
+  {
+    name: "陳偉霆 小紅書｜2026 中秋節",
+    category: "陳偉霆本人",
+    platform: "小紅書",
+    url: "http://xhslink.com/o/5KrNVKWDZTG",
+    description: "發布時間：2026-09-25 20:09（北京時間）。官方原文：月饼吃了，一会儿赏月！ Hashtags：#明星不止AB面 #摘个月亮过中秋",
+    official: true,
+    accountName: "William 威廉陳偉霆",
+    accountId: "1037758838",
+    accountIdLabel: "小紅書號",
+  },
+  {
     name: "陳偉霆 微博",
     category: "陳偉霆本人",
     platform: "微博",

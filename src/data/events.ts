@@ -2,6 +2,18 @@ import { readOwnerTimeline } from './ownerTimeline';
 
 const legacyEvents = [
   {
+    id: "william-chan-mid-autumn-2026-09-25",
+    date: "2026-09-25",
+    title: "中秋節｜分享月餅與賞月日常",
+    category: "社交平台／日常",
+    description: "2026 年中秋節，陳偉霆於微博及小紅書分享吃月餅、準備賞月的節日日常。微博寫道「吃了个月饼，甜的。中秋节快乐！」，小紅書則寫道「月饼吃了，一会儿赏月！」。照片中亦可見鋒味派月餅禮盒，鋒味官方帳號其後在微博留言互動。",
+    source: "陳偉霆本人微博",
+    sourceUrl: "https://weibo.com/1712570933/5347111945112466",
+    additionalSources: [
+      { label: "陳偉霆本人小紅書", url: "http://xhslink.com/o/5KrNVKWDZTG" },
+    ],
+  },
+  {
     id: "jinlingguan-new-product-launch-urumqi-2026-09-21",
     date: "2026-09-21",
     title: "陳偉霆出席金領冠新品發布會（烏魯木齊）",
