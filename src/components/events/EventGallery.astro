@@ -8,18 +8,25 @@ interface GalleryItem {
   source: string;
   sourceUrl: string;
   alt?: string;
+  ariaLabel?: string;
+  hideTitle?: boolean;
+  sourcePrefix?: string;
+  sourceSuffix?: string;
+  hideCaption?: boolean;
 }
 
 interface Props {
   items: GalleryItem[];
+  title?: string;
+  englishLabel?: string;
   contained?: boolean;
 }
 
-const { items, contained = false } = Astro.props;
+const { items, title = "照片集", englishLabel = "Gallery", contained = false } = Astro.props;
 ---
 
 {items.length > 0 && (
-  <EventSection id="gallery-heading" title="照片集" englishLabel="Gallery">
+  <EventSection id="gallery-heading" title={title} englishLabel={englishLabel}>
     <GalleryCarousel items={items} contained={contained} />
   </EventSection>
 )}

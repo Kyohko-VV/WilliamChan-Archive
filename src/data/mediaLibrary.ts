@@ -1,6 +1,13 @@
 export type MediaVisibility = "private" | "public";
 export const mediaCategories = ["Music", "Brand / Editorial", "Works", "Event / Stage", "Fan Activities", "Other"] as const;
 export type MediaCategory = typeof mediaCategories[number];
+export const mediaSubAlbums = ["Cover", "MV", "Behind the Scenes", "Promotion", "Stage", "Other"] as const;
+export type MediaSubAlbum = typeof mediaSubAlbums[number];
+export const subAlbumLabels: Record<MediaSubAlbum, string> = {
+  Cover: "Cover｜封面", MV: "MV", "Behind the Scenes": "Behind the Scenes｜幕後",
+  Promotion: "Promotion｜宣傳", Stage: "Stage｜舞台", Other: "Other｜其他",
+};
+export type DatePrecision = "day" | "month" | "year" | "unknown";
 
 export interface MediaLibraryItem {
   thumbnailFit?: "contain";
@@ -14,11 +21,19 @@ export interface MediaLibraryItem {
   event?: string;
   category?: MediaCategory;
   album?: string;
+  /** Optional advanced grouping. Prefer tags for media traits such as MV or Cover. */
+  subAlbum?: MediaSubAlbum;
   relatedType?: string;
   relatedId?: string;
   relatedTitle?: string;
-  date: string;
+  /** Existing public archive date, retained as a fallback for legacy public records. */
+  date?: string;
   publishedDate?: string;
+  eventDate?: string;
+  /** Management only, never used for historical display or sorting. */
+  addedAt?: string;
+  /** Precision of publishedDate; partial dates retain their original YYYY / YYYY-MM form. */
+  datePrecision?: DatePrecision;
   source?: string;
   sourceUrl?: string;
   visibility: MediaVisibility;
@@ -30,8 +45,11 @@ export interface MediaLibraryItem {
 /** Read-only compatibility adapter for the local library; not a public gallery feed. */
 export function normalizeMediaItem(item: MediaLibraryItem) {
   const readableUrl = item.url ?? item.imageUrl;
-  const category = item.category ?? (item.event?.includes("TIMA") ? "Event / Stage" : item.fileName?.startsWith("fan-activities") ? "Fan Activities" : "Other");
-  const album = item.album ?? item.event ?? item.relatedTitle ?? "未分類相冊";
+  const category = item.category ?? "Other";
+  const album = item.album?.trim() || "未分類相冊";
+  const publishedDate = item.datePrecision === "unknown" ? "" : item.publishedDate?.trim() ?? "";
+  const legacyDate = item.visibility === "public" ? item.date?.trim() || "" : "";
+  const historicalDate = publishedDate || legacyDate || item.eventDate?.trim() || "";
   return {
     ...item,
     type: item.type ?? "image",
@@ -39,6 +57,9 @@ export function normalizeMediaItem(item: MediaLibraryItem) {
     url: readableUrl,
     category,
     album,
+    publishedDate,
+    historicalDate,
+    historicalDateLabel: publishedDate ? "公開日期" : legacyDate ? "既有日期" : historicalDate ? "活動／拍攝日期" : "日期未確認",
     // Category is part of the key so same-named albums never mix across categories.
     albumKey: category === "Music" && item.relatedType === "work" && item.relatedId
       ? JSON.stringify([category, "work", item.relatedId])
@@ -52,6 +73,9 @@ export const mediaItems: MediaLibraryItem[] = [
     fileName: "006Qii3Rgy1ige3vbhhbhj36qo8zk7wj.jpg",
     imageUrl: "https://media.williamchanfanpage.com/events/2026-tima/006Qii3Rgy1ige3vbhhbhj36qo8zk7wj.jpg",
     event: "2026 TIMA 國際音樂大賞",
+    category: "Event / Stage",
+    album: "2026 TIMA 國際音樂大賞",
+    eventDate: "2026-08-23",
     date: "2026-08-23",
     source: "英皇娛樂－北京（官方微博）",
     sourceUrl: "https://weibo.com/3270824053/ReLCagXPd",
@@ -61,6 +85,9 @@ export const mediaItems: MediaLibraryItem[] = [
     fileName: "006Qii3Rgy1ige4s305axj30qv0zt7kg.jpg",
     imageUrl: "https://media.williamchanfanpage.com/events/2026-tima/006Qii3Rgy1ige4s305axj30qv0zt7kg.jpg",
     event: "2026 TIMA 國際音樂大賞",
+    category: "Event / Stage",
+    album: "2026 TIMA 國際音樂大賞",
+    eventDate: "2026-08-23",
     date: "2026-08-23",
     source: "w-Daily／陳偉霆工作室（官方微博）",
     sourceUrl: "https://weibo.com/6269525799/ReLNXtGia",
@@ -70,6 +97,9 @@ export const mediaItems: MediaLibraryItem[] = [
     fileName: "c2f4d075ly1iget3urpg4j267y45du14.jpg",
     imageUrl: "https://media.williamchanfanpage.com/events/2026-tima/c2f4d075ly1iget3urpg4j267y45du14.jpg",
     event: "2026 TIMA 國際音樂大賞",
+    category: "Event / Stage",
+    album: "2026 TIMA 國際音樂大賞",
+    eventDate: "2026-08-23",
     date: "2026-08-23",
     source: "英皇娛樂－北京（官方微博）",
     sourceUrl: "https://weibo.com/3270824053/ReRjPxOwS",
@@ -79,6 +109,9 @@ export const mediaItems: MediaLibraryItem[] = [
     fileName: "c2f4d075ly1iget3xktexj235s23w7wi.jpg",
     imageUrl: "https://media.williamchanfanpage.com/events/2026-tima/c2f4d075ly1iget3xktexj235s23w7wi.jpg",
     event: "2026 TIMA 國際音樂大賞",
+    category: "Event / Stage",
+    album: "2026 TIMA 國際音樂大賞",
+    eventDate: "2026-08-23",
     date: "2026-08-23",
     source: "英皇娛樂－北京（官方微博）",
     sourceUrl: "https://weibo.com/3270824053/ReRjPxOwS",
@@ -88,6 +121,9 @@ export const mediaItems: MediaLibraryItem[] = [
     fileName: "fan-activities2025-03-12-people.webp",
     imageUrl: "https://media.williamchanfanpage.com/fan-activities/fan-activities2025-03-12-people.webp",
     event: "遠くからの友｜推し活でつながった5年越しの初対面",
+    category: "Fan Activities",
+    album: "遠くからの友｜推し活でつながった5年越しの初対面",
+    eventDate: "2025-03-12",
     date: "2025-03-12",
     source: "Kyohko",
     sourceUrl: "https://note.com/kk_kyoto_vv/n/n1475d47a1f28?sub_rt=share_b",
@@ -97,6 +133,9 @@ export const mediaItems: MediaLibraryItem[] = [
     fileName: "fan-activities2024-08-17 cnw.webp",
     imageUrl: "https://media.williamchanfanpage.com/fan-activities/fan-activities2024-08-17%20cnw.webp",
     event: "大阪｜2G OSAKA BE@RBRICK CANOTWAIT_ 400％・1000％発売記念",
+    category: "Fan Activities",
+    album: "大阪｜2G OSAKA BE@RBRICK CANOTWAIT_ 400％・1000％発売記念",
+    eventDate: "2024-08-17",
     date: "2024-08-17",
     source: "Kyohko",
     sourceUrl: "https://note.com/kk_kyoto_vv/n/n433ccdb60cdc",
@@ -106,6 +145,9 @@ export const mediaItems: MediaLibraryItem[] = [
     fileName: "fan-activities2024-08-17 mise.webp",
     imageUrl: "https://media.williamchanfanpage.com/fan-activities/fan-activities2024-08-17%20mise.webp",
     event: "大阪｜2G OSAKA BE@RBRICK CANOTWAIT_ 400％・1000％発売記念",
+    category: "Fan Activities",
+    album: "大阪｜2G OSAKA BE@RBRICK CANOTWAIT_ 400％・1000％発売記念",
+    eventDate: "2024-08-17",
     date: "2024-08-17",
     source: "Kyohko",
     sourceUrl: "https://note.com/kk_kyoto_vv/n/n433ccdb60cdc",
@@ -115,6 +157,9 @@ export const mediaItems: MediaLibraryItem[] = [
     fileName: "fan-activities2024-09-11hana.webp",
     imageUrl: "https://media.williamchanfanpage.com/fan-activities/fan-activities2024-09-11hana.webp",
     event: "東京遠征｜CANOTWAIT_ 初の海外ポップアップストア",
+    category: "Fan Activities",
+    album: "東京遠征｜CANOTWAIT_ 初の海外ポップアップストア",
+    eventDate: "2024-01-20",
     date: "2024-01-20",
     source: "Kyohko",
     sourceUrl: "https://note.com/kk_kyoto_vv/n/n2e09cc2e8837?sub_rt=share_b",
@@ -124,6 +169,9 @@ export const mediaItems: MediaLibraryItem[] = [
     fileName: "fan-activities2024-09-11william.jpg",
     imageUrl: "https://media.williamchanfanpage.com/fan-activities/fan-activities2024-09-11william.jpg",
     event: "東京遠征｜CANOTWAIT_ 初の海外ポップアップストア",
+    category: "Fan Activities",
+    album: "東京遠征｜CANOTWAIT_ 初の海外ポップアップストア",
+    eventDate: "2024-01-20",
     date: "2024-01-20",
     source: "Kyohko",
     sourceUrl: "https://note.com/kk_kyoto_vv/n/n2e09cc2e8837?sub_rt=share_b",
@@ -133,6 +181,9 @@ export const mediaItems: MediaLibraryItem[] = [
     fileName: "fan-activities2023-12-02-people.webp",
     imageUrl: "https://media.williamchanfanpage.com/fan-activities/fan-activities2023-12-02-people.webp",
     event: "深圳遠征｜映画『爆烈点』鑑賞・舞台挨拶",
+    category: "Fan Activities",
+    album: "深圳遠征｜映画『爆烈点』鑑賞・舞台挨拶",
+    eventDate: "2023-12-02",
     date: "2023-12-02",
     source: "Kyohko",
     sourceUrl: "https://note.com/kk_kyoto_vv/n/n403831e079f1?sub_rt=share_b",
@@ -142,6 +193,9 @@ export const mediaItems: MediaLibraryItem[] = [
     fileName: "fan-activities2023-12-02-ticket.webp",
     imageUrl: "https://media.williamchanfanpage.com/fan-activities/fan-activities2023-12-02-ticket.webp",
     event: "深圳遠征｜映画『爆烈点』鑑賞・舞台挨拶",
+    category: "Fan Activities",
+    album: "深圳遠征｜映画『爆烈点』鑑賞・舞台挨拶",
+    eventDate: "2023-12-02",
     date: "2023-12-02",
     source: "Kyohko",
     sourceUrl: "https://note.com/kk_kyoto_vv/n/n403831e079f1?sub_rt=share_b",
@@ -151,6 +205,9 @@ export const mediaItems: MediaLibraryItem[] = [
     fileName: "fan-activities2023-10-01-birthday-cake.webp",
     imageUrl: "https://media.williamchanfanpage.com/fan-activities/fan-activities2023-10-01-birthday-cake.webp",
     event: "大阪｜William 誕生日お祝い動画撮影会",
+    category: "Fan Activities",
+    album: "大阪｜William 誕生日お祝い動画撮影会",
+    eventDate: "2023-10-01",
     date: "2023-10-01",
     source: "Kyohko",
     sourceUrl: "https://note.com/kk_kyoto_vv/n/n32a01aff6f18",
@@ -160,6 +217,9 @@ export const mediaItems: MediaLibraryItem[] = [
     fileName: "fan-activities2023-10-01-group-photo.webp",
     imageUrl: "https://media.williamchanfanpage.com/fan-activities/fan-activities2023-10-01-group-photo.webp",
     event: "大阪｜William 誕生日お祝い動画撮影会",
+    category: "Fan Activities",
+    album: "大阪｜William 誕生日お祝い動画撮影会",
+    eventDate: "2023-10-01",
     date: "2023-10-01",
     source: "Kyohko",
     sourceUrl: "https://note.com/kk_kyoto_vv/n/n32a01aff6f18",
@@ -176,10 +236,11 @@ export function selectPublicMedia(items: MediaLibraryItem[]) {
     const normalized = normalizeMediaItem(item);
     return {
       type: normalized.type,
-      date: item.publishedDate || item.date,
-      publishedDate: item.publishedDate,
+      date: normalized.publishedDate || item.date || item.eventDate || "",
       category: normalized.category,
       album: normalized.album,
+      subAlbum: item.subAlbum,
+      publishedDate: normalized.publishedDate,
       albumKey: normalized.albumKey,
       url: normalized.url,
       caption: item.caption,

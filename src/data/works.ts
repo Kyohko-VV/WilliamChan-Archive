@@ -88,11 +88,108 @@ export interface Work {
   relatedPerformances?: WorkRelatedPerformance[];
   archiveVideos?: WorkArchiveVideo[];
   credits?: { label: string; value: string; href?: string }[];
-  tracks?: string[];
+  tracks?: (string | { title: string; href?: string })[];
   notes?: string[];
 }
 
 export const works: Work[] = [
+  {
+    id: "zha-zhi",
+    date: "2012-11-15",
+    title: "《紮職》",
+    category: "影視",
+    type: "電影",
+    status: "已上映",
+    href: "/works/zha-zhi",
+    role: "阿霆",
+    description: "《紮職》是 2012 年上映的香港電影，陳偉霆飾演阿霆。故事圍繞阿霆與自少年時期相識的兄弟在香港江湖中的選擇與變化展開。",
+    credits: [
+      { label: "英文名", value: "Triad" },
+      { label: "導演", value: "陳翊恒" },
+      { label: "主題曲", value: "〈有借有還〉", href: "/works/music-you-jie-you-huan" },
+    ],
+    watchLinks: [
+      { label: "官方預告片（英皇電影作品頁提供）", url: "https://www.youtube.com/watch?v=tHq22iLmo20" },
+    ],
+    officialSources: [
+      {
+        displayName: "英皇電影｜Triad",
+        url: "https://www.emp.hk/en/production/all/triad",
+        type: "官方",
+        note: "官方作品頁提供演員、導演、劇情介紹，以及 Trailer / making-of 等內容。",
+      },
+    ],
+  },
+  {
+    id: "music-you-jie-you-huan",
+    date: "2012-10-15",
+    releaseDate: "2012-10-15",
+    mvReleaseDate: "2012-12-06",
+    title: "〈有借有還〉",
+    category: "音樂",
+    type: "電影主題曲",
+    artist: "陳偉霆",
+    status: "已公開",
+    href: "/works/music-you-jie-you-huan",
+    description: "〈有借有還〉為陳偉霆演唱的電影《紮職》主題曲，於 2012-10-15 正式推出，後收錄於 2014 年精選專輯《最愛的大師兄》。",
+    introduction: [
+      "〈有借有還〉為陳偉霆演唱的電影《紮職》主題曲，於 2012-10-15 正式推出，後收錄於 2014 年精選專輯《最愛的大師兄》，為第 1 首曲目。",
+      "本頁保留歌曲推出期間的限量 CD 預告、簽名 CD 照片、iTunes『原聲帶・熱門歌曲』排名，以及《火武耀揚》隨書附送限量非賣品 CD 等歷史紀錄。",
+    ],
+    credits: [
+      { label: "收錄專輯", value: "《最愛的大師兄》", href: "/works/music-zui-ai-da-da-shi-xiong" },
+      { label: "電影", value: "《紮職》", href: "/works/zha-zhi" },
+    ],
+    streamingLinks: [
+      { label: "YouTube 音源", url: "https://www.youtube.com/watch?v=Y8BLwP3VOsc" },
+      { label: "Apple Music", url: "https://music.apple.com/jp/album/%E6%9C%89%E5%80%9F%E6%9C%89%E9%82%84-%E9%9B%BB%E5%BD%B1-%E7%B4%AE%E8%81%B7-%E4%B8%BB%E9%A1%8C%E6%9B%B2/913520218?i=913520224" },
+    ],
+    watchLinks: [
+      { label: "Official MV", url: "https://www.youtube.com/watch?v=kFyY7yWAnhc" },
+    ],
+    promotion: [
+      {
+        name: "陳偉霆本人 Facebook（歷史帳號）",
+        displayName: "2012-10-10｜限量 CD 預告｜陳偉霆本人 Facebook（歷史帳號）",
+        platform: "Facebook",
+        url: "https://www.facebook.com/share/18rGhRtiYU/",
+        type: "官方",
+        note: "本人原文：「電影 #紮職# 主題曲『有借有還』CD 限量版！下星期隆重上市!!」電影《紮職》主題曲〈有借有還〉限量版 CD 預告。配圖可見〈有借有還〉CD 設計，以及「主題曲 有借有還」「主唱 陳偉霆」等文字。",
+      },
+      {
+        name: "陳偉霆本人 Facebook（歷史帳號）",
+        displayName: "2012-10-15｜歌曲正式推出｜陳偉霆本人 Facebook（歷史帳號）",
+        platform: "Facebook",
+        url: "https://www.facebook.com/share/19aFnRBHZU/",
+        type: "官方",
+        note: "本人原文：「#紮職# 電影主題曲 #有借有還# 今天正式登場！William 演繹古惑仔電影主題曲全新一章，有血有肉有借有還有情義，現已登陸 iTunes！」本人於當日宣布歌曲正式推出，並表示已登陸 iTunes。",
+      },
+      {
+        name: "陳偉霆本人 Facebook（歷史帳號）",
+        displayName: "2012-10-24｜簽名 CD 紀錄｜陳偉霆本人 Facebook（歷史帳號）",
+        platform: "Facebook",
+        url: "https://www.facebook.com/share/1BjnfYnth5/",
+        type: "官方",
+        note: "本人原文：「努力簽！」配圖可見大量〈有借有還〉相關 CD／封套正在簽名。",
+      },
+      {
+        name: "陳偉霆本人 Facebook（歷史帳號）",
+        displayName: "2012-10-25｜iTunes 排名｜陳偉霆本人 Facebook（歷史帳號）",
+        platform: "Facebook",
+        url: "https://www.facebook.com/share/1FqxcUMVcL/",
+        type: "官方",
+        note: "本人原文：「第2位！iTunes，謝謝支持！」2012-10-25，本人分享〈有借有還〉登上 iTunes『原聲帶・熱門歌曲』第 2 位的截圖。",
+      },
+      {
+        name: "陳偉霆本人 Facebook（歷史帳號）",
+        displayName: "2012-10-27｜《火武耀揚》限量非賣品 CD｜陳偉霆本人 Facebook（歷史帳號）",
+        platform: "Facebook",
+        url: "https://www.facebook.com/share/18zDNxPDZj/",
+        type: "官方",
+        note: "本人原文：「江湖漫畫『火武耀揚』下一期11月6日隨書附送電影 #紮職# 熱爆主題曲『有借有還』CD 給各位兄弟讀者們！限量非賣品！」《火武耀揚》下一期於 2012-11-06 隨書附送〈有借有還〉CD，並明確標示為「限量非賣品」。",
+      },
+    ],
+  },
   {
     id: "music-zui-ai-da-da-shi-xiong",
     date: "2014-09-02",
@@ -117,7 +214,7 @@ export const works: Work[] = [
       { label: "發行", value: "英皇娛樂" },
     ],
     tracks: [
-      "有借有還 (電影 \"紮職\" 主題曲)",
+      { title: "有借有還 (電影 \"紮職\" 主題曲)", href: "/works/music-you-jie-you-huan" },
       "今天終於知道錯",
       "女皇",
       "Do You Wanna Dance",

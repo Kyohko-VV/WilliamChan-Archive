@@ -40,6 +40,9 @@ dd { margin: 0; color: #4f4945; }
 .video-list li:last-child { padding-bottom: 0; border-bottom: 0; }
 .video-list p { margin-top: 6px; color: #77706b; font-size: 14px; }
 .empty-state { margin: 0; color: #958d87; }
+.video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #292624; border-radius: 8px; }
+.video-frame iframe { width: 100%; height: 100%; border: 0; }
+.video-details { margin: 16px 0 12px; }
 .source-list { display: grid; gap: 12px; margin: 0; padding-left: 1.25rem; }
 .source-list p { margin: 4px 0 0; padding-left: 10px; color: #958d87; font-size: 13px; line-height: 1.6; }
 section a { color: #675f5a; }

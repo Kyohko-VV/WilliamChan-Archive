@@ -1,0 +1,43 @@
+---
+import WorkLayout from "../../layouts/WorkLayout.astro";
+import EventSection from "../../components/events/EventSection.astro";
+import { works } from "../../data/works";
+
+const work = works.find((entry) => entry.id === "zha-zhi");
+if (!work) throw new Error("Film work data not found: zha-zhi");
+const [year, month, day] = work.date.split("-");
+---
+
+<WorkLayout
+  pageTitle={`${work.title}｜陳偉霆資料庫`}
+  description={work.description!}
+  date={`${year}年${Number(month)}月${Number(day)}日`}
+  dateTime={work.date}
+  title={work.title}
+  category={`${work.category} / ${work.type} · ${work.status}`}
+>
+  <EventSection id="summary-heading" title="作品簡介">
+    <p class="summary">{work.description}</p>
+  </EventSection>
+
+  <EventSection id="details-heading" title="作品資料">
+    <dl>
+      <div><dt>類型</dt><dd>{work.type}</dd></div>
+      <div><dt>香港上映日期</dt><dd><time datetime={work.date}>{work.date}</time></dd></div>
+      <div><dt>陳偉霆角色</dt><dd>{work.role}</dd></div>
+      <div><dt>狀態</dt><dd>{work.status}</dd></div>
+      {work.credits?.map((credit) => <div><dt>{credit.label}</dt><dd>{credit.href ? <a href={credit.href}>{credit.value}</a> : credit.value}</dd></div>)}
+    </dl>
+  </EventSection>
+
+  <EventSection id="watch-heading" title="官方觀看入口">
+    <ul class="video-list">{work.watchLinks?.map((link) => <li><a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a></li>)}</ul>
+  </EventSection>
+
+  <EventSection id="sources-heading" title="官方來源">
+    <ul class="video-list">{work.officialSources?.map((source) => <li>
+      <a href={source.url} target="_blank" rel="noopener noreferrer">{source.displayName}</a>
+      {source.note && <p>{source.note}</p>}
+    </li>)}</ul>
+  </EventSection>
+</WorkLayout>

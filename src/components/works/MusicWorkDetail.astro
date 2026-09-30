@@ -79,7 +79,7 @@ const [year, month, day] = displayDate.split("-");
     <EventSection id="tracklist-heading" title={`曲目｜${work.tracks?.length} 首`}>
       <details class="tracklist">
         <summary>查看完整曲目</summary>
-        <ol>{work.tracks?.map((track) => <li>{track}</li>)}</ol>
+        <ol>{work.tracks?.map((track) => <li>{typeof track === "string" ? track : track.href ? <a href={track.href}>{track.title}</a> : track.title}</li>)}</ol>
       </details>
     </EventSection>
   )}
