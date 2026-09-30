@@ -2,6 +2,15 @@ import { readOwnerTimeline } from './ownerTimeline';
 
 const legacyEvents = [
   {
+    id: "shanghai-madame-tussauds-zhang-qi-shan-new-look-2026-09-30",
+    date: "2026-09-30",
+    title: "上海杜莎夫人蠟像館｜張啟山蠟像全新造型亮相",
+    category: "活動",
+    description: "上海杜莎夫人蠟像館於 2026-09-30 公開《九門》角色張啟山／張大佛爺既有蠟像的全新造型，以長款棕色皮衣亮相。官方文案以「從過去到現在」「再回望，早已換了人間」等文字呼應張啟山角色。陳偉霆曾在《老九門》中飾演張啟山。此次全新造型限時展出 6 個月，展期至 2027-03-28。官方微博發布時間為 2026-09-30 19:16，貼文同時標記 @William威廉陳偉霆、@九門官微，相關 hashtag 包含 #陳偉霆、#九門、#張啟山、#張大佛爺、#上海杜莎夫人蠟像館。",
+    source: "上海杜莎夫人蠟像館 微博",
+    sourceUrl: "https://weibo.com/1755422223/5348911574418578",
+  },
+  {
     id: "william-chan-mid-autumn-2026-09-25",
     date: "2026-09-25",
     title: "中秋節｜分享月餅與賞月日常",
