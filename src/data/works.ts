@@ -156,7 +156,7 @@ export const works: Work[] = [
         name: "陳偉霆本人 Facebook（歷史帳號）",
         displayName: "2012-10-10｜限量 CD 預告｜陳偉霆本人 Facebook（歷史帳號）",
         platform: "Facebook",
-        url: "https://www.facebook.com/share/18rGhRtiYU/",
+        url: "https://www.facebook.com/share/1dnS6Rofik/",
         type: "官方",
         note: "本人原文：「電影 #紮職# 主題曲『有借有還』CD 限量版！下星期隆重上市!!」電影《紮職》主題曲〈有借有還〉限量版 CD 預告。配圖可見〈有借有還〉CD 設計，以及「主題曲 有借有還」「主唱 陳偉霆」等文字。",
       },
