@@ -131,6 +131,10 @@ export const works: Work[] = [
     artist: "陳偉霆",
     status: "已公開",
     href: "/works/music-you-jie-you-huan",
+    cover: {
+      src: "https://media.williamchanfanpage.com/work/zhazhi00.jpg",
+      alt: "〈有借有還〉2012-10-15 宣傳圖",
+    },
     description: "〈有借有還〉為陳偉霆演唱的電影《紮職》主題曲，於 2012-10-15 正式推出，後收錄於 2014 年精選專輯《最愛的大師兄》。",
     introduction: [
       "〈有借有還〉為陳偉霆演唱的電影《紮職》主題曲，於 2012-10-15 正式推出，後收錄於 2014 年精選專輯《最愛的大師兄》，為第 1 首曲目。",
