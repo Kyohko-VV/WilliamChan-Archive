@@ -2,6 +2,23 @@ import { readOwnerTimeline } from './ownerTimeline';
 
 const legacyEvents = [
   {
+    id: "2026-china-national-day-gala",
+    date: "2026-10-01",
+    title: "央視國慶晚會｜陳偉霆、黃子弘凡合唱〈整個宇宙將為你閃爍〉",
+    category: "晚會／舞台",
+    description: "陳偉霆參與《中國夢・家國情——2026國慶特別節目》，與黃子弘凡合作演唱〈整個宇宙將為你閃爍〉，正式節目單列為第 15 個節目。舞台以中國航天為主題，官方宣傳提及「致敬中國航天人」及「致敬每一份奔赴星海的勇氣」。節目於 2026-10-01 20:00 播出。",
+    href: "/events/2026-china-national-day-gala",
+    source: "央視新聞｜正式舞台影片",
+    sourceUrl: "https://weibo.com/2656274875/5349324797772401",
+    additionalSources: [
+      { label: "英皇娛樂--北京｜國慶晚會造型／舞台視覺", url: "https://weibo.com/3270824053/5349231120616987" },
+      { label: "央視新聞｜播出前預告", url: "https://weibo.com/2656274875/5349212898461323" },
+      { label: "春晚｜正式節目單", url: "https://weibo.com/3506728370/5349174467890296" },
+      { label: "w-Daily／陳偉霆工作室｜演出後歌曲分享", url: "https://weibo.com/6269525799/5349345408847621" },
+      { label: "w-Daily／陳偉霆工作室｜國慶晚會舞台照片", url: "https://weibo.com/6269525799/5349334280832854" },
+    ],
+  },
+  {
     id: "shanghai-madame-tussauds-zhang-qi-shan-new-look-2026-09-30",
     date: "2026-09-30",
     title: "上海杜莎夫人蠟像館｜張啟山蠟像全新造型亮相",

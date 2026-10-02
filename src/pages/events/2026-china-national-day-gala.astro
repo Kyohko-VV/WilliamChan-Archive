@@ -1,0 +1,68 @@
+---
+import EventLayout from "../../layouts/EventLayout.astro";
+import EventSection from "../../components/events/EventSection.astro";
+import EventGallery from "../../components/events/EventGallery.astro";
+import YouTubeEmbed from "../../components/works/YouTubeEmbed.astro";
+import { events } from "../../data/events";
+
+const event = events.find((entry) => entry.id === "2026-china-national-day-gala")!;
+const officialSources = [
+  { label: event.source!, url: event.sourceUrl! },
+  ...(event.additionalSources ?? []),
+];
+const archiveVideo = {
+  title: event.title,
+  url: "https://youtu.be/vZA0b96tLc0",
+  source: "KYOHKOの推し活｜YouTube · 非官方保存",
+};
+const gallery = ["01", "02", "03", "04"].map((number) => ({
+  title: `2026-10-01 · Promotion / Stage · ${number}`,
+  image: `https://media.williamchanfanpage.com/events/2026guoqing-${number}.jpg`,
+  alt: `2026 國慶特別節目｜陳偉霆舞台照片 ${number}`,
+  source: "w-Daily／陳偉霆工作室",
+  sourceUrl: "https://weibo.com/6269525799/RkEFQbuLc",
+}));
+---
+
+<EventLayout
+  pageTitle={`${event.title} | 陳偉霆資料庫`}
+  description={event.description}
+  date={event.date}
+  dateTime={event.date}
+  title={event.title}
+  category={event.category}
+>
+  <EventSection id="summary-heading" title="事件簡介">
+    <p class="summary">陳偉霆參與《中國夢・家國情——2026國慶特別節目》，與黃子弘凡合作演唱〈整個宇宙將為你閃爍〉。</p>
+    <p>舞台內容以中國航天為主題，官方宣傳提及「致敬中國航天人」及「致敬每一份奔赴星海的勇氣」。</p>
+  </EventSection>
+
+  <EventSection id="performance-heading" title="演出資料">
+    <dl>
+      <div><dt>節目名稱</dt><dd>《中國夢・家國情——2026國慶特別節目》</dd></div>
+      <div><dt>播出時間</dt><dd><time datetime="2026-10-01T20:00:00+08:00">2026-10-01 20:00</time></dd></div>
+      <div><dt>演唱者</dt><dd>陳偉霆、黃子弘凡</dd></div>
+      <div><dt>歌曲</dt><dd>〈整個宇宙將為你閃爍〉</dd></div>
+      <div><dt>節目順序</dt><dd>正式節目單第 15 個節目</dd></div>
+      <div><dt>舞台主題</dt><dd>中國航天</dd></div>
+    </dl>
+  </EventSection>
+
+  <EventGallery items={gallery} />
+
+  <EventSection id="archive-video-heading" title="Archive Video">
+    <h3>{archiveVideo.title}</h3>
+    <p>{archiveVideo.source}</p>
+    <YouTubeEmbed url={archiveVideo.url} title={archiveVideo.title} />
+    <p><a href={archiveVideo.url} target="_blank" rel="noopener noreferrer">在 YouTube 觀看 →</a></p>
+  </EventSection>
+
+  <EventSection id="sources-heading" title="官方來源">
+    <p>以下為本次國慶晚會演出的相關官方資料。</p>
+    <ul class="source-list">
+      {officialSources.map((source) => (
+        <li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} →</a></li>
+      ))}
+    </ul>
+  </EventSection>
+</EventLayout>
