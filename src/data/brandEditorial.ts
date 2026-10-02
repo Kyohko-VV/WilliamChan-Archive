@@ -38,6 +38,7 @@ export interface BrandEditorialEntry {
 export const brandEditorialEntries: BrandEditorialEntry[] = [
   {
     id: "jinlingguan-new-product-launch-urumqi-2026-09-21",
+    mediaAlbum: "金領冠｜2026-09-21 烏魯木齊新品發布會",
     href: "/brand-editorial/jinlingguan",
     date: "2026-09-21",
     brand: "金領冠",
@@ -476,6 +477,7 @@ source: "KYOHKOの推し活｜非官方保存",
   },
   {
     id: "descente-zhengzhou-delta-2026-09-04",
+    mediaAlbum: "DESCENTE 迪桑特｜2026-09-04 鄭州 DELTA 競速體驗活動",
     href: "/brand-editorial/descente",
     date: "2026-09-04",
     brand: "DESCENTE 迪桑特",
@@ -526,6 +528,7 @@ source: "KYOHKOの推し活｜非官方保存",
   },
   {
     id: "chanel-signes-symboles-shanghai-2026",
+    mediaAlbum: "CHANEL｜2026-08-20 SIGNES & SYMBOLES 上海",
     date: "2026-08-20",
     brand: "CHANEL 香奈兒",
     title: "SIGNES & SYMBOLES 臻品珠寶系列",

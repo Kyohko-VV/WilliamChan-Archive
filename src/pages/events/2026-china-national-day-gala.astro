@@ -4,6 +4,7 @@ import EventSection from "../../components/events/EventSection.astro";
 import EventGallery from "../../components/events/EventGallery.astro";
 import YouTubeEmbed from "../../components/works/YouTubeEmbed.astro";
 import { events } from "../../data/events";
+import { nationalDayGalaMedia as gallery } from "../../data/nationalDayGalaMedia";
 
 const event = events.find((entry) => entry.id === "2026-china-national-day-gala")!;
 const officialSources = [
@@ -15,13 +16,6 @@ const archiveVideo = {
   url: "https://youtu.be/vZA0b96tLc0",
   source: "KYOHKOの推し活｜YouTube · 非官方保存",
 };
-const gallery = ["01", "02", "03", "04"].map((number) => ({
-  title: `2026-10-01 · Promotion / Stage · ${number}`,
-  image: `https://media.williamchanfanpage.com/events/2026guoqing-${number}.jpg`,
-  alt: `2026 國慶特別節目｜陳偉霆舞台照片 ${number}`,
-  source: "w-Daily／陳偉霆工作室",
-  sourceUrl: "https://weibo.com/6269525799/RkEFQbuLc",
-}));
 ---
 
 <EventLayout

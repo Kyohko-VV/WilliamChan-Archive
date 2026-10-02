@@ -1,3 +1,5 @@
+import { nationalDayGalaMedia } from "./nationalDayGalaMedia";
+
 export type MediaVisibility = "private" | "public";
 export const mediaCategories = ["Music", "Brand / Editorial", "Works", "Event / Stage", "Fan Activities", "Other"] as const;
 export type MediaCategory = typeof mediaCategories[number];
@@ -69,6 +71,15 @@ export function normalizeMediaItem(item: MediaLibraryItem) {
 
 // Server/build-time input only. Public consumers must use mediaIndex's public projection.
 export const mediaItems: MediaLibraryItem[] = [
+  // Explicit opt-in for this gallery only; other event galleries are not scanned.
+  ...nationalDayGalaMedia.map(({ title, image, alt, ...metadata }) => ({
+    ...metadata,
+    type: "image" as const,
+    visibility: "public" as const,
+    url: image,
+    fileName: image.split("/").pop(),
+    caption: alt,
+  })),
   {
     fileName: "006Qii3Rgy1ige3vbhhbhj36qo8zk7wj.jpg",
     imageUrl: "https://media.williamchanfanpage.com/events/2026-tima/006Qii3Rgy1ige3vbhhbhj36qo8zk7wj.jpg",
