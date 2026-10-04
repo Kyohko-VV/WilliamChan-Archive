@@ -16,6 +16,11 @@ const archiveVideo = {
   url: "https://youtu.be/vZA0b96tLc0",
   source: "KYOHKOの推し活｜YouTube · 非官方保存",
 };
+const secondArchiveVideo = {
+  title: "央視國慶晚會｜陳偉霆舞台影片 02",
+  url: "https://youtu.be/F8miBESBeYI",
+  source: "KYOHKOの推し活｜YouTube · 非官方保存",
+};
 ---
 
 <EventLayout
@@ -49,6 +54,10 @@ const archiveVideo = {
     <p>{archiveVideo.source}</p>
     <YouTubeEmbed url={archiveVideo.url} title={archiveVideo.title} />
     <p><a href={archiveVideo.url} target="_blank" rel="noopener noreferrer">在 YouTube 觀看 →</a></p>
+    <h3>{secondArchiveVideo.title}</h3>
+    <p>{secondArchiveVideo.source}</p>
+    <YouTubeEmbed url={secondArchiveVideo.url} title={secondArchiveVideo.title} />
+    <p><a href={secondArchiveVideo.url} target="_blank" rel="noopener noreferrer">在 YouTube 觀看 →</a></p>
   </EventSection>
 
   <EventSection id="sources-heading" title="官方來源">
