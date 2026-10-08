@@ -306,4 +306,4 @@ const legacyEvents = [
 ];
 
 // Keep every existing consumer (including Today) on this synchronous entry point.
-export const events: (typeof legacyEvents)[number][] = [...legacyEvents, ...readOwnerTimeline(legacyEvents)];
+export const events: ((typeof legacyEvents)[number] & { image?: string; imageAlt?: string; imageSource?: string })[] = [...legacyEvents, ...readOwnerTimeline(legacyEvents)];

@@ -54,6 +54,12 @@ const title = `${year} 年時間線 | 陳偉霆資料庫`;
             <strong><time datetime={event.date}>{event.date}</time></strong>
             <h4>{event.href ? <a class="event-link" href={event.href}>{event.title}</a> : event.title}</h4>
             {event.description && <p>{event.description}</p>}
+            {event.image && (
+              <figure class="timeline-image">
+                <img src={event.image} alt={event.imageAlt} loading="lazy" decoding="async" />
+                <figcaption>圖片來源：{event.imageSource}</figcaption>
+              </figure>
+            )}
             {event.sourceUrl && event.source && (
               <a class="detail-link" href={event.sourceUrl} target="_blank" rel="noopener noreferrer">
                 來源：{event.source}{event.sourceType && `｜${event.sourceType}`} →
@@ -185,6 +191,9 @@ const title = `${year} 年時間線 | 陳偉霆資料庫`;
   article { overflow-wrap: anywhere; scroll-margin-top: 20px; }
   article:target { border-color: #746c66; }
   .event-link:hover { text-decoration: underline; }
+  .timeline-image { margin: 20px 0; }
+  .timeline-image img { display: block; width: 100%; max-width: 480px; height: auto; border-radius: 8px; }
+  .timeline-image figcaption { margin-top: 8px; color: #77706b; font-size: 14px; line-height: 1.7; }
   select:focus-visible, a:focus-visible { outline: 2px solid #746c66; outline-offset: 3px; }
 
   .detail-link {

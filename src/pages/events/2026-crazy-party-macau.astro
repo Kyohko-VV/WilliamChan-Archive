@@ -1,0 +1,68 @@
+---
+import EventLayout from "../../layouts/EventLayout.astro";
+import EventSection from "../../components/events/EventSection.astro";
+import EventGallery from "../../components/events/EventGallery.astro";
+import { events } from "../../data/events";
+
+const announcement = events.find((entry) => entry.id === "2026-10-08-crazy-party-announcement")!;
+const title = "陳偉霆 Crazy Party 瘋狂派對";
+const performanceDate = "2026-11-21";
+const location = "澳門新濠影滙綜藝館";
+const category = "生日特別現場／Live 音樂派對";
+const officialSources = [
+  { label: announcement.source!, url: announcement.sourceUrl! },
+  ...(announcement.additionalSources ?? []),
+];
+const gallery = [{
+  title: `2026-10-08 官宣圖片｜圖片來源：${announcement.imageSource}`,
+  image: announcement.image!,
+  alt: announcement.imageAlt,
+  source: announcement.imageSource!,
+  sourceUrl: announcement.sourceUrl!,
+}];
+---
+
+<EventLayout
+  pageTitle={`${title} | 陳偉霆資料庫`}
+  description={announcement.description}
+  date={performanceDate}
+  dateTime={performanceDate}
+  title={title}
+  location={location}
+  category={category}
+  ogImage={announcement.image}
+>
+  <EventSection id="summary-heading" title="活動簡介">
+    <p class="summary">陳偉霆將於 2026 年 11 月 21 日在澳門新濠影滙綜藝館舉行《Crazy Party 瘋狂派對》。</p>
+    <p>本次活動以生日為契機，以 Live 音樂演出為核心，結合樂隊、舞蹈與粉絲互動，並非傳統形式的生日會或粉絲見面會。</p>
+  </EventSection>
+
+  <EventSection id="details-heading" title="活動資料">
+    <dl>
+      <div><dt>名稱</dt><dd>{title}</dd></div>
+      <div><dt>英文名稱</dt><dd>William Chan Crazy Party</dd></div>
+      <div><dt>正式演出日期</dt><dd><time datetime={performanceDate}>{performanceDate}</time></dd></div>
+      <div><dt>地點</dt><dd>{location}</dd></div>
+      <div><dt>狀態</dt><dd>即將舉行</dd></div>
+      <div><dt>類型</dt><dd>{category}</dd></div>
+      <div><dt>官宣日期</dt><dd><time datetime={announcement.date}>{announcement.date}</time></dd></div>
+    </dl>
+  </EventSection>
+
+  <EventSection id="announcement-heading" title="官宣記錄">
+    <p><time datetime={announcement.date}>{announcement.date}</time>：{announcement.title}</p>
+    <p><a href={`/timeline/2026/#${announcement.id}`}>查看官宣 Timeline →</a></p>
+  </EventSection>
+
+  <EventGallery items={gallery} title="官方海報及宣傳圖片" contained />
+
+  <EventSection id="sources-heading" title="官方來源">
+    <ul class="source-list">
+      {officialSources.map((source) => (
+        <li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} →</a></li>
+      ))}
+    </ul>
+    <p>圖片來源：陳偉霆本人微博。</p>
+    <p>VIP 套票資訊以澳門票務網為準：MOP 42,000 套票為 20 人。</p>
+  </EventSection>
+</EventLayout>
