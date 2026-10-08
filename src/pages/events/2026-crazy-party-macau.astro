@@ -7,6 +7,7 @@ import { events } from "../../data/events";
 const announcement = events.find((entry) => entry.id === "2026-10-08-crazy-party-announcement")!;
 const title = "陳偉霆 Crazy Party 瘋狂派對";
 const performanceDate = "2026-11-21";
+const performanceDateTime = `${performanceDate}T19:00:00+08:00`;
 const location = "澳門新濠影滙綜藝館";
 const category = "生日特別現場／Live 音樂派對";
 const officialSources = [
@@ -14,11 +15,12 @@ const officialSources = [
   ...(announcement.additionalSources ?? []),
 ];
 const gallery = [{
-  title: `2026-10-08 官宣圖片｜圖片來源：${announcement.imageSource}`,
+  title: "2026-10-08 官宣圖片",
   image: announcement.image!,
   alt: announcement.imageAlt,
   source: announcement.imageSource!,
   sourceUrl: announcement.sourceUrl!,
+  sourcePrefix: "圖片來源：",
 }];
 ---
 
@@ -26,7 +28,7 @@ const gallery = [{
   pageTitle={`${title} | 陳偉霆資料庫`}
   description={announcement.description}
   date={performanceDate}
-  dateTime={performanceDate}
+  dateTime={performanceDateTime}
   title={title}
   location={location}
   category={category}
@@ -34,19 +36,31 @@ const gallery = [{
 >
   <EventSection id="summary-heading" title="活動簡介">
     <p class="summary">陳偉霆將於 2026 年 11 月 21 日在澳門新濠影滙綜藝館舉行《Crazy Party 瘋狂派對》。</p>
-    <p>本次活動以生日為契機，以 Live 音樂演出為核心，結合樂隊、舞蹈與粉絲互動，並非傳統形式的生日會或粉絲見面會。</p>
+    <p>《Crazy Party 瘋狂派對》以陳偉霆的生日為契機，並非傳統形式的生日會或粉絲見面會，而是以完整 Live 音樂演出為核心，融合 Band、Dance、唱跳表演、即興互動及粉絲交流的特別現場。</p>
+    <p>這場活動也是陳偉霆與歌迷在大型個人音樂舞台上久違的重聚。</p>
   </EventSection>
 
   <EventSection id="details-heading" title="活動資料">
     <dl>
       <div><dt>名稱</dt><dd>{title}</dd></div>
       <div><dt>英文名稱</dt><dd>William Chan Crazy Party</dd></div>
-      <div><dt>正式演出日期</dt><dd><time datetime={performanceDate}>{performanceDate}</time></dd></div>
+      <div><dt>演出時間</dt><dd><time datetime={performanceDateTime}>{performanceDate} 19:00</time></dd></div>
       <div><dt>地點</dt><dd>{location}</dd></div>
       <div><dt>狀態</dt><dd>即將舉行</dd></div>
       <div><dt>類型</dt><dd>{category}</dd></div>
       <div><dt>官宣日期</dt><dd><time datetime={announcement.date}>{announcement.date}</time></dd></div>
     </dl>
+  </EventSection>
+
+  <EventSection id="tickets-heading" title="門票資訊">
+    <dl>
+      <div><dt>公開售票</dt><dd><time datetime="2026-10-16T12:00:00+08:00">2026-10-16 12:00</time></dd></div>
+      <div><dt>一般門票</dt><dd>MOP 1,380／1,580／1,780</dd></div>
+      <div><dt>VIP 貴賓包廂</dt><dd>MOP 27,000／12 人<br />MOP 42,000／20 人</dd></div>
+      <div><dt>限購數量</dt><dd>每人限購 6 張門票</dd></div>
+      <div><dt>兒童入場</dt><dd>兒童須憑成人票入場</dd></div>
+    </dl>
+    <p class="time-note">以上時間均為澳門當地時間（UTC+8）。</p>
   </EventSection>
 
   <EventSection id="announcement-heading" title="官宣記錄">
@@ -56,13 +70,42 @@ const gallery = [{
 
   <EventGallery items={gallery} title="官方海報及宣傳圖片" contained />
 
-  <EventSection id="sources-heading" title="官方來源">
+  <section class="event-sources" aria-labelledby="sources-heading">
+    <h2 id="sources-heading">資料來源</h2>
     <ul class="source-list">
       {officialSources.map((source) => (
         <li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} →</a></li>
       ))}
     </ul>
-    <p>圖片來源：陳偉霆本人微博。</p>
-    <p>VIP 套票資訊以澳門票務網為準：MOP 42,000 套票為 20 人。</p>
-  </EventSection>
+  </section>
 </EventLayout>
+
+<style>
+  .time-note {
+    margin: 16px 0 0;
+    color: #77706b;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .event-sources {
+    padding: 20px 0 0;
+    background: transparent;
+    border: 0;
+    border-top: 1px solid #e5e1dc;
+    border-radius: 0;
+  }
+
+  .event-sources h2 {
+    margin-bottom: 12px;
+    color: #77706b;
+    font-size: 16px;
+  }
+
+  .event-sources .source-list {
+    gap: 6px;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+</style>
