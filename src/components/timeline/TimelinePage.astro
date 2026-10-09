@@ -1,14 +1,20 @@
 ---
 import { events } from "../../data/events";
-import { buildTimeline } from "../../utils/timeline";
+import { buildTimeline, timelinePageHref } from "../../utils/timeline";
 import FooterSocialLinks from "../FooterSocialLinks.astro";
 import SeoHead from "../SeoHead.astro";
 
-interface Props { year?: string; }
+interface Props { year?: string; page?: number; }
 const timeline = buildTimeline(events);
-const year = Astro.props.year ?? timeline.years[0];
-const { events: yearEvents, groups } = timeline.forYear(year);
-const title = `${year} 年時間線 | 陳偉霆資料庫`;
+const year = Astro.props.year;
+const page = Astro.props.page ?? 1;
+const { events: visibleEvents, groups } = year ? timeline.forYear(year) : timeline.forPage(page);
+const yearGroups = timeline.years.map((entry) => ({ year: entry, groups: timeline.forYear(entry).groups }));
+const title = year ? `${year} 年時間線 | 陳偉霆資料庫`
+  : page === 1 ? "最新時間線 | 陳偉霆資料庫" : `時間線・第 ${page} 頁 | 陳偉霆資料庫`;
+const description = year
+  ? `整理陳偉霆（William Chan）${year} 年的演藝時間線，共 ${visibleEvents.length} 件事件，收錄演藝紀錄與相關可靠來源。`
+  : `陳偉霆（William Chan）演藝時間線第 ${page} 頁，依日期由新到舊收錄 ${visibleEvents.length} 件完整事件${visibleEvents.length ? `，涵蓋 ${visibleEvents.at(-1)!.date} 至 ${visibleEvents[0].date}` : ""}，包含圖片、活動紀錄與相關來源。`;
 ---
 <html lang="zh-Hant">
   <head>
@@ -17,35 +23,57 @@ const title = `${year} 年時間線 | 陳偉霆資料庫`;
     <title>{title}</title>
     <meta
       name="description"
-      content="陳偉霆（William Chan）演藝時間線，整理影視作品、音樂、舞台、活動、日本播出與相關可靠來源。"
+      content={description}
     />
     <SeoHead
       title={title}
-      description="陳偉霆（William Chan）演藝時間線，整理影視作品、音樂、舞台、活動、日本播出與相關可靠來源。"
+      description={description}
     />
   </head>
 
 <body>
-  <main>
+  <main data-anchor-years={JSON.stringify(timeline.anchorYears)} data-current-year={year ?? ""}>
     <a href="/" class="back">← 返回首頁</a>
 
     <header>
-      <h1>時間線</h1>
+      <h1>{year || page === 1 ? "時間線" : `時間線・第 ${page} 頁`}</h1>
       <p>William Chan Archive · Timeline</p>
     </header>
 
-    <nav class="year-navigation" aria-label="時間線年份" data-anchor-years={JSON.stringify(timeline.anchorYears)} data-current-year={year}>
+    <nav class="year-navigation" aria-label="時間線年份">
+      <div class="date-control">
       <label for="timeline-year">瀏覽年份</label>
       <select id="timeline-year" aria-describedby="year-summary">
+        {!year && <option value="/timeline/" selected>全部年份</option>}
         {timeline.years.map((entry) => <option value={`/timeline/${entry}/`} selected={entry === year}>{entry} 年</option>)}
       </select>
+      </div>
+      <div class="date-control">
+      <label for="timeline-month">前往月份</label>
+      <select id="timeline-month" aria-describedby="year-summary">
+        <option value="">選擇年月</option>
+        {yearGroups.map((entry) => <optgroup label={`${entry.year} 年`}>
+          {entry.groups.map((group) => <option value={`/timeline/${entry.year}/#month-${group.month || "unknown"}`}>{entry.year} 年 {group.label}</option>)}
+        </optgroup>)}
+      </select>
+      </div>
     </nav>
-    <h2 id="year-summary">{year} 年 <span>共 {yearEvents.length} 件事件</span></h2>
+    <h2 id="year-summary">{year ? `${year} 年` : page === 1 ? "最新紀錄" : `第 ${page} 頁`} <span>{year ? `共 ${visibleEvents.length} 件事件` : `共 ${timeline.events.length} 件事件・第 ${page} / ${timeline.pageCount} 頁`}</span></h2>
+    {year ? <>
     <noscript><p>選擇年份：{timeline.years.map((entry) => <a class="year-link" href={`/timeline/${entry}/`}>{entry} 年</a>)}</p></noscript>
+    </> : <details class="date-navigation">
+      <summary>按年份與月份瀏覽</summary>
+      <nav aria-label="時間線年月入口">
+        {yearGroups.map((entry) => <p>
+          <a class="year-link" href={`/timeline/${entry.year}/`}>{entry.year} 年</a>
+          {entry.groups.map((group) => <a class="year-link" href={`/timeline/${entry.year}/#month-${group.month || "unknown"}`}>{group.label}</a>)}
+        </p>)}
+      </nav>
+    </details>}
 
-{groups.map(({ month, label, events: monthEvents }) => (
-    <section class="month-group" aria-labelledby={`month-${month || "unknown"}`}>
-      <h3 class="month-title" id={`month-${month || "unknown"}`}>{label}</h3>
+{groups.map(({ year: groupYear, month, label, events: monthEvents }) => (
+    <section class="month-group" aria-labelledby={`month-${year ? "" : `${groupYear}-`}${month || "unknown"}`}>
+      <h3 class="month-title" id={`month-${year ? "" : `${groupYear}-`}${month || "unknown"}`}>{year ? label : `${groupYear} 年 ${label}`}</h3>
 
       {monthEvents.map((event) => {
         const content = (
@@ -79,6 +107,13 @@ const title = `${year} 年時間線 | 陳偉霆資料庫`;
       })}
     </section>
   ))}
+    {!year && timeline.pageCount > 1 && <nav class="pagination" aria-label="時間線分頁">
+      {page > 1 ? <a class="year-link" href={timelinePageHref(page - 1)} rel="prev">← 上一頁</a> : <span aria-disabled="true">← 上一頁</span>}
+      {Array.from({ length: timeline.pageCount }, (_, index) => index + 1).map((entry) =>
+        entry === page ? <span aria-current="page">{entry}</span> : <a class="year-link" href={timelinePageHref(entry)} aria-label={`第 ${entry} 頁`}>{entry}</a>
+      )}
+      {page < timeline.pageCount ? <a class="year-link" href={timelinePageHref(page + 1)} rel="next">下一頁 →</a> : <span aria-disabled="true">下一頁 →</span>}
+    </nav>}
     </main>
 
     <footer class="site-footer">
@@ -97,6 +132,10 @@ const title = `${year} 年時間線 | 陳偉霆資料庫`;
   const navigation = document.querySelector<HTMLElement>("[data-anchor-years]");
   const select = document.querySelector<HTMLSelectElement>("#timeline-year");
   select?.addEventListener("change", () => window.location.assign(select.value));
+  const monthSelect = document.querySelector<HTMLSelectElement>("#timeline-month");
+  monthSelect?.addEventListener("change", () => {
+    if (monthSelect.value) window.location.assign(monthSelect.value);
+  });
   if (navigation) {
     const anchorYears: Record<string, string> = JSON.parse(navigation.dataset.anchorYears ?? "{}");
     const followEvent = () => {
@@ -104,11 +143,9 @@ const title = `${year} 年時間線 | 陳偉霆資料庫`;
       try { id = decodeURIComponent(window.location.hash.slice(1)); } catch { return; }
       if (!id || !Object.hasOwn(anchorYears, id)) return;
       const year = anchorYears[id];
-      if (year !== navigation.dataset.currentYear) {
-        window.location.replace(`/timeline/${year}/${window.location.search}#${encodeURIComponent(id)}`);
-      } else {
-        document.getElementById(id)?.scrollIntoView();
-      }
+      const target = document.getElementById(id);
+      if (target) target.scrollIntoView();
+      else window.location.replace(`/timeline/${year}/${window.location.search}#${encodeURIComponent(id)}`);
     };
     followEvent();
     window.addEventListener("hashchange", followEvent);
@@ -182,12 +219,21 @@ const title = `${year} 年時間線 | 陳偉霆資料庫`;
   }
 
   .year-navigation { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .date-control { display: flex; align-items: center; gap: 12px; max-width: 100%; min-width: 0; }
+  .date-control label { white-space: nowrap; }
+  .date-control select { min-width: 0; }
   .year-navigation select { max-width: 100%; min-height: 44px; padding: 10px 36px 10px 12px; border: 1px solid #cfc6bf; border-radius: 8px; background: white; color: #222; font: inherit; }
   #year-summary { margin: 28px 0; }
   #year-summary span { display: inline-block; font-size: 15px; font-weight: normal; color: #77706b; }
   .month-group { margin-top: 32px; }
   .month-title { font-size: 20px; color: #675f5a; }
   .year-link { display: inline-block; margin: 4px 12px 4px 0; color: #746c66; }
+  .date-navigation { margin-bottom: 24px; color: #746c66; }
+  .date-navigation summary { cursor: pointer; }
+  .pagination { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 32px; }
+  .pagination a, .pagination span { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; margin: 0; }
+  .pagination [aria-current="page"] { font-weight: bold; }
+  .pagination [aria-disabled="true"] { color: #aaa19a; }
   article { overflow-wrap: anywhere; scroll-margin-top: 20px; }
   article:target { border-color: #746c66; }
   .event-link:hover { text-decoration: underline; }
