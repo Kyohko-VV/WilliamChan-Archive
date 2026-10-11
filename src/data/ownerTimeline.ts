@@ -23,8 +23,8 @@ export function readOwnerTimeline(existing: readonly { id?: string; anchor?: str
     const id = fields.slug('id');
     claimId(seen, id, path);
     const relatedHref = fields.text('relatedHref');
-    if (relatedHref && !/^\/(works|brand-editorial)\/[a-z0-9-]+\/?$/.test(relatedHref)) fields.fail('relatedHref 請填既有 /works/… 或 /brand-editorial/… 的站內路徑。');
-    if (relatedHref && !relatedPages.has(relatedHref.replace(/\/$/, ''))) fields.fail(`relatedHref 找不到既有頁面「${relatedHref}」，請從 localhost 的 Work / Brand 頁面複製路徑。`);
+    if (relatedHref && !/^\/(works|brand-editorial|events)\/[a-z0-9-]+\/?$/.test(relatedHref)) fields.fail('relatedHref 請填既有 /works/…、/brand-editorial/… 或 /events/… 的站內路徑。');
+    if (relatedHref && !relatedPages.has(relatedHref.replace(/\/$/, '')) && !eventPages.has(relatedHref.replace(/\/$/, ''))) fields.fail(`relatedHref 找不到既有頁面「${relatedHref}」，請從 localhost 的 Work / Brand / Event 頁面複製路徑。`);
     const sourceUrl = fields.url('sourceUrl');
     const rawSources = (data as Record<string, unknown>).additionalSources;
     if (rawSources != null && !Array.isArray(rawSources)) fields.fail('additionalSources 請使用包含 label 與 url 的清單。');

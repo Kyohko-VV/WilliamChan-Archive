@@ -13,6 +13,7 @@ const category = "生日特別現場／Live 音樂派對";
 const officialSources = [
   { label: announcement.source!, url: announcement.sourceUrl! },
   ...(announcement.additionalSources ?? []),
+  { label: "陳偉霆本人微博｜CrazyParty 秋招宣講直播", url: "https://weibo.com/1712570933/5352184560748390" },
 ];
 const gallery = [{
   title: "2026-10-08 官宣圖片",
@@ -66,6 +67,13 @@ const gallery = [{
   <EventSection id="announcement-heading" title="官宣記錄">
     <p><time datetime={announcement.date}>{announcement.date}</time>：{announcement.title}</p>
     <p><a href={`/timeline/2026/#${announcement.id}`}>查看官宣 Timeline →</a></p>
+  </EventSection>
+
+  <EventSection id="livestream-heading" title="本人直播補充">
+    <p><time datetime="2026-10-09">2026-10-09</time>：CrazyParty「瘋狂派對」秋招宣講</p>
+    <p>正式官宣翌日，陳偉霆於本人微博進行「CrazyParty 瘋狂派對之秋招宣講」直播，進一步分享對生日會及粉絲見面活動的構想。他表示生日會在自己心中的份量很重，希望不要總是在作品殺青、行程匆忙時才與粉絲見面，並希望能以約兩小時的 CrazyParty 與粉絲更完整地見面互動；亦回憶曾在巴黎機場聽到粉絲彈奏〈Love U2〉，並提到希望日後有機會邀請粉絲同台彈琴。</p>
+    <p>直播亦談到近期飲食及造型準備。</p>
+    <p><a href="https://weibo.com/1712570933/5352184560748390" target="_blank" rel="noopener noreferrer">查看陳偉霆本人微博直播 →</a></p>
   </EventSection>
 
   <EventGallery items={gallery} title="官方海報及宣傳圖片" contained />
