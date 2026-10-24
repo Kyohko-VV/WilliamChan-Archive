@@ -45,6 +45,7 @@ export function readOwnerTimeline(existing: readonly { id?: string; anchor?: str
       id, date: fields.date, title: fields.text('title', true),
       category: fields.text('category') || '一般事件',
       description: fields.text('description'),
+      ...(fields.text('todayTitle') ? { todayTitle: fields.text('todayTitle'), todayDescription: fields.text('todayDescription') } : {}),
       source: fields.text('source') || (sourceUrl ? new URL(sourceUrl).hostname : ''),
       sourceUrl,
       ...(additionalSources.length ? { additionalSources } : {}),

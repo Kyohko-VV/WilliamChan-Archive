@@ -287,8 +287,9 @@ const characterCount = peopleCharacters.filter((entry) => entry.type === "charac
     const currentEventsHtml = currentEvents.map((event) => `
       <article>
         <strong>${currentDate}</strong>
-        <h3>${event.title}</h3>
-        ${event.description ? `<p>${event.description}</p>` : ""}
+        <h3>${event.todayTitle || event.title}</h3>
+        ${(event.todayDescription || event.description) ? `<p>${event.todayDescription || event.description}</p>` : ""}
+        ${event.todayTitle && event.id ? `<p><a class="today-source-link" href="/timeline/${event.date.slice(0, 4)}/#${event.id}">查看 Timeline 紀錄 →</a></p>` : ""}
         ${event.countdownText && event.countdown ? `<p>公開日：${event.countdown.targetDate}</p>` : ""}
         ${event.countdownText ? `<p><strong>${event.countdownText}</strong></p>` : ""}
         ${event.source && event.sourceUrl ? `<p><a class="today-source-link" href="${event.sourceUrl}" target="_blank" rel="noopener noreferrer">來源：${event.source} →</a></p>` : ""}
