@@ -94,6 +94,35 @@ export interface Work {
 
 export const works: Work[] = [
   {
+    id: "loves-ambition",
+    date: "2025-09-26",
+    title: "許我耀眼",
+    japaneseTitle: "私の完璧な結婚",
+    category: "影視",
+    type: "電視劇",
+    platform: "騰訊視頻",
+    episodes: 32,
+    status: "已播出",
+    href: "/works/loves-ambition",
+    leadActor: "趙露思、陳偉霆",
+    role: "沈皓明",
+    description: "《許我耀眼》講述當紅主播許妍與都市精英沈皓明的婚姻故事。兩人看似擁有令人羨慕的生活，卻因家庭背景、身份秘密與彼此的算計而產生矛盾，在經歷分離與重新認識後，逐漸理解彼此。",
+    credits: [
+      { label: "英文名稱", value: "Love's Ambition" },
+      { label: "年份", value: "2025" },
+      { label: "地區", value: "中國大陸" },
+      { label: "類型", value: "都市、愛情" },
+      { label: "導演", value: "陳暢" },
+      { label: "趙露思角色", value: "許妍" },
+    ],
+    officialSources: [
+      { displayName: "WeTV｜官方作品頁", url: "https://wetv.vip/zh-cn/play/hiw723xwp01jtp0-Love%27s_Ambition", type: "官方" },
+      { displayName: "SPO｜日本發行商官方作品頁", url: "https://www.spoinc.jp/lineup/list/detail/kampekinakekkon/", type: "官方" },
+      { displayName: "ホームドラマチャンネル｜官方作品及播出資訊", url: "https://www.homedrama-ch.com/series/19062", type: "官方" },
+    ],
+    relatedEvents: ["2026-04-23-loves-ambition-japan-premiere", "watashi-no-kanpeki-na-kekkon-japan-broadcast-2026-07-06", "2026-10-26-loves-ambition-japan-encore"],
+  },
+  {
     id: "zha-zhi",
     date: "2012-11-15",
     title: "《紮職》",

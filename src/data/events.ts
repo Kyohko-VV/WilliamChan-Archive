@@ -275,9 +275,16 @@ const legacyEvents = [
   {
     id: "watashi-no-kanpeki-na-kekkon-japan-broadcast-2026-07-06",
     date: "2026-07-06",
-    title: "《私の完璧な結婚（日本語字幕版）》ホームドラマチャンネルで放送開始",
-    category: "テレビドラマ／日本放送",
-    description: "ホームドラマチャンネルにて日本語字幕版の放送を開始。",
+    title: "《許我耀眼》於日本開始深夜重播",
+    category: "電視劇／日本重播",
+    description: "2026年7月6日起，由陳偉霆與趙露思主演的電視劇《許我耀眼》（日文名稱：《私の完璧な結婚》）於日本ホームドラマチャンネル開始深夜重播，每週一深夜02:00及03:00連續播出兩集（日語字幕版）。",
+    source: "SPO｜日本發行商官方作品頁",
+    sourceUrl: "https://www.spoinc.jp/lineup/list/detail/kampekinakekkon/",
+    additionalSources: [
+      { label: "ホームドラマチャンネル｜官方作品及播出資訊", url: "https://www.homedrama-ch.com/series/19062" },
+    ],
+    relatedHref: "/works/loves-ambition",
+    relatedLabel: "查看《許我耀眼》作品資料 →",
   },
   {
     id: "jiu-men-premiere-2026-07-30",

@@ -1,0 +1,52 @@
+---
+import WorkLayout from "../../layouts/WorkLayout.astro";
+import EventSection from "../../components/events/EventSection.astro";
+import { works } from "../../data/works";
+import { events } from "../../data/events";
+
+const work = works.find((entry) => entry.id === "loves-ambition");
+if (!work) throw new Error("Work data not found: loves-ambition");
+const [year, month, day] = work.date.split("-");
+const relatedTimeline = events
+  .filter((event) => event.relatedHref === work.href)
+  .sort((a, b) => a.date.localeCompare(b.date));
+---
+
+<WorkLayout
+  pageTitle={`${work.title}｜陳偉霆資料庫`}
+  description={work.description!}
+  date={`中國首次播出：${year}年${Number(month)}月${Number(day)}日`}
+  dateTime={work.date}
+  title={work.title}
+  category={`${work.category} / ${work.type} · ${work.status}`}
+>
+  <EventSection id="summary-heading" title="作品簡介">
+    <p class="summary">{work.description}</p>
+  </EventSection>
+
+  <EventSection id="details-heading" title="作品資料">
+    <dl>
+      <div><dt>中文名稱</dt><dd>{work.title}</dd></div>
+      <div><dt>日本名稱</dt><dd>{work.japaneseTitle}</dd></div>
+      <div><dt>類別</dt><dd>{work.type}</dd></div>
+      <div><dt>集數</dt><dd>{work.episodes}集</dd></div>
+      <div><dt>中國首次播出</dt><dd><time datetime={work.date}>{work.date}</time></dd></div>
+      <div><dt>原播出平台</dt><dd>{work.platform}</dd></div>
+      <div><dt>主演</dt><dd>{work.leadActor}</dd></div>
+      <div><dt>陳偉霆角色</dt><dd>{work.role}</dd></div>
+      {work.credits?.map((credit) => <div><dt>{credit.label}</dt><dd>{credit.value}</dd></div>)}
+    </dl>
+  </EventSection>
+
+  <EventSection id="sources-heading" title="官方來源">
+    <ul class="video-list">{work.officialSources?.map((source) => <li>
+      <a href={source.url} target="_blank" rel="noopener noreferrer">{source.displayName}</a>
+    </li>)}</ul>
+  </EventSection>
+
+  <EventSection id="related-timeline-heading" title="Related Timeline / 相關時間線">
+    <ul class="video-list">{relatedTimeline.map((event) => <li>
+      <a href={`/timeline/${event.date.slice(0, 4)}/#${event.id ?? event.anchor}`}><time datetime={event.date}>{event.date}</time>｜{event.title}</a>
+    </li>)}</ul>
+  </EventSection>
+</WorkLayout>
