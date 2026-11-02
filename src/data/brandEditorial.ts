@@ -37,6 +37,64 @@ export interface BrandEditorialEntry {
 
 export const brandEditorialEntries: BrandEditorialEntry[] = [
   {
+    "id": "zegna-walk-the-talk-2026-10-26",
+    "href": "/brand-editorial/zegna",
+    "date": "2026-10-26",
+    "brand": "ZEGNA",
+    "brandDescription": "整理陳偉霆與 ZEGNA 的品牌合作、形象企劃及公開宣傳記錄。",
+    "title": "ZEGNA｜WALK THE TALK 短片與形象企劃",
+    "type": "品牌合作／形象短片",
+    "role": "全球品牌大使",
+    "summary": "ZEGNA 推出由全球品牌大使陳偉霆出演的全新形象短片《WALK THE TALK》。企劃以「言與行之間的距離」為核心，從他早期的音樂經歷延伸至今日在表演及不同公共身份中的選擇，強調以行動回應熱愛、以堅持兌現所言。品牌亦將這份關於行動、傳承與工藝的價值，延伸至 Triple Stitch™ SECONDSKIN 鞋履及 Il Conte Jacket 等代表性作品。",
+    "images": [],
+    "videos": [
+      {
+        "title": "ZEGNA｜WALK THE TALK",
+        "platform": "Instagram Reel",
+        "url": "https://www.instagram.com/reel/De_rzojNP7O/?dlrf=MWVicTgyNHJrMmFxNQ==",
+        "source": "ZEGNA 官方 Instagram"
+      }
+    ],
+    "officialSources": [
+      {
+        "name": "陳偉霆本人微博",
+        "url": "https://weibo.com/1712570933/5358269856220241",
+        "type": "本人官方／品牌合作",
+        "publishedDate": "2026-10-26",
+        "summary": "陳偉霆以第一人稱分享 WALK THE TALK 企劃理念，寫道「人生旅程中，真正的傳承，關乎一言一行。以行動兌現所言。」並提到「從音樂到表演，我用行動回應最初的熱愛。這份堅持，是我與 ZEGNA 的共鳴。」"
+      },
+      {
+        "name": "ZEGNA 官方 Instagram｜WALK THE TALK Reel",
+        "url": "https://www.instagram.com/reel/De_rzojNP7O/?dlrf=MWVicTgyNHJrMmFxNQ==",
+        "type": "品牌官方／形象短片",
+        "summary": "ZEGNA 公開由全球品牌大使陳偉霆出演的《WALK THE TALK》短片，以「Legacy lies in the distance between words and deeds」為主題，從他的音樂起點談至今日所承擔的不同角色，將行動、目標、視野與成就連結為企劃核心。"
+      },
+      {
+        "name": "ZEGNA 官方 Instagram｜WALK THE TALK Campaign",
+        "url": "https://www.instagram.com/p/DfA6MnaFzEw/?exln=MWVhNnY4cHQyeTk4Mw==",
+        "type": "品牌官方／形象企劃",
+        "summary": "延續《WALK THE TALK》短片主題，以陳偉霆的個人歷程與「言與行」之間的關係呈現品牌對行動、工藝與傳承的理解。"
+      },
+      {
+        "name": "ZEGNA 官方 Instagram｜WALK THE TALK 延伸企劃",
+        "url": "https://www.instagram.com/p/DfDL_gEFG8a/?exln=MWprd3F0MGV1bHkxbw==",
+        "type": "品牌官方／人物與產品延伸",
+        "summary": "ZEGNA 以 perseverance and dedication 描述全球品牌大使陳偉霆從音樂時期至今日不同身份的歷程，並將「以行動留下傳承」的概念延伸至 Triple Stitch™ SECONDSKIN 鞋履及 Il Conte Jacket。"
+      },
+      {
+        "name": "英皇娛樂－北京",
+        "url": "https://weibo.com/3270824053/5358602737157352",
+        "type": "公司官方／品牌宣傳",
+        "publishedDate": "2026-10-27",
+        "summary": "英皇娛樂－北京發布陳偉霆本次 ZEGNA WALK THE TALK 企劃造型圖片，以「肩承章法，履赴遠方。循心而行，閱盡天地也遇見自己。」記錄本次品牌合作。"
+      }
+    ],
+    "editorialSources": [],
+    "mediaSources": [],
+    "relatedTimelineHref": "/timeline/2026/#zegna-walk-the-talk-2026-10-26"
+  },
+
+  {
     id: "jinlingguan-new-product-launch-urumqi-2026-09-21",
     mediaAlbum: "金領冠｜2026-09-21 烏魯木齊新品發布會",
     href: "/brand-editorial/jinlingguan",
